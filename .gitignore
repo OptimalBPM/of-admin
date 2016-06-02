@@ -1,0 +1,29 @@
+#IDE configuration files
+.idea
+.vscode
+*.iml
+
+node_modules/
+jspm_packages/
+typings/
+web/**/*.js
+web/**/*.js.map
+tools/**/*.js
+tools/**/*.js.map
+build
+dev
+
+# Users Environment Variables
+.lock-wscript
+.tsdrc
+.typingsrc
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
