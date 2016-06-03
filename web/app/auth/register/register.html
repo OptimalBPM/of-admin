@@ -1,60 +1,68 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST">
-                        <div class="form-group" ng-class="has-error: auth.name.$invalid">
-                            <label class="col-md-4 control-label">Name</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" ng-model="auth.name">
-                                <span class="help-block" ng-show="auth.name.$invalid">
-                                        <strong>Name has error</strong>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group" ng-class="has-error: auth.email.$invalid">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
-                            <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" ng-model="auth.email">
-                                <span class="help-block" ng-show="auth.email.$invalid">
-                                    <strong>Email has error</strong>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group" ng-class="has-error: auth.password.$invalid">
-                            <label class="col-md-4 control-label">Password</label>
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" ng-model="auth.password">
-                                <span class="help-block" ng-show="auth.email.$invalid">
-                                        <strong>Password has error</strong>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group" ng-class="has-error: auth.password_confirmation.$invalid">
-                            <label class="col-md-4 control-label">Confirm Password</label>
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" ng-model="auth.password_confirmation">
-                                <span class="help-block" ng-show="auth.password_confirmation.$invalid">
-                                        <strong>Password Confirmation don't match</strong>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i>Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+<div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">Register</div>
+        <div class="panel-body">
+            <form *ngIf="active" class="form-horizontal" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+                <div class="form-group" ng-class="has-error: !name.valid">
+                    <label class="col-md-4 control-label">Name</label>
+                    <div class="col-md-6">
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="model.name"
+                               ngControl="name"  #name="ngForm">
+                        <span class="help-block" [hidden]="name.valid">
+                              <strong>Name has error</strong>
+                        </span>
+                    </div>
                 </div>
-            </div>
+
+                <div class="form-group" ng-class="has-error: !email.invalid">
+                    <label class="col-md-4 control-label">E-Mail Address</label>
+                    <div class="col-md-6">
+                        <input type="email"
+                               class="form-control"
+                               [(ngModel)]="model.email"
+                               ngControl="email"  #email="ngForm">
+                        <span class="help-block" [hidden]="!email.valid">
+                            <strong>Email has error</strong>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="has-error: !pass.valid">
+                    <label class="col-md-4 control-label">Password</label>
+                    <div class="col-md-6">
+                        <input type="password"
+                               class="form-control"
+                               [(ngModel)]="model.password"
+                               ngControl="pass"  #pass="ngForm">
+                        <span class="help-block" [hidden]="!pass.valid">
+                              <strong>Password has error</strong>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="has-error: !confirm.valid">
+                    <label class="col-md-4 control-label">Confirm Password</label>
+                    <div class="col-md-6">
+                        <input type="password"
+                               class="form-control"
+                               [(ngModel)]="model.confirm"
+                               ngControl="confirm"  #confirm="ngForm">
+                        <span class="help-block" [hidden]="!confirm.valid">
+                             <strong>Password Confirmation don't match</strong>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid">
+                            <i class="fa fa-btn fa-user"></i>Register
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

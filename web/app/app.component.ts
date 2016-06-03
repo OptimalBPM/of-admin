@@ -2,15 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Routes, Router } from '@angular/router';
 
 import { DashboardComponent } from "./dashboard/index";
-import { LoginComponent } from "./auth/login/index";
-import { RegisterComponent } from "./auth/register/index";
-import { EmailResetComponent } from "./auth/email-reset/index";
-import { ResetComponent } from "./auth/reset/index";
+import { LoginComponent } from "./auth/index";
+import { RegisterComponent } from "./auth/index";
+import { EmailResetComponent } from "./auth/index";
+import { ResetComponent } from "./auth/index";
+import { NavbarComponent } from "./navbar/index";
 
 @Component({
     selector: 'bpm-app',
     templateUrl: 'app/app.html',
-    directives: [ ROUTER_DIRECTIVES ]
+    directives: [ ROUTER_DIRECTIVES, NavbarComponent ]
 })
 @Routes([
     {

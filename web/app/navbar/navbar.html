@@ -10,24 +10,24 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" [routerLink]="[/]">Optimal BPM</a>
+            <a class="navbar-brand" [routerLink]="['/']">Optimal BPM</a>
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav"><li><a [routerLink]="[/home]">Home</a></li></ul>
+            <ul class="nav navbar-nav"><li><a [routerLink]="['/']">Home</a></li></ul>
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
-                <li><a [routerLink]="[/login]">Login</a></li>
-                <li><a [routerLink]="[/register]">Register</a></li>
+                <li><a [routerLink]="['/login']">Login</a></li>
+                <li><a [routerLink]="['/register']">Register</a></li>
                 <li class="dropdown">
-                    <a [routerLink]="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         John Snow <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a [routerLink]="[/logout]"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                        <li><a [routerLink]="['/logout']"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                     </ul>
                 </li>
             </ul>

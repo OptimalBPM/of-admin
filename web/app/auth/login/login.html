@@ -1,51 +1,55 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST">
-                        <div class="form-group" ng-class="has-error: auth.email.$invalid">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
-                            <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" ng-model="auth.email">
-                                <span class="help-block" ng-show="auth.email.$invalid">
-                                    <strong>Email has error</strong>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group" ng-class="has-error: auth.password.$invalid">
-                            <label class="col-md-4 control-label">Password</label>
-                            <div class="col-md-6">
-                                <input type="password" class="form-control"  ng-model="auth.password">
-                                <span class="help-block" ng-show="auth.email.$invalid">
-                                        <strong>Password has error</strong>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i>Login
-                                </button>
-                                <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
-                            </div>
-                        </div>
-                    </form>
+<div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">Login</div>
+        <div class="panel-body">
+            <form *ngIf="active" class="form-horizontal" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+                <div class="form-group" ng-class="has-error: !email.invalid">
+                    <label class="col-md-4 control-label">E-Mail Address</label>
+                    <div class="col-md-6">
+                        <input type="email"
+                               class="form-control"
+                               [(ngModel)]="model.email"
+                               ngControl="email"  #email="ngForm">
+                        <span class="help-block" [hidden]="!email.valid">
+                            <strong>Email has error</strong>
+                        </span>
+                    </div>
                 </div>
-            </div>
+
+                <div class="form-group" ng-class="has-error: !pass.valid">
+                    <label class="col-md-4 control-label">Password</label>
+                    <div class="col-md-6">
+                        <input type="password"
+                               class="form-control"
+                               [(ngModel)]="model.password"
+                               ngControl="pass"  #pass="ngForm">
+                        <span class="help-block" [hidden]="!pass.valid">
+                              <strong>Password has error</strong>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       [(ngModel)]="model.remember"
+                                       ngControl="remember"> Remember Me
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">
+                            <i class="fa fa-btn fa-sign-in"></i>Login
+                        </button>
+                        <a class="btn btn-link" [routerLink]="['/password/request']">Forgot Your Password?</a>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
