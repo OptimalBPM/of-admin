@@ -3,11 +3,27 @@
     <title>Optimal BPM - Administrator</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
+
+    <!-- Styles -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- 1. build:js -->
+    <base href="/">
     <script src="jspm_packages/system.js"></script>
+    <script src="jspm.browser.js"></script>
     <script src="jspm.config.js"></script>
     <script>
-        System.import('app').catch(console.error.bind(console));
+        System.import("app")
+                .then(function(app) {
+                    console.log('running');
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    console.log(err.originalErr);
+                });
     </script>
     <!-- endbuild -->
 </head>

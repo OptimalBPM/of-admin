@@ -7,17 +7,15 @@
   },
   "jspm": {
     "registry": "github",
-    "configFile": "jspm.config.js",
     "dependencies": {
-      "@angular/core": "npm:@angular/core@2.0.0-rc.1",
       "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@^2.0.0-rc.1",
-      "reflect-metadata": "npm:reflect-metadata@^0.1.0",
-      "rxjs": "npm:rxjs@5.0.0-beta.6",
-      "zone.js": "npm:zone.js@^0.6.6"
+      "@angular/http": "npm:@angular/http@2.0.0-rc.1",
+      "@angular/router": "npm:@angular/router@2.0.0-rc.1",
+      "reflect-metadata": "npm:reflect-metadata@^0.1.0"
     },
     "devDependencies": {
-      "assert": "jspm/nodelibs-assert@^0.2.0-alpha",
       "clean-css": "npm:clean-css@^3.4.3",
+      "core-js": "npm:core-js@^1.2.0",
       "css": "frankwallis/plugin-css@master",
       "http": "jspm/nodelibs-http@^0.2.0-alpha",
       "https": "jspm/nodelibs-https@^0.2.0-alpha",
@@ -30,13 +28,36 @@
       "text": "systemjs/plugin-text@^0.0.2",
       "ts": "frankwallis/plugin-typescript@^4.0.5",
       "tty": "jspm/nodelibs-tty@^0.2.0-alpha",
-      "url": "jspm/nodelibs-url@^0.2.0-alpha",
-      "util": "jspm/nodelibs-util@^0.2.0-alpha"
+      "url": "jspm/nodelibs-url@^0.2.0-alpha"
+    },
+    "peerDependencies": {
+      "@angular/common": "npm:@angular/common@2.0.0-rc.1",
+      "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.1",
+      "@angular/core": "npm:@angular/core@2.0.0-rc.1",
+      "@angular/platform-browser": "npm:@angular/platform-browser@2.0.0-rc.1",
+      "assert": "jspm/nodelibs-assert@^0.2.0-alpha",
+      "buffer": "jspm/nodelibs-buffer@^0.2.0-alpha",
+      "child_process": "jspm/nodelibs-child_process@^0.2.0-alpha",
+      "constants": "jspm/nodelibs-constants@^0.2.0-alpha",
+      "crypto": "jspm/nodelibs-crypto@^0.2.0-alpha",
+      "events": "jspm/nodelibs-events@^0.2.0-alpha",
+      "fs": "jspm/nodelibs-fs@^0.2.0-alpha",
+      "path": "jspm/nodelibs-path@^0.2.0-alpha",
+      "process": "jspm/nodelibs-process@^0.2.0-alpha",
+      "rxjs": "npm:rxjs@5.0.0-beta.6",
+      "stream": "jspm/nodelibs-stream@^0.2.0-alpha",
+      "string_decoder": "jspm/nodelibs-string_decoder@^0.2.0-alpha",
+      "util": "jspm/nodelibs-util@^0.2.0-alpha",
+      "vm": "jspm/nodelibs-vm@^0.2.0-alpha",
+      "zone.js": "npm:zone.js@^0.6.6"
     },
     "overrides": {
       "npm:@angular/common@2.0.0-rc.1": {
         "main": "common.umd.js",
         "meta": {
+          "common.umd.js": {
+            "typings": "common/index.d.ts"
+          },
           "src/*.js": {
             "deps": [
               "reflect-metadata",
@@ -48,6 +69,9 @@
       "npm:@angular/compiler@2.0.0-rc.1": {
         "main": "compiler.umd.js",
         "meta": {
+          "compiler.umd.js": {
+            "typings": "compiler/index.d.ts"
+          },
           "src/*.js": {
             "deps": [
               "reflect-metadata",
@@ -64,6 +88,17 @@
           }
         }
       },
+      "npm:@angular/http@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "typings": true,
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
       "npm:@angular/platform-browser-dynamic@2.0.0-rc.1": {
         "main": "platform-browser-dynamic.umd.js",
         "meta": {
@@ -76,11 +111,30 @@
         "main": "platform-browser.umd.js",
         "meta": {
           "src/*.js": {
+            "typings": true,
             "deps": [
               "reflect-metadata",
               "zone.js"
             ]
           }
+        }
+      },
+      "npm:@angular/router@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "typings": true,
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:babel-runtime@5.8.38": {
+        "main": false,
+        "dependencies": {},
+        "optionalDependencies": {
+          "core-js": "^1.2.0"
         }
       },
       "npm:inherits@2.0.1": {
@@ -118,16 +172,17 @@
   },
   "devDependencies": {
     "browser-sync": "^2.12.10",
-    "chokidar-socket-emitter": "^0.3.0",
-    "gulp": "^3.9.0",
-    "gulp-html-replace": "^1.5.0",
-    "gulp-ng-annotate": "^1.0.0",
+    "chokidar-socket-emitter": "^0.5.2",
+    "gulp": "^3.9.1",
+    "gulp-html-replace": "^1.6.0",
+    "gulp-ng-annotate": "^2.0.0",
     "gulp-rename": "^1.2.2",
-    "gulp-template": "^3.0.0",
-    "gulp-uglify": "^1.2.0",
-    "jspm": "^0.16.15",
-    "rimraf": "^2.4.3",
-    "typings": "^0.8.1",
-    "yargs": "^3.10.0"
+    "gulp-template": "^4.0.0",
+    "gulp-uglify": "^1.5.3",
+    "jspm": "^0.17.0-beta.13",
+    "rimraf": "^2.5.2",
+    "typings": "^1.0.4",
+    "ts-node": "^0.7.3",
+    "yargs": "^4.7.1"
   }
-}
+}
