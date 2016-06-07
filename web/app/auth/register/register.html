@@ -1,66 +1,61 @@
 <div class="col-md-8 col-md-offset-2">
     <div class="panel panel-default">
-        <div class="panel-heading">Register</div>
+        <div class="panel-heading">Create an Account</div>
         <div class="panel-body">
-            <form *ngIf="active" class="form-horizontal" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+            <p>Create a new admin account</p>
+            <form *ngIf="active" class="form-vertical" (ngSubmit)="onSubmit()" #registerForm="ngForm">
                 <div class="form-group" ng-class="has-error: !name.valid">
-                    <label class="col-md-4 control-label">Name</label>
-                    <div class="col-md-6">
-                        <input type="text"
-                               class="form-control"
-                               [(ngModel)]="model.name"
-                               ngControl="name"  #name="ngForm">
+                    <label class="control-label">Name</label>
+
+                    <input type="text"
+                           class="form-control"
+                           [(ngModel)]="model.name"
+                           ngControl="name" #name="ngForm">
                         <span class="help-block" [hidden]="name.valid">
-                              <strong>Name has error</strong>
+                              Name has error
                         </span>
-                    </div>
                 </div>
 
                 <div class="form-group" ng-class="has-error: !email.invalid">
-                    <label class="col-md-4 control-label">E-Mail Address</label>
-                    <div class="col-md-6">
-                        <input type="email"
-                               class="form-control"
-                               [(ngModel)]="model.email"
-                               ngControl="email"  #email="ngForm">
+                    <label class="control-label">E-Mail Address</label>
+
+                    <input type="email"
+                           class="form-control"
+                           [(ngModel)]="model.email"
+                           ngControl="email" #email="ngForm">
                         <span class="help-block" [hidden]="!email.valid">
-                            <strong>Email has error</strong>
+                            Email has error
                         </span>
-                    </div>
                 </div>
 
                 <div class="form-group" ng-class="has-error: !pass.valid">
-                    <label class="col-md-4 control-label">Password</label>
-                    <div class="col-md-6">
-                        <input type="password"
-                               class="form-control"
-                               [(ngModel)]="model.password"
-                               ngControl="pass"  #pass="ngForm">
+                    <label class="control-label">Password</label>
+
+                    <input type="password"
+                           class="form-control"
+                           [(ngModel)]="model.password"
+                           ngControl="pass" #pass="ngForm">
                         <span class="help-block" [hidden]="!pass.valid">
-                              <strong>Password has error</strong>
+                              Password has error
                         </span>
-                    </div>
                 </div>
 
                 <div class="form-group" ng-class="has-error: !confirm.valid">
-                    <label class="col-md-4 control-label">Confirm Password</label>
-                    <div class="col-md-6">
-                        <input type="password"
-                               class="form-control"
-                               [(ngModel)]="model.confirm"
-                               ngControl="confirm"  #confirm="ngForm">
+                    <label class="control-label">Confirm Password</label>
+
+                    <input type="password"
+                           class="form-control"
+                           [(ngModel)]="model.confirm"
+                           ngControl="confirm" #confirm="ngForm">
                         <span class="help-block" [hidden]="!confirm.valid">
-                             <strong>Password Confirmation don't match</strong>
+                             Password Confirmation don't match
                         </span>
-                    </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-md-6 col-md-offset-4">
-                        <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid">
-                            <i class="fa fa-btn fa-user"></i>Register
-                        </button>
-                    </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid">
+                        <i class="fa fa-btn fa-user"></i> Register
+                    </button>
                 </div>
             </form>
         </div>

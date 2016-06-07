@@ -8,6 +8,7 @@ var gulp = require('gulp'),
 	ngAnnotate = require('gulp-ng-annotate'),
 	browserSync = require('browser-sync'),
 	yargs = require('yargs').argv,
+	historyApiFallback = require('connect-history-api-fallback'),
 	rimraf = require('rimraf');
 
 var root = 'web';
@@ -45,6 +46,7 @@ gulp.task('serve', function () {
 		),
 		server: {
 			baseDir: root,
+			middleware: [ historyApiFallback() ],
 			routes: {  // serve our jspm dependencies with the client folder
 				'/tsconfig.json': './tsconfig.json',
 				'/jspm.config.js': './jspm.config.js',
