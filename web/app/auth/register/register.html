@@ -3,57 +3,45 @@
         <div class="panel-heading">Create an Account</div>
         <div class="panel-body">
             <p>Create a new admin account</p>
-            <form *ngIf="active" class="form-vertical" (ngSubmit)="onSubmit()" #registerForm="ngForm">
-                <div class="form-group" ng-class="has-error: !name.valid">
+            <form *ngIf="active" class="form-vertical" (ngSubmit)="onSubmit()" [ngFormModel]="registerForm" novalidate>
+                <div class="form-group" [ngClass]="{ 'has-error': !name.valid && !name.pristine }">
                     <label class="control-label">Name</label>
-
-                    <input type="text"
-                           class="form-control"
-                           [(ngModel)]="model.name"
-                           ngControl="name" #name="ngForm">
-                        <span class="help-block" [hidden]="name.valid">
-                              Name has error
-                        </span>
+                    <input type="text" class="form-control" ngControl="name">
+                    <span *ngIf="!name.valid && !name.pristine" class="help-block">
+                        Name is required
+                    </span>
                 </div>
 
-                <div class="form-group" ng-class="has-error: !email.invalid">
+                <div class="form-group" [ngClass]="{ 'has-error': !email.valid && !email.pristine }">
                     <label class="control-label">E-Mail Address</label>
-
-                    <input type="email"
-                           class="form-control"
-                           [(ngModel)]="model.email"
-                           ngControl="email" #email="ngForm">
-                        <span class="help-block" [hidden]="!email.valid">
-                            Email has error
-                        </span>
+                    <input type="email" class="form-control" ngControl="email">
+                    <span *ngIf="!email.valid && !email.pristine" class="help-block">
+                        Email is required
+                    </span>
                 </div>
 
-                <div class="form-group" ng-class="has-error: !pass.valid">
+                <div class="form-group" [ngClass]="{ 'has-error': !password.valid && !password.pristine }">
                     <label class="control-label">Password</label>
-
-                    <input type="password"
-                           class="form-control"
-                           [(ngModel)]="model.password"
-                           ngControl="pass" #pass="ngForm">
-                        <span class="help-block" [hidden]="!pass.valid">
-                              Password has error
-                        </span>
+                    <input type="password" class="form-control" ngControl="password">
+                    <span *ngIf="!password.valid && !password.pristine" class="help-block">
+                        Password
+                        <em *ngIf="password.hasError('required')">is required</em>
+                        <em *ngIf="password.hasError('minlength')">must be at least 6 characters</em>
+                    </span>
                 </div>
 
-                <div class="form-group" ng-class="has-error: !confirm.valid">
+                <div class="form-group" [ngClass]="{ 'has-error': !confirm.valid && !confirm.pristine }">
                     <label class="control-label">Confirm Password</label>
-
-                    <input type="password"
-                           class="form-control"
-                           [(ngModel)]="model.confirm"
-                           ngControl="confirm" #confirm="ngForm">
-                        <span class="help-block" [hidden]="!confirm.valid">
-                             Password Confirmation don't match
-                        </span>
+                    <input type="password" class="form-control" ngControl="confirm">
+                    <span *ngIf="!confirm.valid && !confirm.pristine" class="help-block">
+                       Password Confirm
+                       <em *ngIf="confirm.hasError('required')">is required</em>
+                       <em *ngIf="confirm.hasError('minlength')">must be at least 6 characters</em>
+                    </span>
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid">
+                    <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">
                         <i class="fa fa-btn fa-user"></i> Register
                     </button>
                 </div>

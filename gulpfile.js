@@ -1,37 +1,25 @@
-var gulp = require('gulp'),
-	path = require('path'),
-	jspm = require('jspm'),
-	rename = require('gulp-rename'),
-	template = require('gulp-template'),
-	uglify = require('gulp-uglify'),
-	htmlreplace = require('gulp-html-replace'),
-	ngAnnotate = require('gulp-ng-annotate'),
-	browserSync = require('browser-sync'),
-	yargs = require('yargs').argv,
-	historyApiFallback = require('connect-history-api-fallback'),
-	rimraf = require('rimraf');
+var gulp = require('gulp')
+	, Builder = require('jspm').Builder
+	, rename = require('gulp-rename')
+	, uglify = require('gulp-uglify')
+	, ngAnnotate = require('gulp-ng-annotate')
+	, browserSync = require('browser-sync')
+	, historyApiFallback = require('connect-history-api-fallback')
+	, rimraf = require('rimraf')
+	, concat = require('gulp-concat')
+	, filter = require('gulp-filter')
+	, inject = require('gulp-inject')
+	, sass = require('gulp-sass')
+	, runSequence = require('run-sequence');
 
-var root = 'web';
-
-
-// helper method to resolveToApp paths
-var resolveTo = function (resolvePath) {
-	return function (glob) {
-		glob = glob || '';
-		return path.resolve(path.join(root, resolvePath, glob));
-	}
-};
-
-var resolveToApp = resolveTo('app'); // app/{glob}
+var jspmBuilder = new Builder();
+var systemJsConfig =  require('./jspm.config.js');
+var systemJsBrowser =  require('./jspm.config.js');
 
 // map of all our paths
 var paths = {
-	css: resolveToApp('**/*.css'),
-	html: [
-		resolveToApp('**/*.html'),
-		path.join(root, 'index.html')
-	],
-	dist: path.join(__dirname, 'dist/')
+	sass: 'web/app/**/*.sass',
+	html: 'web/**/*.html'
 };
 
 gulp.task('serve', function () {
@@ -40,12 +28,12 @@ gulp.task('serve', function () {
 	return browserSync({
 		port: 3000,
 		open: true,
-		files: [].concat(
-			[paths.css],
+		files: [
+			paths.sass,
 			paths.html
-		),
+		],
 		server: {
-			baseDir: root,
+			baseDir: 'web',
 			middleware: [ historyApiFallback() ],
 			routes: {  // serve our jspm dependencies with the client folder
 				'/tsconfig.json': './tsconfig.json',
@@ -57,27 +45,51 @@ gulp.task('serve', function () {
 	});
 });
 
+
+gulp.task('default', ['serve']);
+
+gulp.task('minify', function(){
+	return gulp.src(dist)
+		.pipe(ngAnnotate())
+		.pipe(uglify())
+		.pipe(rename('app.min.js'))
+		.pipe(gulp.dest('dist'))
+});
+
+gulp.task('html', function () {
+	return gulp.src('web/**/*.html')
+		.pipe(gulp.dest('dist'));
+});
+
+gulp.task('css', function () {
+	return gulp.src('web/**/*.scss')
+		.pipe(concat('app.css'))
+		.pipe(gulp.dest('dist'))
+
+});
+
+gulp.task('inject', function () {
+	var jsFilter = filter('**/*.js', {restore: true}  );
+
+	return gulp.src('dist/index.html')
+		.pipe(inject(gulp.src(['dist/**/*.css', 'dist**/app.min.js'])
+			.pipe(jsFilter)
+			.pipe(jsFilter.restore), {
+				addRootSlash: false,
+				ignorePath: 'build/app/'
+			})
+		)
+		.pipe(gulp.dest('dist'));
+});
+
 gulp.task('build', function () {
-	var dist = path.join(paths.dist + 'app.js');
-	rimraf.sync(path.join(paths.dist, '*'));
+	rimraf.sync('dist');
 	// Use JSPM to bundle our app
-	return jspm.bundleSFX(resolveToApp('app'), dist, {})
-		.then(function () {
-			// Also create a fully annotated minified copy
-			return gulp.src(dist)
-				.pipe(ngAnnotate())
-				.pipe(uglify())
-				.pipe(rename('app.min.js'))
-				.pipe(gulp.dest(paths.dist))
+	return jspmBuilder.bundle('web/app/**/*.ts', 'dist/app.js', {
+			minify: true, sourceMaps: true, config: [systemJsBrowser, systemJsConfig]
 		})
 		.then(function () {
-			// Inject minified script into index
-			return gulp.src('client/index.html')
-				.pipe(htmlreplace({
-					'js': 'app.min.js'
-				}))
-				.pipe(gulp.dest(paths.dist));
+			runSequence('minify', 'html', 'css', 'index', 'css', 'inject', callback);
 		});
 });
 
-gulp.task('default', ['serve']);

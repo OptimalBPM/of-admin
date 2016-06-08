@@ -192,15 +192,19 @@
     "browser-sync": "^2.12.10",
     "chokidar-socket-emitter": "^0.5.2",
     "gulp": "^3.9.1",
-    "gulp-html-replace": "^1.6.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-inject": "^4.1.0",
+    "gulp-jspm": "^0.5.10",
     "gulp-ng-annotate": "^2.0.0",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.1",
     "gulp-template": "^4.0.0",
     "gulp-uglify": "^1.5.3",
     "jspm": "^0.17.0-beta.13",
     "rimraf": "^2.5.2",
-    "typings": "^1.0.4",
+    "run-sequence": "^1.2.1",
     "ts-node": "^0.7.3",
-    "yargs": "^4.7.1"
+    "typings": "^1.0.4"
   }
-}
+}

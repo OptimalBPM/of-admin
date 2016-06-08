@@ -2,42 +2,36 @@
     <div class="panel panel-default">
         <div class="panel-heading">Login</div>
         <div class="panel-body">
-            <form *ngIf="active" class="form-vertical" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-                <div class="form-group" ng-class="has-error: !email.invalid">
+            <form *ngIf="active" class="form-vertical" (ngSubmit)="onSubmit()" [ngFormModel]="loginForm" novalidate>
+                <div class="form-group" [ngClass]="{ 'has-error': !email.valid && !email.pristine }">
                     <label class="control-label">E-Mail Address</label>
-                    <input type="email"
-                           class="form-control"
-                           [(ngModel)]="model.email"
-                           ngControl="email" #email="ngForm">
-                        <span class="help-block" [hidden]="!email.valid">
-                            Email has error
-                        </span>
+                    <input type="email" class="form-control" ngControl="email">
+                    <span *ngIf="!email.valid && !email.pristine" class="help-block">
+                        Email is required
+                    </span>
                 </div>
 
-                <div class="form-group" ng-class="has-error: !pass.valid">
+                <div class="form-group" [ngClass]="{ 'has-error': !password.valid && !password.pristine }">
                     <label class="control-label">Password</label>
-                    <input type="password"
-                           class="form-control"
-                           [(ngModel)]="model.password"
-                           ngControl="pass" #pass="ngForm">
-                        <span class="help-block" [hidden]="!pass.valid">
-                              Password has error
-                        </span>
+                    <input type="password" class="form-control" ngControl="password">
+                    <span *ngIf="!password.valid && !password.pristine" class="help-block">
+                       Password
+                       <em *ngIf="password.hasError('required')">is required</em>
+                       <em *ngIf="password.hasError('minlength')">must be at least 6 characters</em>
+                    </span>
                 </div>
 
                 <div class="form-group">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox"
-                                   [(ngModel)]="model.remember"
-                                   ngControl="remember"> Remember Me
+                            <input type="checkbox" [(ngModel)]="remember"> Remember Me
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-4">
-                        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">
+                        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">
                             <i class="fa fa-btn fa-sign-in"></i> Login
                         </button>
                         <a class="btn btn-link" [routerLink]="['/password/request']">Forgot Your Password?</a>

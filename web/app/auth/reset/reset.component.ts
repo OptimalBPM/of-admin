@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES, Control, ControlGroup, FormBuilder, Validators } from '@angular/common';
 
 @Component({
   selector: 'auth',
@@ -7,14 +7,29 @@ import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
   styleUrls: [ 'app/auth/reset/reset.sass' ],
   directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES ]
 })
-export class ResetComponent {
+export class ResetComponent implements OnInit {
 
-  public model: any = {};
-  // Reset the form with a new hero AND restore 'pristine' class state
-  // by toggling 'active' flag which causes the form
-  // to be removed/re-added in a tick via NgIf
-  // TODO: Workaround until NgForm has a reset method (angular issue #6822)
   active = true;
+  email: Control;
+  password: Control;
+  confirm: Control;
+  resetForm: ControlGroup;
 
-  onSubmit() { console.log('clicked') }
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.email = new Control('', Validators.required);
+    this.password = new Control('', Validators.compose([Validators.required, Validators.minLength(6)]));
+    this.confirm = new Control('', Validators.compose([Validators.required, Validators.minLength(6)]));
+
+    this.resetForm = this.fb.group({
+      email: this.email,
+      password: this.password,
+      confirm: this.confirm
+    });
+  }
+
+  onSubmit() {
+    console.log(this.resetForm.value);
+  }
 }
