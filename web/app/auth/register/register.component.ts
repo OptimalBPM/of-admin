@@ -4,7 +4,7 @@ import { CORE_DIRECTIVES, FORM_DIRECTIVES, Control, ControlGroup, FormBuilder, V
 @Component({
   selector: 'auth-register',
   templateUrl: 'app/auth/register/register.html',
-  styleUrls: [ 'app/auth/register/register.sass' ],
+  styleUrls: [ 'app/auth/register/register.css' ],
   directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES ]
 })
 export class RegisterComponent implements OnInit {

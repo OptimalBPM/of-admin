@@ -4,7 +4,7 @@ import { CORE_DIRECTIVES, FORM_DIRECTIVES, Control, ControlGroup, FormBuilder, V
 @Component({
   selector: 'auth-email-reset',
   templateUrl: 'app/auth/email-reset/email-reset.html',
-  styleUrls: [ 'app/auth/email-reset/email-reset.sass' ],
+  styleUrls: [ 'app/auth/email-reset/email-reset.css' ],
   directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES ]
 })
 export class EmailResetComponent implements OnInit {

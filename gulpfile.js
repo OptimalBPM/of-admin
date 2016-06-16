@@ -1,60 +1,14 @@
 var gulp = require('gulp')
 	, Builder = require('jspm').Builder
-	, rename = require('gulp-rename')
-	, uglify = require('gulp-uglify')
-	, ngAnnotate = require('gulp-ng-annotate')
 	, browserSync = require('browser-sync')
 	, historyApiFallback = require('connect-history-api-fallback')
 	, rimraf = require('rimraf')
-	, concat = require('gulp-concat')
 	, filter = require('gulp-filter')
 	, inject = require('gulp-inject')
 	, sass = require('gulp-sass')
-	, runSequence = require('run-sequence');
+	, runSequence = require('gulp-sequence').use(gulp);
 
-var jspmBuilder = new Builder();
-var systemJsConfig =  require('./jspm.config.js');
-var systemJsBrowser =  require('./jspm.config.js');
-
-// map of all our paths
-var paths = {
-	sass: 'web/app/**/*.sass',
-	html: 'web/**/*.html'
-};
-
-gulp.task('serve', function () {
-	'use strict';
-	require('chokidar-socket-emitter')({ port: 8081, path: 'web', relativeTo: 'web' });
-	return browserSync({
-		port: 3000,
-		open: true,
-		files: [
-			paths.sass,
-			paths.html
-		],
-		server: {
-			baseDir: 'web',
-			middleware: [ historyApiFallback() ],
-			routes: {  // serve our jspm dependencies with the client folder
-				'/tsconfig.json': './tsconfig.json',
-				'/jspm.config.js': './jspm.config.js',
-				'/jspm.browser.js': './jspm.browser.js',
-				'/jspm_packages': './jspm_packages'
-			}
-		}
-	});
-});
-
-
-gulp.task('default', ['serve']);
-
-gulp.task('minify', function(){
-	return gulp.src(dist)
-		.pipe(ngAnnotate())
-		.pipe(uglify())
-		.pipe(rename('app.min.js'))
-		.pipe(gulp.dest('dist'))
-});
+var jspmBuilder = new Builder('./web');
 
 gulp.task('html', function () {
 	return gulp.src('web/**/*.html')
@@ -63,33 +17,57 @@ gulp.task('html', function () {
 
 gulp.task('css', function () {
 	return gulp.src('web/**/*.scss')
-		.pipe(concat('app.css'))
+		.pipe(sass())
 		.pipe(gulp.dest('dist'))
-
 });
 
 gulp.task('inject', function () {
 	var jsFilter = filter('**/*.js', {restore: true}  );
 
 	return gulp.src('dist/index.html')
-		.pipe(inject(gulp.src(['dist/**/*.css', 'dist**/app.min.js'])
+		.pipe(inject(gulp.src(['dist/**/*.css', 'dist**/build.js'])
 			.pipe(jsFilter)
 			.pipe(jsFilter.restore), {
 				addRootSlash: false,
-				ignorePath: 'build/app/'
+			  ignorePath: 'dist/'
 			})
 		)
 		.pipe(gulp.dest('dist'));
 });
 
-gulp.task('build', function () {
+gulp.task('bundle', function (callback) {
 	rimraf.sync('dist');
 	// Use JSPM to bundle our app
-	return jspmBuilder.bundle('web/app/**/*.ts', 'dist/app.js', {
-			minify: true, sourceMaps: true, config: [systemJsBrowser, systemJsConfig]
+	return jspmBuilder.buildStatic("app", "dist/build.js")
+		.then(function() {
+			console.log('done');
 		})
-		.then(function () {
-			runSequence('minify', 'html', 'css', 'index', 'css', 'inject', callback);
+		.catch(function(err) {
+			console.log(err);
 		});
 });
 
+gulp.task('build', function (callback) {
+	runSequence('bundle', 'html', 'css', 'inject', callback);
+});
+
+gulp.task('serve', function () {
+	return browserSync({
+		port: 3000,
+		open: true,
+		files: [ 'dist/**/*.*'],
+		server: {
+			baseDir: 'dist',
+			middleware: [ historyApiFallback() ]
+		}
+	});
+});
+
+gulp.task('default', runSequence('build', 'serve', 'watch'));
+
+gulp.task('watch', function () {
+	browserSync.reload();
+	gulp.watch(['web/**/*.html'], ['html', browserSync.reload]);
+	gulp.watch(['web/**/*.ts'], ['build', browserSync.reload]);
+	gulp.watch(['web/**/*.scss'], ['css', browserSync.reload]);
+});

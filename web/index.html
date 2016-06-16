@@ -3,6 +3,8 @@
     <title>Optimal BPM - Administrator</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
+
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
@@ -17,11 +19,14 @@
     <bpm-app>Loading...</bpm-app>
 
     <!-- inject:js -->
-    <base href="/">
-    <script src="jspm_packages/system.js"></script>
+    <script src="jspm_packages/system.src.js"></script>
     <script src="jspm.browser.js"></script>
     <script src="jspm.config.js"></script>
     <script>
+//        System.trace = true;
+//        System.import('systemjs-hot-reloader').then(function(HotReloader){
+//            new HotReloader.default('http://localhost:8080'); // chokidar-socket-emitter port
+//        });
         System.import("app")
                 .then(function(app) {
                     console.log('running');
