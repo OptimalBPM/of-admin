@@ -2,7 +2,6 @@ var gulp = require('gulp')
 	, Builder = require('jspm').Builder
 	, browserSync = require('browser-sync')
 	, historyApiFallback = require('connect-history-api-fallback')
-	, rimraf = require('rimraf')
 	, filter = require('gulp-filter')
 	, inject = require('gulp-inject')
 	, sass = require('gulp-sass')
@@ -36,7 +35,6 @@ gulp.task('inject', function () {
 });
 
 gulp.task('bundle', function (callback) {
-	rimraf.sync('dist');
 	// Use JSPM to bundle our app
 	return jspmBuilder.buildStatic("app", "dist/build.js")
 		.then(function() {

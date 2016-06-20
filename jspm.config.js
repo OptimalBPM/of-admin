@@ -1,7 +1,7 @@
 SystemJS.config({
   devConfig: {
     "map": {
-      "plugin-babel": "npm:systemjs-plugin-babel@0.0.6",
+      "plugin-babel": "npm:systemjs-plugin-babel@0.0.12",
       "clean-css": "npm:clean-css@3.4.18",
       "https": "github:jspm/nodelibs-https@0.2.0-alpha",
       "text": "github:systemjs/plugin-text@0.0.2",
@@ -118,13 +118,13 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
-    "@angular/common": "npm:@angular/common@2.0.0-rc.1",
-    "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.1",
-    "@angular/core": "npm:@angular/core@2.0.0-rc.1",
-    "@angular/http": "npm:@angular/http@2.0.0-rc.1",
-    "@angular/platform-browser": "npm:@angular/platform-browser@2.0.0-rc.1",
-    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.0.0-rc.1",
-    "@angular/router": "npm:@angular/router@2.0.0-rc.1",
+    "@angular/common": "npm:@angular/common@2.0.0-rc.2",
+    "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.2",
+    "@angular/core": "npm:@angular/core@2.0.0-rc.2",
+    "@angular/http": "npm:@angular/http@2.0.0-rc.2",
+    "@angular/platform-browser": "npm:@angular/platform-browser@2.0.0-rc.2",
+    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.0.0-rc.2",
+    "@angular/router": "npm:@angular/router@3.0.0-alpha.7",
     "assert": "github:jspm/nodelibs-assert@0.2.0-alpha",
     "buffer": "github:jspm/nodelibs-buffer@0.2.0-alpha",
     "child_process": "github:jspm/nodelibs-child_process@0.2.0-alpha",
