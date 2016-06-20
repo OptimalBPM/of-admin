@@ -3,7 +3,7 @@ import { provideRouter, RouterConfig } from '@angular/router';
 import { AuthRoutes } from './auth/index';
 import { DashBoardRoutes } from './dashboard/index';
 
-const routes: RouterConfig = [
+export const routes: RouterConfig = [
     ...AuthRoutes,
     ...DashBoardRoutes
 ];

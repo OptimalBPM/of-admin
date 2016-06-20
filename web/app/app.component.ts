@@ -8,5 +8,4 @@ import { NavbarComponent } from "./navbar/index";
     templateUrl: 'app/app.html',
     directives: [ ROUTER_DIRECTIVES, NavbarComponent ]
 })
-
 export class AppComponent {}

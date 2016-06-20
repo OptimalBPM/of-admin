@@ -6,4 +6,6 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
   templateUrl: 'app/navbar/navbar.html',
   directives: [ ROUTER_DIRECTIVES ]
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+//TODO:: import list of menus to show from the hook_wrapper.ts
+}
