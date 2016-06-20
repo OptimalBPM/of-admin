@@ -49,7 +49,7 @@ gulp.task('build', function (callback) {
 	runSequence('bundle', 'html', 'css', 'inject', callback);
 });
 
-gulp.task('serve', function () {
+gulp.task('serve-prod', function () {
 	return browserSync({
 		port: 3000,
 		open: true,
@@ -61,7 +61,24 @@ gulp.task('serve', function () {
 	});
 });
 
-gulp.task('default', runSequence('build', 'serve', 'watch'));
+gulp.task('serve', function () {
+	return browserSync({
+		port: 3000,
+		open: true,
+		files: [ 'web/**/*.*'],
+		server: {
+			baseDir: 'web',
+			middleware: [ historyApiFallback() ],
+			routes: {  // serve our jspm dependencies with the client folder
+				'/jspm.config.js': './jspm.config.js',
+				'/jspm.browser.js': './jspm.browser.js',
+				'/jspm_packages': './jspm_packages'
+			}
+		}
+	});
+});
+
+gulp.task('default', runSequence('build', 'serve-prod', 'watch'));
 
 gulp.task('watch', function () {
 	browserSync.reload();

@@ -1,0 +1,11 @@
+{
+  "plugins": {
+    "example": {
+      "description": "Of-Admin UI",
+      "failOnError": true,
+      "hooks_module": "mount",
+      "mountpoint": "./ui/web",
+      "mountfolder": "./ui/dist"
+    }
+  }
+}

@@ -24,6 +24,9 @@
          ],
          "rxjs/*": [
             "jspm_packages/npm/rxjs@5.0.0-beta.6/*"
+         ],
+         "ts": [
+            "jspm_packages/github/frankwallis/plugin-typescript@*"
          ]
       }
    },

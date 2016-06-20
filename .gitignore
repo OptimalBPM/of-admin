@@ -1,11 +1,1 @@
-#IDE configuration files
 .idea
-.vscode
-*.iml
-
-node_modules/
-jspm_packages/
-typings/
-web/**/*.js
-web/**/*.js.map
-dist
