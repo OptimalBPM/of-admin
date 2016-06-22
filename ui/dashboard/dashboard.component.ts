@@ -3,8 +3,8 @@ import { CORE_DIRECTIVES } from '@angular/common';
 
 @Component({
     selector: 'bpm-dashboard',
-    templateUrl: 'app/dashboard/dashboard.html',
-    styleUrls: [ 'app/dashboard/dashboard.css' ],
+    templateUrl: 'admin/dashboard/dashboard.html',
+    styleUrls: [ 'admin/dashboard/dashboard.css' ],
     directives: [ CORE_DIRECTIVES ]
 })
 export class DashboardComponent {}

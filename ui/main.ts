@@ -2,10 +2,18 @@ import 'zone.js';
 import 'reflect-metadata';
 import { bootstrap }    from '@angular/platform-browser-dynamic';
 import { HTTP_PROVIDERS } from '@angular/http';
-//TODO:: once correct hook wrapper is generated import from hook_wrapper
+import { provideRouter, RouterConfig } from '@angular/router';
 import { AppComponent } from './app.component';
-//TODO:: once correct hook wrapper is generated import from hook_wrapper
-import { APP_ROUTER_PROVIDERS }from './app.routes'; 
+
+import { pluginRoutes } from '/admin/hooks.ts';
+
+const routes: RouterConfig = [
+    ...pluginRoutes
+];
+
+const APP_ROUTER_PROVIDERS = [
+    provideRouter(routes)
+];
 
 bootstrap(AppComponent, [
     APP_ROUTER_PROVIDERS,

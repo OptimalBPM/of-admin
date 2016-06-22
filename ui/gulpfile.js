@@ -7,15 +7,15 @@ var gulp = require('gulp')
 	, sass = require('gulp-sass')
 	, runSequence = require('gulp-sequence').use(gulp);
 
-var jspmBuilder = new Builder('./web');
+var jspmBuilder = new Builder();
 
 gulp.task('html', function () {
-	return gulp.src('web/**/*.html')
+	return gulp.src('index.html')
 		.pipe(gulp.dest('dist'));
 });
 
 gulp.task('css', function () {
-	return gulp.src('web/**/*.scss')
+	return gulp.src('admin/**/*.scss')
 		.pipe(sass())
 		.pipe(gulp.dest('dist'))
 });
@@ -65,15 +65,10 @@ gulp.task('serve', function () {
 	return browserSync({
 		port: 3000,
 		open: true,
-		files: [ 'web/**/*.*'],
+		files: [ 'index.html' ],
 		server: {
-			baseDir: 'web',
-			middleware: [ historyApiFallback() ],
-			routes: {  // serve our jspm dependencies with the client folder
-				'/jspm.config.js': './jspm.config.js',
-				'/jspm.browser.js': './jspm.browser.js',
-				'/jspm_packages': './jspm_packages'
-			}
+			baseDir: '.',
+			middleware: [ historyApiFallback() ]
 		}
 	});
 });

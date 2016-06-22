@@ -3,7 +3,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
   selector: 'bpm-navbar',
-  templateUrl: 'app/navbar/navbar.html',
+  templateUrl: 'admin/navbar/navbar.html',
   directives: [ ROUTER_DIRECTIVES ]
 })
 export class NavbarComponent {

@@ -1,7 +1,6 @@
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { AuthRoutes } from './app/index';
-import { DashBoardRoutes } from './app/index';
-import { NavbarComponent } from './app/index';
+import { AuthRoutes } from './auth/index';
+import { DashBoardRoutes } from './dashboard/index';
+import { NavbarComponent } from './navbar/index';
 
 /*
  * Export angular functionality directives,components, services e.t.c
@@ -9,7 +8,6 @@ import { NavbarComponent } from './app/index';
  * and are going to be available in global scope of the app.
  */
 export const pluginStructure = [
-    ROUTER_DIRECTIVES,
     NavbarComponent
 ];
 /*
@@ -22,7 +20,7 @@ export const pluginRoutes = [
 ];
 /*
  * Export menus that should be made available in admin. Note two types supported main & dropdown. Dropdown
- * menu ideally appears in settings menu dropdown on top right corner. Main is append next to last menu 
+ * menu ideally appears in settings menu dropdown on top right corner. Main is append next to last menu
  * item from left to right.
  *
  * This menu items will simply be iterated over by NavbarComponent that is responsible for displaying menus

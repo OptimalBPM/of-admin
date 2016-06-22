@@ -92,7 +92,7 @@ SystemJS.config({
     "supportHtmlImports": true
   },
   packages: {
-    "app": {
+    "/admin": {
       "main": "main",
       "format": "system",
       "defaultExtension": "ts",

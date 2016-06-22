@@ -3,8 +3,8 @@ import { CORE_DIRECTIVES, FORM_DIRECTIVES, Control, ControlGroup, FormBuilder, V
 
 @Component({
   selector: 'auth',
-  templateUrl: 'app/auth/reset/reset.html',
-  styleUrls: [ 'app/auth/reset/reset.css' ],
+  templateUrl: 'admin/auth/reset/reset.html',
+  styleUrls: [ 'admin/auth/reset/reset.css' ],
   directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES ]
 })
 export class ResetComponent implements OnInit {

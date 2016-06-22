@@ -4,8 +4,8 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
   selector: 'auth-login',
-  templateUrl: 'app/auth/login/login.html',
-  styleUrls: ['app/auth/login/login.css'],
+  templateUrl: 'admin/auth/login/login.html',
+  styleUrls: ['admin/auth/login/login.css'],
   directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES ]
 })
 export class LoginComponent implements OnInit {
