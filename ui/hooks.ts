@@ -42,3 +42,5 @@ export const pluginMenus = [
         type: 'main'
     }
 ];
+
+export  function initWeb(){}
