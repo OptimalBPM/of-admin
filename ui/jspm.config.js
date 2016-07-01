@@ -9,7 +9,6 @@ SystemJS.config({
       "ts": "github:frankwallis/plugin-typescript@4.0.16",
       "css": "github:frankwallis/plugin-css@master",
       "net": "github:jspm/nodelibs-net@0.2.0-alpha",
-      "systemjs-hot-reloader": "github:capaj/systemjs-hot-reloader@0.5.9",
       "url": "github:jspm/nodelibs-url@0.2.0-alpha",
       "module": "github:jspm/nodelibs-module@0.2.0-alpha",
       "http": "github:jspm/nodelibs-http@0.2.0-alpha",
@@ -42,13 +41,6 @@ SystemJS.config({
           "url-browserify": "npm:url@0.11.0"
         }
       },
-      "github:capaj/systemjs-hot-reloader@0.5.9": {
-        "map": {
-          "weakee": "npm:weakee@1.0.0",
-          "debug": "npm:debug@2.2.0",
-          "socket.io-client": "github:socketio/socket.io-client@1.4.6"
-        }
-      },
       "npm:url@0.11.0": {
         "map": {
           "querystring": "npm:querystring@0.2.0",
@@ -63,11 +55,6 @@ SystemJS.config({
       "github:jspm/nodelibs-os@0.2.0-alpha": {
         "map": {
           "os-browserify": "npm:os-browserify@0.2.1"
-        }
-      },
-      "npm:debug@2.2.0": {
-        "map": {
-          "ms": "npm:ms@0.7.1"
         }
       },
       "npm:stream-http@2.3.0": {
@@ -107,7 +94,22 @@ SystemJS.config({
           "loader": "text"
         }
       }
+    },
+    "github:capaj/systemjs-hot-reloader@0.5.9": {
+      "map": {
+        "weakee": "npm:weakee@1.0.0",
+        "debug": "npm:debug@2.2.0",
+        "socket.io-client": "github:socketio/socket.io-client@1.4.6"
+      }
+    },
+    "npm:debug@2.2.0": {
+      "map": {
+        "ms": "npm:ms@0.7.1"
+      }
     }
+  },
+  map: {
+    "systemjs-hot-reloader": "github:capaj/systemjs-hot-reloader@0.5.9"
   }
 });
 
@@ -118,13 +120,14 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
-    "@angular/common": "npm:@angular/common@2.0.0-rc.2",
-    "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.2",
-    "@angular/core": "npm:@angular/core@2.0.0-rc.2",
-    "@angular/http": "npm:@angular/http@2.0.0-rc.2",
-    "@angular/platform-browser": "npm:@angular/platform-browser@2.0.0-rc.2",
-    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.0.0-rc.2",
-    "@angular/router": "npm:@angular/router@3.0.0-alpha.7",
+    "@angular/forms": "npm:@angular/forms@0.2.0",
+    "@angular/common": "npm:@angular/common@2.0.0-rc.4",
+    "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.4",
+    "@angular/core": "npm:@angular/core@2.0.0-rc.4",
+    "@angular/http": "npm:@angular/http@2.0.0-rc.4",
+    "@angular/platform-browser": "npm:@angular/platform-browser@2.0.0-rc.4",
+    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.0.0-rc.4",
+    "@angular/router": "npm:@angular/router@3.0.0-beta.2",
     "assert": "github:jspm/nodelibs-assert@0.2.0-alpha",
     "buffer": "github:jspm/nodelibs-buffer@0.2.0-alpha",
     "child_process": "github:jspm/nodelibs-child_process@0.2.0-alpha",
@@ -310,20 +313,13 @@ SystemJS.config({
     },
     "github:jspm/nodelibs-buffer@0.2.0-alpha": {
       "map": {
-        "buffer-browserify": "npm:buffer@4.6.0"
+        "buffer-browserify": "npm:buffer@4.7.0"
       }
     },
     "npm:miller-rabin@4.0.0": {
       "map": {
         "bn.js": "npm:bn.js@4.11.4",
         "brorand": "npm:brorand@1.0.5"
-      }
-    },
-    "npm:buffer@4.6.0": {
-      "map": {
-        "isarray": "npm:isarray@1.0.0",
-        "base64-js": "npm:base64-js@1.1.2",
-        "ieee754": "npm:ieee754@1.1.6"
       }
     },
     "npm:asn1.js@4.6.2": {
@@ -336,6 +332,13 @@ SystemJS.config({
     "npm:hash.js@1.0.3": {
       "map": {
         "inherits": "npm:inherits@2.0.1"
+      }
+    },
+    "npm:buffer@4.7.0": {
+      "map": {
+        "isarray": "npm:isarray@1.0.0",
+        "ieee754": "npm:ieee754@1.1.6",
+        "base64-js": "npm:base64-js@1.1.2"
       }
     }
   }

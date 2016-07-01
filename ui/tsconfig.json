@@ -8,19 +8,22 @@
       "baseUrl": ".",
       "paths": {
          "@angular/core": [
-            "jspm_packages/npm/@angular/core@2.0.0-rc.2"
+            "jspm_packages/npm/@angular/core@2.0.0-rc.4"
          ],
          "@angular/common": [
-            "jspm_packages/npm/@angular/common@2.0.0-rc.2"
+            "jspm_packages/npm/@angular/common@2.0.0-rc.4"
          ],
          "@angular/compiler": [
-            "jspm_packages/npm/@angular/compiler@2.0.0-rc.2"
+            "jspm_packages/npm/@angular/compiler@2.0.0-rc.4"
+         ],
+         "@angular/forms": [
+            "jspm_packages/npm/@angular/forms@0.2.0"
          ],
          "@angular/router": [
-            "jspm_packages/npm/@angular/router@3.0.0-alpha.7"
+            "jspm_packages/npm/@angular/router@3.0.0-beta.2"
          ],
          "@angular/platform-browser-dynamic": [
-            "jspm_packages/npm/@angular/platform-browser-dynamic@2.0.0-rc.2"
+            "jspm_packages/npm/@angular/platform-browser-dynamic@2.0.0-rc.4"
          ],
          "rxjs/*": [
             "jspm_packages/npm/rxjs@5.0.0-beta.6/*"

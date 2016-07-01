@@ -5,7 +5,8 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { provideRouter, RouterConfig } from '@angular/router';
 import { AppComponent } from './app.component';
 
-import { pluginRoutes } from '/admin/hooks.ts';
+import { pluginRoutes } from "/admin/hook_wrapper.ts";
+// import { pluginRoutes } from '/admin/hooks.ts';
 
 const routes: RouterConfig = [
     ...pluginRoutes
