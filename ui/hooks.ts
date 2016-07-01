@@ -1,3 +1,4 @@
+import { AboutRoutes } from './about/index';
 import { AuthRoutes } from './auth/index';
 import { DashBoardRoutes } from './dashboard/index';
 import { NavbarComponent } from './navbar/index';
@@ -15,11 +16,12 @@ export const pluginStructure = [
  * Angular2 uses a component router hence this components will already be imported when defining routes
  */
 export const pluginRoutes = [
+    ...AboutRoutes,
     ...AuthRoutes,
     ...DashBoardRoutes
 ];
 /*
- * Export menus that should be made available in admin. Note two types supported main & dropdown. Dropdown
+ * Export menus that should be made available in admin. Note two types supported right, left, & dropdown. Dropdown
  * menu ideally appears in settings menu dropdown on top right corner. Main is append next to last menu
  * item from left to right.
  *
@@ -28,17 +30,22 @@ export const pluginRoutes = [
 export const pluginMenus = [
     {
         display: 'Home',
-        path: 'home',
-        type: 'main'
+        path: '',
+        type: 'left'
+    },
+    {
+        display: 'About',
+        path: '/about',
+        type: 'left'
     },
     {
         display: 'Login',
-        path: 'login',
-        type: 'main'
+        path: '/login',
+        type: 'right'
     },
     {
         display: 'Register',
-        path: 'register',
-        type: 'main'
+        path: '/register',
+        type: 'right'
     }
 ];

@@ -3,11 +3,11 @@
         <div class="panel-heading">Login</div>
         <div class="panel-body">
             <form *ngIf="active" class="form-vertical" (ngSubmit)="onSubmit()" [ngFormModel]="loginForm" novalidate>
-                <div class="form-group" [ngClass]="{ 'has-error': !email.valid && !email.pristine }">
-                    <label class="control-label">E-Mail Address</label>
-                    <input type="email" class="form-control" ngControl="email">
-                    <span *ngIf="!email.valid && !email.pristine" class="help-block">
-                        Email is required
+                <div class="form-group" [ngClass]="{ 'has-error': !username.valid && !username.pristine }">
+                    <label class="control-label">User Name</label>
+                    <input type="text" class="form-control" ngControl="username">
+                    <span *ngIf="!username.valid && !username.pristine" class="help-block">
+                        Username is required
                     </span>
                 </div>
 
@@ -17,7 +17,7 @@
                     <span *ngIf="!password.valid && !password.pristine" class="help-block">
                        Password
                        <em *ngIf="password.hasError('required')">is required</em>
-                       <em *ngIf="password.hasError('minlength')">must be at least 6 characters</em>
+                       <em *ngIf="password.hasError('minlength')">must be at least 3 characters</em>
                     </span>
                 </div>
 

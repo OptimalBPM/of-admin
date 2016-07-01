@@ -1,0 +1,25 @@
+<div class="row">
+  <h3>About</h3>
+  <p> This is the Optimal BPM busines process management system. </p>
+  <h3>Broker environment</h3>
+
+  <div *ngFor="let value of broker_environment; let key = index">
+    <b>{{ key.toUpperCase() }}</b>
+
+    <div [ngSwitch]="get_datatype(value)">
+      <div *ngSwitchCase="dict">
+        <div *ngFor="let sub_value of value; let sub_key = index">
+          <b>{{sub_key}}</b> : {{sub_value}}
+        </div>
+      </div>
+
+      <div *ngSwitchCase="array">
+        <div *ngFor="let sub_value of value">
+          {{sub_value}}
+        </div>
+      </div>
+      <div *ngSwitchDefault>{{value}}</div>
+    </div>
+    <br />
+  </div>
+</div>
