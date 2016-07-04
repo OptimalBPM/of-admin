@@ -3,11 +3,14 @@ import { CORE_DIRECTIVES, FORM_DIRECTIVES, Control, ControlGroup, FormBuilder, V
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { Headers, RequestOptions, Http } from '@angular/http';
 
+let __moduleName: any; // fully resolved filename; defined at module load time  
+
 @Component({
-  selector: 'auth-login',
-  templateUrl: 'admin/auth/login/login.html',
-  styleUrls: ['admin/auth/login/login.css'],
-  directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES ]
+    moduleId: __moduleName,  
+    selector: 'auth-login',
+    templateUrl: 'login.html',
+    styleUrls: ['login.css'],
+    directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES ]
 })
 export class LoginComponent implements OnInit {
   
@@ -76,13 +79,11 @@ export class LoginComponent implements OnInit {
       response => {
         let data = response.json();
         console.log("login response", data);
-        localStorage.setItem('X-Auth-Data', data);
-        localStorage.setItem('loggedInAt', "" + ((new Date()).getTime()));
+        localStorage.setItem('X-Auth-Session-ID', data['session_id']);
         this.router.navigateByUrl('');
       },
       error => {
-        console.log("error", error.text());
-        console.log(error);
+        console.log("error", error);
       }
       );
   }

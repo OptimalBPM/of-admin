@@ -4,10 +4,12 @@ import { Http, Response } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import './rxjs.operators';
 
+let __moduleName: any; // fully resolved filename; defined at module load time  
 
 @Component({
+    moduleId: __moduleName,  
     selector: 'bpm-about',
-    templateUrl: '/admin/about/about.view.html',
+    templateUrl: 'about.view.html',
     directives: [ CORE_DIRECTIVES ]
 })
 export class AboutComponent implements OnInit {
@@ -19,8 +21,15 @@ export class AboutComponent implements OnInit {
         this.broker_environment = "";
         this.sendAPIRequest()
             .subscribe(
-            broker_env => this.broker_environment = broker_env,
-            error => this.broker_environment = <any>error);
+            broker_env => {
+                this.broker_environment = broker_env
+                console.log(broker_env);
+            },
+            error => {
+                this.broker_environment = error
+                console.log('error');
+                console.log(error);
+            });
     }
 
     sendAPIRequest(): Observable<any> {
@@ -43,7 +52,8 @@ export class AboutComponent implements OnInit {
         return Observable.throw(errMsg);
     }
 
-    getDatatype(value) {
+    getDataType(value) {
+        console.log('this', value);
         if (typeof value === "object") {
             return "dict";
         } else if (typeof value === "array") {

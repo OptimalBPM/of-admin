@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES, Control, ControlGroup, FormBuilder, Validators } from '@angular/common';
 
+let __moduleName: any; // fully resolved filename; defined at module load time  
+
 @Component({
+  moduleId: __moduleName,  
   selector: 'auth-email-reset',
-  templateUrl: 'admin/auth/email-reset/email-reset.html',
-  styleUrls: [ 'admin/auth/email-reset/email-reset.css' ],
+  templateUrl: 'email-reset.html',
+  styleUrls: [ 'email-reset.css' ],
   directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES ]
 })
 export class EmailResetComponent implements OnInit {

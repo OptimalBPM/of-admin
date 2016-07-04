@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES, Control, ControlGroup, FormBuilder, Validators } from '@angular/common';
 
+let __moduleName: any; // fully resolved filename; defined at module load time  
+
 @Component({
+  moduleId: __moduleName, 
   selector: 'auth',
-  templateUrl: 'admin/auth/reset/reset.html',
-  styleUrls: [ 'admin/auth/reset/reset.css' ],
+  templateUrl: 'reset.html',
+  styleUrls: [ 'reset.css' ],
   directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES ]
 })
 export class ResetComponent implements OnInit {
