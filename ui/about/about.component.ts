@@ -4,21 +4,23 @@ import { Http, Response } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import './rxjs.operators';
 
+import { MapToIterable  } from '../core/pipes/index'; // Objects are not iterable in ng2
+
 let __moduleName: any; // fully resolved filename; defined at module load time  
 
 @Component({
     moduleId: __moduleName,  
     selector: 'bpm-about',
     templateUrl: 'about.view.html',
-    directives: [ CORE_DIRECTIVES ]
+    directives: [ CORE_DIRECTIVES ],
+    pipes: [MapToIterable]
 })
 export class AboutComponent implements OnInit {
 
-    broker_environment: string;
+    broker_environment: any;
     constructor(private http: Http) {}
 
     getAboutData() {
-        this.broker_environment = "";
         this.sendAPIRequest()
             .subscribe(
             broker_env => {
@@ -43,17 +45,17 @@ export class AboutComponent implements OnInit {
     }
 
     handleError(error: any) {
-        let errMsg = (error.message) ? error.message :
-            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
 
         this.broker_environment = "Failed to retrieve broker environment: " + status;
 
+        console.log('my own error');
         console.error(errMsg); // log to console
         return Observable.throw(errMsg);
     }
 
     getDataType(value) {
-        console.log('this', value);
+        console.log(typeof value);
         if (typeof value === "object") {
             return "dict";
         } else if (typeof value === "array") {

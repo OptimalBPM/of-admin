@@ -3,22 +3,21 @@
   <p> This is the Optimal BPM busines process management system. </p>
   <h3>Broker environment</h3>
 
-  <div *ngFor="let value of broker_environment; let key = index">
-    <b>{{ key.toUpperCase() }}</b>
+  <div *ngFor="let pair of (broker_environment | mapToIterable)">
+    <b>{{ pair.key | uppercase }}</b>
 
-    <div [ngSwitch]="getDataType(value)">
-      <div *ngSwitchCase="dict">
-        <div *ngFor="let sub_value of value; let sub_key = index">
-          <b>{{sub_key}}</b> : {{sub_value}}
+    <div [ngSwitch]="getDataType(pair.value)">
+      <div *ngSwitchCase="'dict'">
+        <div *ngFor="let sub_pair of (pair.value | mapToIterable)">
+          <b>{{sub_pair.key}}</b> : {{sub_pair.value}}
         </div>
       </div>
-
-      <div *ngSwitchCase="array">
-        <div *ngFor="let sub_value of value">
+      <div *ngSwitchCase="'array'">
+        <div *ngFor="let sub_value of pair.value">
           {{sub_value}}
         </div>
       </div>
-      <div *ngSwitchDefault>{{value}}</div>
+      <div *ngSwitchDefault>{{pair.value}}</div>
     </div>
     <br />
   </div>
