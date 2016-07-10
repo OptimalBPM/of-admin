@@ -120,6 +120,7 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
+    "core-js": "npm:core-js@2.4.0",
     "@angular/forms": "npm:@angular/forms@0.2.0",
     "@angular/common": "npm:@angular/common@2.0.0-rc.4",
     "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.4",

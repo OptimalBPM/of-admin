@@ -39,6 +39,11 @@ export const pluginMenus = [
         type: 'left'
     },
     {
+        display: 'Admin',
+        path: '/admin',
+        type: 'left'
+    },
+    {
         display: 'Login',
         path: '/login',
         type: 'right'

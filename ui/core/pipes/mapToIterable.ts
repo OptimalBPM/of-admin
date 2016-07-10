@@ -14,7 +14,6 @@ export class MapToIterable implements PipeTransform {
         for (let key in value) {
             result.push({ key, value: value[key] });
         }
-        console.log('trying', result);
         return result;
     }
 }

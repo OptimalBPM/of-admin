@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CORE_DIRECTIVES } from '@angular/common';
 import { Http, Response } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
-import './rxjs.operators';
+import '../core/rxjs.operators';
 
 import { MapToIterable  } from '../core/pipes/index'; // Objects are not iterable in ng2
 
@@ -55,7 +55,6 @@ export class AboutComponent implements OnInit {
     }
 
     getDataType(value) {
-        console.log(typeof value);
         if (typeof value === "object") {
             return "dict";
         } else if (typeof value === "array") {
