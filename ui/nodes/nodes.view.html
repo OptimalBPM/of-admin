@@ -1,13 +1,14 @@
 <div class="local_margins" options="{ flow : 'column' }">
     <div class="layout_tree col-lg-4" style="height:100%">
         <h3 class="nodes-headings">Node tree</h3>
-        <bpm-schema-tree 
-            [itemRenderer]='views/nodes/node_renderer.html'
-            [newNodeObjectId]="000000010000010001e64bff" 
+        <!--<bpm-schema-tree 
+            [itemRenderer]="'views/nodes/node_renderer.html'"
+            [newNodeObjectId]="adklsfjaksldjfakslfdkfasdfasdkj"
             [nodeManager]="nodeManager"
             [expanderPosition]="left" 
-            [treeOptions]="treeOptions">
-        </bpm-schema-tree>
+            [treeOptions]="treeOptions"
+            (onNodeManagerChanged)="nodeManager = $event.value">
+        </bpm-schema-tree>-->
 
     </div>
     <div class="layout_edit col-lg-5" style="height:100%">
@@ -25,25 +26,25 @@
 
 <div class="layout_history col-lg-3" style="height:100%">
     <h3 class="nodes-headings">History</h3>
-    <div *ngFor="historyItem in nodeManager.history">
+    <div *ngFor="let historyItem of nodeManager.history">
         <b>Occurred when:</b> {{historyItem.occurredWhen}}<br/>
         <b>Id:</b> {{ historyItem._id }}<br/>
         <b>User_id:</b> {{historyItem.user_id}}<br/>
         <div *ngIf="historyItem.add">
             <p>Node added: </p>
-            <div *ngFor="let value in historyItem.add; let key = index">
+            <div *ngFor="let value of historyItem.add; let key = index">
                 <b>{{key}}</b>: {{value}}<br />
             </div>
         </div>
         <div *ngIf="historyItem.remove">
             <p>Node removes: </p>
-            <div *ngFor="let value in historyItem.remove; let key = index">
+            <div *ngFor="let value of historyItem.remove; let key = index">
                 <b>{{key}}</b>: {{value}}<br />
             </div>
         </div>
         <div *ngIf="historyItem.change">
             <p>Node changed: </p>
-            <div *ngFor="let value in  historyItem.change; let key = index">
+            <div *ngFor="let value of historyItem.change; let key = index">
                 <b>{{key}}</b>: {{value}}<br />
             </div>
         </div>

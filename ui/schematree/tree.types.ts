@@ -1,4 +1,4 @@
-import { SchemaTree } from "./index";
+import { SchemaTree } from "./schema.tree";
 import { NodeManager } from "../nodes/index";
 
 export interface ICustomRoot {
@@ -39,6 +39,7 @@ export interface ITree extends ICustomOF {
 export interface INodes extends ICustomOF {
     ngform: any;
     nodeManager: any;
+    $broadcast: any; //TODO:: remove temporary
     forms: any;
     selected_schema: any;
     selected_form: any;

@@ -93,23 +93,13 @@ SystemJS.config({
         "*.html": {
           "loader": "text"
         }
-      }
-    },
-    "github:capaj/systemjs-hot-reloader@0.5.9": {
-      "map": {
-        "weakee": "npm:weakee@1.0.0",
-        "debug": "npm:debug@2.2.0",
-        "socket.io-client": "github:socketio/socket.io-client@1.4.6"
-      }
-    },
-    "npm:debug@2.2.0": {
-      "map": {
-        "ms": "npm:ms@0.7.1"
+      },
+      "npm:debug@2.2.0": {
+        "map": {
+          "ms": "npm:ms@0.7.1"
+        }
       }
     }
-  },
-  map: {
-    "systemjs-hot-reloader": "github:capaj/systemjs-hot-reloader@0.5.9"
   }
 });
 
@@ -120,6 +110,7 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
+    "@angular/upgrade": "npm:@angular/upgrade@2.0.0-rc.4",
     "core-js": "npm:core-js@2.4.0",
     "@angular/forms": "npm:@angular/forms@0.2.0",
     "@angular/common": "npm:@angular/common@2.0.0-rc.4",

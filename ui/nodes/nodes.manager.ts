@@ -1,9 +1,8 @@
-import { Promise } from 'core-js'; //TODO remove if compiled to es6
 import { INodeManagement } from './index';
 import { SchemaTree, TreeNode, INodes, IDict} from "../schematree/index";
 
 /* Everyone inheriting from this class must implement the NodeManagement interface */
-export class NodeManager implements INodeManagement {
+export class NodeManager implements INodeManagement, INodes {
 
     /* An instance of the nodeManager */
     nodeManager: INodeManagement;
@@ -14,7 +13,15 @@ export class NodeManager implements INodeManagement {
     /* The schema tree controller */
     tree: SchemaTree;
 
-    constructor(private nodeScope: INodes) {
+    //Formerly nodeScope values
+    $root: any;
+    ngform: any;
+    $broadcast: any; //TODO:: remove temporary
+    selected_schema: any;
+    selected_form: any;
+    selected_data: any;
+
+    constructor(public nodeScope: INodes) {
         console.log("Initiating the nodes manager base class " + this.getClassname());
         this.nodeManager = this;
         console.log("Initiated the nodes manager base class");
@@ -26,15 +33,15 @@ export class NodeManager implements INodeManagement {
 
     doSubmit(submit_data: any) {
         // First we broadcast an event so all fields validate themselves
-        let result: any = this.nodeScope.$broadcast("schemaFormValidate");
+        let result: any = this.$broadcast("schemaFormValidate");
 
         this.tree.log(result.toString());
-        if (this.nodeScope.ngform.$valid) {
+        if (this.ngform.$valid) {
             // The form checked out, save data
             this.onSubmit(submit_data);
         }
         else {
-            this.nodeScope.$root.BootstrapDialog.alert("The input didn't match validation!");
+            this.$root.BootstrapDialog.alert("The input didn't match validation!");
         }
     }
 
@@ -42,7 +49,7 @@ export class NodeManager implements INodeManagement {
         console.log("onSubmit not implemented in " + this.getClassname() + " base class!");
     }
 
-    onInit (schemaTreeController: SchemaTreeController) {
+    onInit (schemaTreeController: SchemaTree) {
         console.log("onInit not implemented in " + this.getClassname() + " base class!");
     }
 

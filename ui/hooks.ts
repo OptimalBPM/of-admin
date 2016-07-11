@@ -1,4 +1,5 @@
 import { AboutRoutes } from './about/index';
+import { AdminRoutes } from './admin/index';
 import { AuthRoutes } from './auth/index';
 import { DashBoardRoutes } from './dashboard/index';
 import { NavbarComponent } from './navbar/index';
@@ -17,6 +18,7 @@ export const pluginStructure = [
  */
 export const pluginRoutes = [
     ...AboutRoutes,
+    ...AdminRoutes,
     ...AuthRoutes,
     ...DashBoardRoutes
 ];

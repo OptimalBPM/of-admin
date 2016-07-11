@@ -1,4 +1,3 @@
-import { Promise } from 'core-js';
 import { SchemaTree, TreeNode, INodes, IDict} from "../schematree/index";
 
 export interface INodeManagement {

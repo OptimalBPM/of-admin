@@ -3,9 +3,8 @@ import { CORE_DIRECTIVES } from '@angular/common';
 import { Http, Response } from '@angular/http';
 import '../core/rxjs.operators';
 
-import { Promise } from 'core-js';
 import { NodeManager, INodeManagement } from '../nodes/index';
-import { SchemaTreeComponent, TreeNode, INodes, IDict} from "../schematree/index";
+import { SchemaTreeComponent, SchemaTree, TreeNode, INodes, IDict} from "../schematree/index";
 
 let __moduleName: any; // fully resolved filename; defined at module load time  
 
@@ -15,7 +14,17 @@ let __moduleName: any; // fully resolved filename; defined at module load time
     templateUrl: 'nodes.view.html',
     directives: [ CORE_DIRECTIVES, SchemaTreeComponent ]
 })
-export class NodesComponent extends NodeManager implements OnInit, INodeManagement {
+export class NodesComponent implements OnInit, INodeManagement, INodes {
+    
+    /* An instance of the nodeManager */
+    nodeManager: INodeManagement;
+
+    /* The forms that are used for each schema id*/
+    forms: any;
+
+    /* The schema tree controller */
+    tree: SchemaTree;
+
     // The history data
     history: any[];
 
@@ -25,9 +34,15 @@ export class NodesComponent extends NodeManager implements OnInit, INodeManageme
     /* Hold the options for the tree */
     treeOptions: any;
 
-    constructor(private nodeScope: INodes, private http: Http ) {
-        super(nodeScope);
-    }
+    //Formerly nodeScope values
+    $root: any;
+    ngform: any;
+    $broadcast: any; //TODO:: remove temporary
+    selected_schema: any;
+    selected_form: any;
+    selected_data: any;
+
+    constructor(private http: Http ) {}
 
     /* TODO: Unresolved bug, sometimes nodes aren"t initialized correctly (undefined arrays) \n Possible to add nodes twice */
     /* TODO: Add proper($timeout-based) animation delay to tree */
@@ -90,7 +105,7 @@ export class NodesComponent extends NodeManager implements OnInit, INodeManageme
 
         _curr_child = this.tree.findChild(this.tree.children, id);
 
-        if (id === this.tree.treeScope.newNodeObjectId) {
+        if (id === this.tree.newNodeObjectId) {
             // Delete the id so that a new item is saved.
             delete saveData["_id"];
         }
@@ -109,7 +124,7 @@ export class NodesComponent extends NodeManager implements OnInit, INodeManageme
             })
             .catch((error:any) => {
                 console.error('An Http error occurred', error);
-                this.nodeScope.$root.BootstrapDialog.alert("Saving node failed: " + error.status);
+                this.$root.BootstrapDialog.alert("Saving node failed: " + error.status);
             });
     }
 
@@ -144,8 +159,8 @@ export class NodesComponent extends NodeManager implements OnInit, INodeManageme
                 this.groups = this.tree.dataToLookups(_data);
 
             })
-            .catch((data, status) => {
-                this.nodeScope.$root.BootstrapDialog.alert("Loading groups failed: " + status);
+            .catch((error:any) => {
+                this.$root.BootstrapDialog.alert("Loading groups failed: " + error.status);
             });
     }
 
@@ -155,12 +170,12 @@ export class NodesComponent extends NodeManager implements OnInit, INodeManageme
     onInitSchemas(): Promise<any> {
         return this.http.get("/node/get_schemas")
             .toPromise()
-            .success((data: any) => {
+            .then((data: any) => {
                 this.tree.schemas = data;
             })
             .catch((error:any) => {
                 console.error('An Http error occurred', error);
-                this.nodeScope.$root.BootstrapDialog.alert("Loading schemas failed: " + error.status);
+                this.$root.BootstrapDialog.alert("Loading schemas failed: " + error.status);
             });
     }
 
@@ -207,7 +222,7 @@ export class NodesComponent extends NodeManager implements OnInit, INodeManageme
             })
             .catch((error:any) => {
                 console.error('An Http error occurred', error);
-                this.nodeScope.$root.BootstrapDialog.alert("Loading forms failed: " + error.status);
+                this.$root.BootstrapDialog.alert("Loading forms failed: " + error.status);
             });
     }
 
@@ -218,22 +233,22 @@ export class NodesComponent extends NodeManager implements OnInit, INodeManageme
      */
     setDetails(node): void {
         let schemaRef: string = "";
-        this.nodeScope.selected_schema = null;
+        this.selected_schema = null;
         if ("schemaRef" in node) {
             schemaRef = node["schemaRef"];
-            this.nodeScope.selected_schema = this.tree.schemas[schemaRef];
+            this.selected_schema = this.tree.schemas[schemaRef];
             // Set form and add save/submit button
             if (schemaRef in this.forms) {
-                this.nodeScope.selected_form = this.forms[schemaRef];
+                this.selected_form = this.forms[schemaRef];
             } else {
                 console.log("No form definition for " + schemaRef.toString() + ", using \"*\"");
-                this.nodeScope.selected_form = ["*"];
+                this.selected_form = ["*"];
             }
         } else {
             console.log("No schema ref in node: " + node.toString());
         }
 
-        this.nodeScope.selected_data = node;
+        this.selected_data = node;
         console.log("schemaRef: " + schemaRef);
 
     }
@@ -245,13 +260,13 @@ export class NodesComponent extends NodeManager implements OnInit, INodeManageme
      */
     showHistory(id): Promise<any> {
 
-        if (id !== this.tree.treeScope.newNodeObjectId) {
+        if (id !== this.tree.newNodeObjectId) {
             return this.loadHistory(id)
                 .then((data: any) => {
                     this.history = data;
                 })
-                .catch((data: any, status: number) => {
-                    this.nodeScope.$root.BootstrapDialog.alert("Loading history failed: " + status);
+                .catch((error: any) => {
+                    this.$root.BootstrapDialog.alert("Loading history failed: " + error.status);
                 });
         }
 
@@ -274,14 +289,13 @@ export class NodesComponent extends NodeManager implements OnInit, INodeManageme
     }
 
     /**
-     * Initialize the node controller
-     * @param schemaTreeController
+     * Initialize the node component
+     * @param schemaTree
      */
-    onInit(schemaTreeController): void { //TODO:: transform to component output event
-        console.log("In NodesController.onInit");
-        this.tree = schemaTreeController;
-        //TODO:: this.tree.treeScope.nodeManager = this; 
-
+    onInit(schemaTree): void { //TODO:: transform to component output event
+        console.log("In NodesComponent.onInit");
+        this.tree = schemaTree;
+        //TODO:: this.tree.nodeManager = this; 
         this.treeOptions = {
             "dropped": this.onDropped
         };
@@ -304,7 +318,8 @@ export class NodesComponent extends NodeManager implements OnInit, INodeManageme
 
     
     ngOnInit() {                
-        console.log("Initiating NodesController");    
-        console.log("Initiated NodesController");
+        console.log("Initiating NodesComponent");    
+        this.nodeManager = this;
+        console.log("Initiated NodesComponent");
     }
 }

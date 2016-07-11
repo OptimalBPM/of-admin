@@ -9,7 +9,11 @@ import { disableDeprecatedForms, provideForms } from '@angular/forms';
 import { AuthGuard } from './auth/index';
 
 import { pluginRoutes } from "/admin/hook_wrapper.ts";
-// import { pluginRoutes } from '/admin/hooks.ts';
+
+/*
+Necessary to run both angular 1.x code along side angular 2 code
+*/
+import { upgradeAdapter } from './upgrade.adapter';
 
 const routes: RouterConfig = [
     ...pluginRoutes

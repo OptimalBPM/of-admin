@@ -1,12 +1,11 @@
 import { Http, Response } from '@angular/http';
-import { Promise } from 'core-js'; //TODO remove if compiled to es6
 import '../core/rxjs.operators';
 
 import { NodeManager, INodeManagement } from '../nodes/index';
 import { TreeNode, INodes, INodeView, IDict, ITree} from "../schematree/index";
 
 // inputs: ['itemRenderer', 'newNodeObjectId', 'nodeManager', 'expanderPosition', 'treeOptions']
-export class SchemaTree {
+export class SchemaTree implements ITree {
 
     /* The SchemaTreeController class holds the generic functionality of the schema-tree.
      The schema tree consist of an angular-ui-tree and a angular-schema-form instance.
@@ -30,15 +29,38 @@ export class SchemaTree {
     /* The currently selected node. Used do track the color of the selected item, defined in HTML */
     selectedItem: TreeNode;
 
-    /* The scope of the schemaTree controller */
-    treeScope: ITree;
-
     selected_form: any[];
 
     selected_data: IDict;
-    /* TODO: Use class, and add setting  for selectedItemClass */
 
-    constructor(private scope: ITree) { }
+    /* The url of the angular html template that render each node(not including decoration and expander*/
+    itemRenderer: string;
+
+    /* The top level of the tree will be children of the node with _id = topNodeId */
+    topNodeId: string;
+
+    /* The ObjectId given to a new node, that cannot collide with a another id */
+    newNodeObjectId: string;
+
+    /* An array of the allowed child types of the top node, a angular expression */
+    topAllowedChildTypes: string[];
+
+    /* The tree controller */
+    tree: SchemaTree;
+
+    /* The node manager instance  */
+    nodeManager: NodeManager;
+
+    /* The position of the +-sign that is used to expand/collapse the tree */
+    expanderPosition: string;
+
+    /* The angular-ui-tree settings that are passed on to the tree */
+    treeOptions: any;
+
+    $root: any;
+
+    /* TODO: Use class, and add setting  for selectedItemClass */
+    constructor() { }
     /* CALLBACKS */
 
     /**
@@ -47,12 +69,13 @@ export class SchemaTree {
 
     doInit(treeScope: ITree) {
         console.log("In doInit");
-        this.treeScope = treeScope;
-        let nodeManager: NodeManager = this.treeScope.nodeManager;
+        let nodeManager: NodeManager = this.nodeManager;
         if (nodeManager.onInit) {
             console.log("Scope before" + this.toString());
             nodeManager.onInit(this);
 
+            console.log('after');
+            console.log(nodeManager);
             /* Initializes an asyncronous (lazy loading) tree */
             if ((typeof (nodeManager) !== "undefined") && (nodeManager.onAsyncInitTree)) {
                 nodeManager.onAsyncInitTree().then(() => {
@@ -61,7 +84,7 @@ export class SchemaTree {
                             .then((data: any) => {
                                 let _topNodes: any[] = this.childrenToArray(data, null);
                                 if (_topNodes.length !== 1) {
-                                    this.scope.$root.BootstrapDialog.alert("Error: There can only be one top node!");
+                                    this.$root.BootstrapDialog.alert("Error: There can only be one top node!");
                                     return null;
                                 }
                                 this.setItemUi(_topNodes[0], null);
@@ -72,26 +95,26 @@ export class SchemaTree {
                                         _topNodes[0].children = this.children;
                                     });
                             })
-                            .catch((data: any, status: number): any => {
+                            .catch((err: any): any => {
                                 // TODO: Generalize this error parsing.
                                 let error: string = "Loading items failed: ";
-                                if (data) {
-                                    error += "\nResponse : " + data.toString();
+                                if (err) {
+                                    error += "\nResponse : " + err;
                                     try {
-                                        let strData: string = JSON.stringify(data);
+                                        let strData: string = JSON.stringify(err);
                                         error += "\nJSON representation: " + strData;
                                     }
                                     catch (Exception) {
                                         console.log("Failed to JSON-parse sever response: " + Exception.message);
                                     }
                                 }
-                                if (status) {
-                                    error += "\nStatus : " + status.toString();
+                                if (err.status) {
+                                    error += "\nStatus : " + err.status.toString();
                                 }
                                 else {
                                     error += "\nNo status received.";
                                 }
-                                this.scope.$root.BootstrapDialog.alert("Loading items failed: " + error);
+                                this.$root.BootstrapDialog.alert("Loading items failed: " + error);
                             });
                     }
 
@@ -116,7 +139,7 @@ export class SchemaTree {
     // Set ui settings for each new rendered node item, called from ng-init
     setItemUi(item: TreeNode, nodeScope: INodeView) {
         item.nodeViewScope = nodeScope;
-        if (item.id !== this.treeScope.newNodeObjectId) {
+        if (item.id !== this.newNodeObjectId) {
             if (Object.keys(this.data).length > 0) {
                 let data: any = this.data[item.id];
                 item.allowedChildTypes = data["allowedChildTypes"];
@@ -248,7 +271,7 @@ export class SchemaTree {
             }
             // Create a new child, use a temporary
             let _newChild: TreeNode = new TreeNode();
-            _newChild.id = this.treeScope.newNodeObjectId;
+            _newChild.id = this.newNodeObjectId;
 
             _newChild.type = schemaRef;
             if (template) {
@@ -277,14 +300,14 @@ export class SchemaTree {
                     schemaRef: schemaRef
                 };
             }
-            curr_data._id = this.treeScope.newNodeObjectId;
+            curr_data._id = this.newNodeObjectId;
             curr_data.parent_id = isParent ? item.id : item.parentItem.id;
             curr_data.createdWhen = curr_datetime.toISOString();
 
 
-            this.data[this.treeScope.newNodeObjectId] = curr_data;
-            if (this.treeScope.nodeManager.onSelectNode) {
-                this.treeScope.nodeManager.onSelectNode(_newChild);
+            this.data[this.newNodeObjectId] = curr_data;
+            if (this.nodeManager.onSelectNode) {
+                this.nodeManager.onSelectNode(_newChild);
             }
         };
 
@@ -304,11 +327,11 @@ export class SchemaTree {
 
         this.closeAddBars(item);
 
-        if (this.children && this.findChild(this.children, this.treeScope.newNodeObjectId)) {
+        if (this.children && this.findChild(this.children, this.newNodeObjectId)) {
             scope.$root.BootstrapDialog.alert("You can only add one item at the time.");
         }
-        if (this.treeScope.nodeManager.getTemplateAsync) {
-            this.treeScope.nodeManager.getTemplateAsync(schemaRef).then((_template) => {
+        if (this.nodeManager.getTemplateAsync) {
+            this.nodeManager.getTemplateAsync(schemaRef).then((_template) => {
                 _handleCollapse(scope, item, _template[0])
             });
         }
@@ -328,7 +351,7 @@ export class SchemaTree {
         this.log("removing");
 
         // The node is a new node that haven't been saved yet
-        if (id === this.treeScope.newNodeObjectId) {
+        if (id === this.newNodeObjectId) {
 
             this.selected_form = [];
             this.selected_data = {};
@@ -340,8 +363,8 @@ export class SchemaTree {
 
             scope.$root.BootstrapDialog.confirm("Are you sure that you want to remove this node?", (result) => {
                 if (result) {
-                    if (this.treeScope.nodeManager.onAsyncRemoveNode) {
-                        this.treeScope.nodeManager.onAsyncRemoveNode(id).then((data) => {
+                    if (this.nodeManager.onAsyncRemoveNode) {
+                        this.nodeManager.onAsyncRemoveNode(id).then((data) => {
                             scope.remove();
                             this.selected_data = null;
                             console.log("removed from back end");
@@ -367,8 +390,8 @@ export class SchemaTree {
             console.log("in toggleChildren");
             // If it hasn't any children, try and load them.
             if (!item.children) {
-                if (this.treeScope.nodeManager.onAsyncLoadChildren) {
-                    this.treeScope.nodeManager.onAsyncLoadChildren(item.id)
+                if (this.nodeManager.onAsyncLoadChildren) {
+                    this.nodeManager.onAsyncLoadChildren(item.id)
                         .then((data) => {
                             this.log("Before setting children");
                             // Set the children of the node
@@ -380,8 +403,8 @@ export class SchemaTree {
                             }
                             resolve();
                         })
-                        .catch((data, status, headers, config) => {
-                            reject("Loading items failed: " + status);
+                        .catch((error: any) => {
+                            reject("Loading items failed: " + error.status);
                         });
                 }
             }
