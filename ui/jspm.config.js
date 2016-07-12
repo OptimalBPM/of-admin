@@ -111,6 +111,22 @@ SystemJS.config({
   ],
   map: {
     "@angular/upgrade": "npm:@angular/upgrade@2.0.0-rc.4",
+    "OptimalBPM/angular-schema-form-complex-ui": "github:OptimalBPM/angular-schema-form-complex-ui@master",
+    "ace": "github:ajaxorg/ace-builds@1.2.3",
+    "ace-builds": "npm:ace-builds@1.2.2",
+    "angular": "github:angular/bower-angular@1.5.7",
+    "angular-animate": "github:angular/bower-angular-animate@1.5.7",
+    "angular-cookies": "github:angular/bower-angular-cookies@1.5.7",
+    "angular-sanitize": "github:angular/bower-angular-sanitize@1.5.7",
+    "angular-schema-form": "github:json-schema-form/angular-schema-form@0.8.13",
+    "angular-schema-form-bootstrap": "github:json-schema-form/angular-schema-form-bootstrap@0.2.0",
+    "angular-schema-form-dynamic-select": "github:OptimalBPM/angular-schema-form-dynamic-select@0.15.0",
+    "angular-strap": "github:mgcrea/angular-strap@2.3.9",
+    "angular-touch": "github:angular/bower-angular-touch@1.5.7",
+    "angular-ui-select": "github:angular-ui/ui-select@0.18.1",
+    "angular-ui-tree": "github:angular-ui-tree/angular-ui-tree@2.17.0",
+    "angular-ui/ui-ace": "github:angular-ui/ui-ace@0.2.3",
+    "bootstrap3-dialog": "github:nakupanda/bootstrap3-dialog@1.35.2",
     "core-js": "npm:core-js@2.4.0",
     "@angular/forms": "npm:@angular/forms@0.2.0",
     "@angular/common": "npm:@angular/common@2.0.0-rc.4",
@@ -127,13 +143,18 @@ SystemJS.config({
     "crypto": "github:jspm/nodelibs-crypto@0.2.0-alpha",
     "debug": "npm:debug@2.2.0",
     "events": "github:jspm/nodelibs-events@0.2.0-alpha",
+    "font-awesome": "npm:font-awesome@4.6.3",
     "fs": "github:jspm/nodelibs-fs@0.2.0-alpha",
+    "jquery": "npm:jquery@3.1.0",
+    "networknt/angular-schema-form-ui-ace": "github:networknt/angular-schema-form-ui-ace@0.1.2",
+    "objectpath": "npm:objectpath@1.2.1",
     "path": "github:jspm/nodelibs-path@0.2.0-alpha",
     "process": "github:jspm/nodelibs-process@0.2.0-alpha",
     "reflect-metadata": "npm:reflect-metadata@0.1.3",
     "rxjs": "npm:rxjs@5.0.0-beta.6",
     "stream": "github:jspm/nodelibs-stream@0.2.0-alpha",
     "string_decoder": "github:jspm/nodelibs-string_decoder@0.2.0-alpha",
+    "tv4": "npm:tv4@1.2.7",
     "util": "github:jspm/nodelibs-util@0.2.0-alpha",
     "vm": "github:jspm/nodelibs-vm@0.2.0-alpha",
     "zone.js": "npm:zone.js@0.6.12"
@@ -337,6 +358,55 @@ SystemJS.config({
         "bn.js": "npm:bn.js@4.11.4",
         "inherits": "npm:inherits@2.0.1",
         "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
+      }
+    },
+    "github:nakupanda/bootstrap3-dialog@1.35.2": {
+      "map": {
+        "bootstrap": "github:twbs/bootstrap@3.3.6"
+      }
+    },
+    "github:twbs/bootstrap@3.3.6": {
+      "map": {
+        "jquery": "npm:jquery@2.2.4"
+      }
+    },
+    "github:OptimalBPM/angular-schema-form-dynamic-select@0.15.0": {
+      "map": {
+        "angular-schema-form-bootstrap": "github:json-schema-form/angular-schema-form-bootstrap@0.2.0",
+        "angular-strap": "github:mgcrea/angular-strap@2.3.9",
+        "angular-schema-form": "github:json-schema-form/angular-schema-form@0.8.13",
+        "angular-ui-select": "github:angular-ui/ui-select@0.18.1",
+        "bootstrap": "github:twbs/bootstrap@3.3.6"
+      }
+    },
+    "github:mgcrea/angular-strap@2.3.9": {
+      "map": {
+        "angular": "github:angular/bower-angular@1.5.7"
+      }
+    },
+    "github:angular/bower-angular-animate@1.5.7": {
+      "map": {
+        "angular": "github:angular/bower-angular@1.5.7"
+      }
+    },
+    "npm:font-awesome@4.6.3": {
+      "map": {
+        "css": "github:systemjs/plugin-css@0.1.23"
+      }
+    },
+    "github:angular/bower-angular-cookies@1.5.7": {
+      "map": {
+        "angular": "github:angular/bower-angular@1.5.7"
+      }
+    },
+    "github:angular/bower-angular-sanitize@1.5.7": {
+      "map": {
+        "angular": "github:angular/bower-angular@1.5.7"
+      }
+    },
+    "github:angular/bower-angular-touch@1.5.7": {
+      "map": {
+        "angular": "github:angular/bower-angular@1.5.7"
       }
     }
   }

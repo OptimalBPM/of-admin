@@ -159,6 +159,22 @@ class CherryPyAdmin(object):
                 _curr_hook_def += "};\n"
             _hook_defs+=_curr_hook_def + "\n\n"
 
+        for _curr_plugin_key, _curr_plugin in self.plugins.items():
+            for _hook in _hooks:
+                _hook_alias = _curr_plugin_key + "_" + _hook["name"]
+                _imports+="import {" + _hook["name"] +" as " + _hook_alias + "} from '" + _curr_plugin["admin-ui"]["mountpoint"] + "/hooks';\n"
+
+        # Generate the hook calls
+        for _hook in _hooks:
+            _param_list = ", ".join(_hook["parameters"])
+            _curr_hook_def = "export function hook_" + _hook["name"] + "(" + _param_list + "){\n"
+            for _curr_plugin_key, _curr_plugin in self.plugins.items():
+                _hook_alias = _curr_plugin_key + "_" + _hook["name"]
+                _curr_hook_def += "    if (" + _hook_alias + ") {\n"
+                _curr_hook_def += "        " + _hook_alias + "(" + _param_list + ");\n"
+                _curr_hook_def += "    };\n"
+            _hook_defs+=_curr_hook_def + "\n}\n"
+
         return _presentation + str(_imports) + "\n" + _hook_defs
 
 

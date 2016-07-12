@@ -1,9 +1,15 @@
+import { upgradeAdapter } from "/admin/upgrade.adapter";
+
 import { AboutRoutes } from './about/index';
 import { AdminRoutes } from './admin/index';
 import { AuthRoutes } from './auth/index';
 import { DashBoardRoutes } from './dashboard/index';
 import { NavbarComponent } from './navbar/index';
+import { AppComponent } from './app.component';
 
+//Angular 1 Directives imports
+import {  nodesDirective } from './directives/index';
+import {  schemaTreeDirective } from './directives/index';
 /*
  * Export angular functionality directives,components, services e.t.c
  * This are components that are not part of any other component within the plugin
@@ -56,3 +62,9 @@ export const pluginMenus = [
         type: 'right'
     }
 ];
+
+export function initFramework(app: any) {
+	app.component('bpm-app', upgradeAdapter.downgradeNg2Component(AppComponent));
+	app.component('bpm-nodes', nodesDirective);
+	app.component('bpm-schema-tree', schemaTreeDirective);
+}

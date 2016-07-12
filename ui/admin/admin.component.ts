@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CORE_DIRECTIVES } from '@angular/common';
 import { Http, Response } from '@angular/http';
 
-let __moduleName: any; // fully resolved filename; defined at module load time
+import { NodesComponent, SchemaTreeComponent } from '../directives/index';
 
 @Component({
     selector: 'bpm-admin',
     template: '<bpm-nodes><bpm-nodes>',
-    directives: [ CORE_DIRECTIVES ]
+    directives: [ CORE_DIRECTIVES, NodesComponent, SchemaTreeComponent ]
 })
 export class AdminComponent implements OnInit {
     ngOnInit() {

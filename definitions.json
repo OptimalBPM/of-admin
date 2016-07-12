@@ -1,12 +1,21 @@
 {
-  "plugins": {
-    "admin": {
-      "description": "OF Admin UI",
-      "failOnError": true,
-      "hooks_module": "hooks",
-      "admin-ui":{
-        "mountpoint": "."
-      }
+    "plugins": {
+        "admin": {
+            "description": "OF Admin UI",
+            "failOnError": true,
+            "hooks_module": "hooks",
+            "admin-ui": {
+                "ui-hooks": [
+                    {
+                        "name": "initFramework",
+                        "description": "Called when initialising the Angular controllers and directives",
+                        "parameters": [
+                            "app"
+                        ]
+                    }
+                ],
+                "mountpoint": "."
+            }
+        }
     }
-  }
 }
