@@ -8,9 +8,9 @@ import "angular-animate";
 import "angular-schema-form";
 import "angular-schema-form-bootstrap";
 import "bootstrap3-dialog";
-import "font-awesome";
+// import "font-awesome"; TODO:: uncomment currently imported by systemjs incorrectly
 
-import {hook_initFramework} from "/admin/hook_wrapper";
+import { hook_initFramework } from "/admin/hook_wrapper";
 
 export function InitAngular1() {
 	// Angular 1 dependencies module

@@ -30,11 +30,11 @@ const APP_ROUTER_PROVIDERS = [
 InitAngular1();
 
 //Bootstrap using ng-upgrade for hybrid 1&2
-upgradeAdapter.bootstrap(document.body, ['mainApp'], [
-    APP_ROUTER_PROVIDERS,
-    HTTP_PROVIDERS,
-    {provide: APP_BASE_HREF, useValue: '/admin/index.html'}
-]);
+upgradeAdapter.bootstrap(document.body, ['mainApp']);
+upgradeAdapter.addProvider(APP_ROUTER_PROVIDERS);
+upgradeAdapter.addProvider(HTTP_PROVIDERS);
+upgradeAdapter.addProvider({provide: APP_BASE_HREF, useValue: '/admin/index.html'});
+
 
 /* Angular2 only bootstrap
 bootstrap(AppComponent, [
