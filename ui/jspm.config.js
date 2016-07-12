@@ -125,6 +125,7 @@ SystemJS.config({
     "child_process": "github:jspm/nodelibs-child_process@0.2.0-alpha",
     "constants": "github:jspm/nodelibs-constants@0.2.0-alpha",
     "crypto": "github:jspm/nodelibs-crypto@0.2.0-alpha",
+    "debug": "npm:debug@2.2.0",
     "events": "github:jspm/nodelibs-events@0.2.0-alpha",
     "fs": "github:jspm/nodelibs-fs@0.2.0-alpha",
     "path": "github:jspm/nodelibs-path@0.2.0-alpha",
@@ -274,7 +275,7 @@ SystemJS.config({
         "create-hash": "npm:create-hash@1.1.2",
         "evp_bytestokey": "npm:evp_bytestokey@1.0.0",
         "pbkdf2": "npm:pbkdf2@3.0.4",
-        "asn1.js": "npm:asn1.js@4.6.2"
+        "asn1.js": "npm:asn1.js@4.8.0"
       }
     },
     "npm:cipher-base@1.0.2": {
@@ -314,13 +315,6 @@ SystemJS.config({
         "brorand": "npm:brorand@1.0.5"
       }
     },
-    "npm:asn1.js@4.6.2": {
-      "map": {
-        "bn.js": "npm:bn.js@4.11.4",
-        "inherits": "npm:inherits@2.0.1",
-        "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
-      }
-    },
     "npm:hash.js@1.0.3": {
       "map": {
         "inherits": "npm:inherits@2.0.1"
@@ -331,6 +325,18 @@ SystemJS.config({
         "isarray": "npm:isarray@1.0.0",
         "ieee754": "npm:ieee754@1.1.6",
         "base64-js": "npm:base64-js@1.1.2"
+      }
+    },
+    "npm:debug@2.2.0": {
+      "map": {
+        "ms": "npm:ms@0.7.1"
+      }
+    },
+    "npm:asn1.js@4.8.0": {
+      "map": {
+        "bn.js": "npm:bn.js@4.11.4",
+        "inherits": "npm:inherits@2.0.1",
+        "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
       }
     }
   }

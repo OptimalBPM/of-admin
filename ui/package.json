@@ -12,6 +12,7 @@
       "@angular/http": "npm:@angular/http@2.0.0-rc.4",
       "@angular/router": "npm:@angular/router@3.0.0-beta.2",
       "@angular/upgrade": "npm:@angular/upgrade@^2.0.0-rc.4",
+      "debug": "npm:debug@2.2.0",
       "reflect-metadata": "npm:reflect-metadata@0.1.3"
     },
     "devDependencies": {
@@ -133,6 +134,14 @@
           }
         }
       },
+      "npm:@angular/upgrade@2.0.0-rc.4": {
+        "main": "bundles/upgrade.umd.js",
+        "meta": {
+          "bundles/upgrade.umd.js": {
+            "typings": "upgrade/index.d.ts"
+          }
+        }
+      },
       "npm:debug@2.2.0": {
         "main": "browser.js",
         "jspmNodeConversion": false,
@@ -145,14 +154,6 @@
           "net": "@node/net",
           "tty": "@node/tty",
           "util": "@node/util"
-        }
-      },
-      "npm:@angular/upgrade@2.0.0-rc.4": {
-        "main": "bundles/upgrade.umd.js",
-        "meta": {
-          "bundles/upgrade.umd.js": {
-            "typings": "upgrade/index.d.ts"
-          }
         }
       },
       "npm:inherits@2.0.1": {
