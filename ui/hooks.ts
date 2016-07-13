@@ -1,5 +1,3 @@
-import { upgradeAdapter } from "/admin/upgrade.adapter";
-
 import { AboutRoutes } from './about/index';
 import { AdminRoutes } from './admin/index';
 import { AuthRoutes } from './auth/index';
@@ -64,7 +62,6 @@ export const pluginMenus = [
 ];
 
 export function initFramework(app: any) {
-	app.component('bpm-app', upgradeAdapter.downgradeNg2Component(AppComponent));
-	app.component('bpm-nodes', nodesDirective);
-	app.component('bpm-schema-tree', schemaTreeDirective);
+	app.component('bpmNodes', nodesDirective);
+	app.component('bpmSchemaTree', schemaTreeDirective);
 }

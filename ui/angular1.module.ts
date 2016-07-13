@@ -8,9 +8,11 @@ import "angular-animate";
 import "angular-schema-form";
 import "angular-schema-form-bootstrap";
 import "bootstrap3-dialog";
-// import "font-awesome"; TODO:: uncomment currently imported by systemjs incorrectly
+// import "font-awesome"; TODO:: uncomment later, currently imported by systemjs incorrectly
 
 import { hook_initFramework } from "/admin/hook_wrapper";
+import { upgradeAdapter } from "/admin/upgrade.adapter";
+import { AppComponent } from "./app.component";
 
 export function InitAngular1() {
 	// Angular 1 dependencies module
@@ -26,6 +28,7 @@ export function InitAngular1() {
 		"schemaForm"
 	]);
 
+	app.directive('bpmApp', upgradeAdapter.downgradeNg2Component(AppComponent));
 	// Call the init framework hook
 	hook_initFramework(app);
 }

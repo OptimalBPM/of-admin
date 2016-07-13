@@ -154,9 +154,7 @@ class CherryPyAdmin(object):
             _curr_hook_def = "export const " + _hook + ": any[] = [];\n"
             for _curr_plugin_key, _curr_plugin in self.plugins.items():
                 _hook_alias = _curr_plugin_key + "_" + _hook
-                _curr_hook_def += "if (" + _hook_alias + ") {\n"
                 _curr_hook_def += _hook +".push(..." + _hook_alias + ");\n"
-                _curr_hook_def += "};\n"
             _hook_defs+=_curr_hook_def + "\n\n"
 
         for _curr_plugin_key, _curr_plugin in self.plugins.items():
@@ -170,9 +168,7 @@ class CherryPyAdmin(object):
             _curr_hook_def = "export function hook_" + _hook["name"] + "(" + _param_list + "){\n"
             for _curr_plugin_key, _curr_plugin in self.plugins.items():
                 _hook_alias = _curr_plugin_key + "_" + _hook["name"]
-                _curr_hook_def += "    if (" + _hook_alias + ") {\n"
                 _curr_hook_def += "        " + _hook_alias + "(" + _param_list + ");\n"
-                _curr_hook_def += "    };\n"
             _hook_defs+=_curr_hook_def + "\n}\n"
 
         return _presentation + str(_imports) + "\n" + _hook_defs

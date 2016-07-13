@@ -42,6 +42,7 @@
     <script src="admin/jspm.browser.js"></script>
     <script src="admin/jspm.config.js"></script>
     <script>
+			System.import('angular').then(function() { // First because its hybrid app of angular 1.x and angular 2
         System.import("/admin")
                 .then(function(app) {
                     console.log('running');
@@ -49,6 +50,7 @@
                 .catch(function(err) {
                     console.log(err);
                 });
+			});
     </script>
     <!-- endinject -->
 </body>

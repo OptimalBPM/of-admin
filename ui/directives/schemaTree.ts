@@ -1,5 +1,3 @@
-console.log("Before schemaTree definition");
-
 import "angular";
 import "angular-ui-tree";
 import "angular-ui-tree/angular-ui-tree.min.css!";
@@ -15,7 +13,7 @@ export const schemaTreeDirective = {
 		expanderPosition: "@",
 		treeOptions: "="
   },
-  templateUrl: "views/schematree.html",
+  templateUrl: "admin/views/schematree.html",
 	controller: SchemaTreeController,
 	link: ($scope: TreeScope, element: JQuery) => {
 		console.log("link function in schemaTree directive called ");
@@ -35,6 +33,5 @@ export const schemaTreeDirective = {
 
 	},
 };
-console.log("After schemaTree definition");
 
-export const SchemaTreeComponent = upgradeAdapter.upgradeNg1Component('bpm-schema-tree');
+export const SchemaTreeComponent = upgradeAdapter.upgradeNg1Component('bpmSchemaTree');
