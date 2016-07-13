@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "author": "Ralphowino Consulting",
   "scripts": {
-    "postinstall": "typings install && jspm install && npm prune"
+    "postinstall": "typings install && jspm install && npm prune",
+	"typings": "typings"
   },
   "jspm": {
     "registry": "github",
