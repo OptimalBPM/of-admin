@@ -11,4 +11,4 @@ export const nodesDirective = {
 	controller: NodesController
 };
 
-export const NodesComponent = upgradeAdapter.upgradeNg1Component('bpm-nodes');
+export const NodesComponent = upgradeAdapter.upgradeNg1Component('bpmNodes');
