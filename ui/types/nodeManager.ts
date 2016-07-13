@@ -1,5 +1,5 @@
 import {SchemaTreeController} from "../controllers/index";
-import {TreeNode, NodesScope, Dict} from "./schemaTreeTypes";
+import {ICustomRootScope, TreeNode, INodesScope, IDict} from "./schemaTreeTypes";
 
 export interface NodeManagement {
 
@@ -27,7 +27,6 @@ export interface NodeManagement {
      * @returns {ng.IPromise}
      */
     onAsyncRemoveNode?(id: string): ng.IHttpPromise<any>;
-
 
     /**
      * Async. Called when a children should be loaded. Typically contains code to load from backend, Must return a promise.
@@ -64,14 +63,9 @@ export interface NodeManagement {
 /* Everyone inheriting from this class must implement the NodeManagement interface */
 
 export class NodeManager implements NodeManagement {
-    $q: ng.IQService;
-    $http: ng.IHttpService;
-
-    /* An instance of the nodeScope */
-    nodeScope: NodesScope;
 
     /* The forms that are used for each schema id*/
-    forms: Dict;
+    forms: IDict;
 
     /* The schema tree controller */
     tree: SchemaTreeController;
@@ -89,7 +83,6 @@ export class NodeManager implements NodeManagement {
         if (this.nodeScope.ngform.$valid) {
             // The form checked out, save data
             this.onSubmit(submit_data);
-
         }
         else {
             this.nodeScope.$root.BootstrapDialog.alert("The input didn't match validation!");
@@ -134,14 +127,10 @@ export class NodeManager implements NodeManagement {
         return null;
     };
 
-    constructor(private $scope: NodesScope, $http: ng.IHttpService, $q: ng.IQService) {
+    constructor(public nodeScope: INodesScope, public $http: ng.IHttpService, public $q: ng.IQService) {
 
         console.log("Initiating the nodes manager base class " + this.getClassname());
-        // $scope.nodeManager = this;
-        this.nodeScope = $scope;
-				this.nodeScope.nodeManager = this;
-        this.$q = $q;
-        this.$http = $http;
+        this.nodeScope.nodeManager = this;
         console.log("Initiated the nodes manager base class");
     }
 }

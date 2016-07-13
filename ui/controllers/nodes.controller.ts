@@ -30,6 +30,7 @@ import {NodeManager, NodeManagement, TreeNode} from "../types/index";
 /* The SchemaTreeControl class is instantiated as a controller class in the typescript model */
 export class NodesController extends NodeManager implements NodeManagement {
 
+		static $inject = ['$scope', '$http', '$q'];
     // The history data
     history: any[];
 
@@ -307,6 +308,5 @@ export class NodesController extends NodeManager implements NodeManagement {
             });
         });
     };
-
 
 }

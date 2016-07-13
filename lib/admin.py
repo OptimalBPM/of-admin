@@ -36,9 +36,6 @@ class CherryPyAdmin(object):
     #: A init string for SystemJS
     admin_systemjs_init = None
 
-    #: A list of the available menus
-    admin_menus = None
-
     def __init__(self, _process_id, _address, _stop_broker, _root_object,
                  _plugins, _web_config):
         write_to_log(_category=EC_SERVICE, _severity=SEV_DEBUG, _process_id=_process_id,
@@ -188,7 +185,6 @@ class CherryPyAdmin(object):
 
         _imports = ""
         _systemjs = ""
-        _admin_menus = []
         # has_right(id_right_admin_everything, kwargs["user"])
         for _curr_plugin_key, _curr_plugin_info in self.plugins.items():
             # Add any plugin configuration for the Admin user interface
@@ -216,30 +212,13 @@ class CherryPyAdmin(object):
                     }
                 })
 
-                _systemjs += "System.config({\"packages\": {\"" + _mount_point + "\": {\"defaultExtension\": \"ts\"}}});\n"
-
-
-
-                # Add menus
-                if "menus" in _curr_ui_def:
-                    _admin_menus += _curr_ui_def["menus"]
-
-
-
+                _systemjs += "System.config({\"packages\": {\"" + _mount_point + "\": {\"defaultExtension\": \"ts\", \"meta\": {\"*.ts\": {\"loader\": \"ts\"}}}}});\n"
 
         self.admin_systemjs_init = _systemjs
-        self.admin_menus = _admin_menus
 
     @cherrypy.expose(alias="hook_wrapper.ts")
     def hook_wrapper(self, **kwargs):
         return self.admin_ui_hooks
-
-    @cherrypy.expose(alias="menus.json")
-    @cherrypy.tools.json_out(content_type='application/json')
-    @aop_check_session
-    def menu(self, **kwargs):
-        # TODO: Mirror rights here?
-        return self.admin_menus
 
     @cherrypy.expose(alias="admin_jspm_config.js")
     def systemjs(self, **kwargs):

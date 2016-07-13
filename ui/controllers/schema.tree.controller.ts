@@ -2,7 +2,7 @@ import "angular";
 import "jquery";
 import "bootstrap3-dialog";
 import "bootstrap3-dialog/dist/css/bootstrap-dialog.min.css!";
-import {NodeManager, Dict, TreeNode, TreeScope, NodeViewScope} from "../types/index";
+import {NodeManager, IDict, TreeNode, TreeScope, NodeViewScope} from "../types/index";
 
 
 /* The SchemaTreeControl class is instantiated as a controller class in the typescript model */
@@ -11,17 +11,18 @@ export class SchemaTreeController {
      The schema tree consist of an angular-ui-tree and a angular-schema-form instance.
       */
 
+    static $inject = ['$scope', '$q', '$timeout']
 
     /** An object whose properties are used as a key-value(dictionary) for to the actual data for the trees entities
      * These are not held in the tree because of possible naming conflicts(id, title) and ordering.  */
-    data: Dict;
+    data: IDict;
 
     /* TODO: Data should likely not be in the tree, but should be broken out. Why has allowedChildTypes to be set in setItemUi?
      TODO: Break out BootstrapDialog dep
      */
 
     /* An object whose properties are used as a key-value(dictionary) for to the actual data for all schema */
-    schemas: Dict;
+    schemas: IDict;
 
     /* The top list of children, */
 
@@ -34,7 +35,7 @@ export class SchemaTreeController {
     treeScope: TreeScope;
 
     selected_form: any[];
-    selected_data: Dict;
+    selected_data: IDict;
     /* TODO: Use class, and add setting  for selectedItemClass */
 
     $q: ng.IQService;

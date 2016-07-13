@@ -1,13 +1,13 @@
 import {SchemaTreeController} from "../controllers/index";
 import {NodeManager} from "./nodeManager";
 
-export interface CustomRootScope extends ng.IRootScopeService {
+export interface ICustomRootScope extends ng.IRootScopeService {
     /* This is injected during the application initialization */
     BootstrapDialog: any;
 }
 
 interface CustomOFScope extends ng.IScope {
-    $root: CustomRootScope;
+    $root: ICustomRootScope;
 }
 /* This interface is to add typing to the scope */
 export interface TreeScope extends CustomOFScope {
@@ -38,15 +38,14 @@ export interface TreeScope extends CustomOFScope {
 }
 
 
-export interface NodesScope extends CustomOFScope {
-    $root: CustomRootScope;
+export interface INodesScope extends CustomOFScope {
+    $root: ICustomRootScope;
     ngform: any;
     nodeManager: any;
-    forms: any;
+    forms: IDict;
     selected_schema: any;
     selected_form: any;
     selected_data: any;
-
 }
 
 export interface NodeViewScope extends CustomOFScope {
@@ -54,7 +53,7 @@ export interface NodeViewScope extends CustomOFScope {
     remove(): void;
     toggle(): void;
 }
-export interface Dict {
+export interface IDict {
     [index: string]: any;
 }
 
