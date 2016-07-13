@@ -7,14 +7,15 @@ import { pluginStructure } from '/admin/hook_wrapper';
 //Router functinality to be moved to main.ts once angular2 is fully adopted.
 import { provideRouter, RouterConfig } from '@angular/router';
 import { pluginRoutes } from "/admin/hook_wrapper";
-import { AuthGuard } from './auth/index';
+import { AuthGuard, AuthService } from './auth/index';
 const routes: RouterConfig = [
     ...pluginRoutes
 ];
 
 export const APP_ROUTER_PROVIDERS = [
     provideRouter(routes),
-    AuthGuard
+    AuthGuard,
+		AuthService
 ];
 
 @Component({
