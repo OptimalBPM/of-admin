@@ -6,8 +6,8 @@ import { NodesScope } from "../types/index";
 import { NodesController} from "../controllers/index";
 
 export const nodesDirective = {
-  templateUrl: "admin/views/nodes.html",
+  templateUrl: "views/nodes.html",
 	controller: NodesController
 };
 
-export const NodesComponent = upgradeAdapter.upgradeNg1Component('bpmNodes');
+export const NodesComponent = upgradeAdapter.upgradeNg1Component('bpm-nodes');
