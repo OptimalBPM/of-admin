@@ -6,8 +6,8 @@ let __moduleName:any;
 
 @Component({
 	moduleId: __moduleName,
-	selector: 'auth-logout',
-	template: '<a (ngClick)="logout()"><i class="fa fa-sign-out"></i>Logout</a>',
+	selector: '[auth-logout]',
+	template: '<a (click)="logout()" href="#"><i class="fa fa-sign-out"></i>Logout</a>',
 	directives: [ROUTER_DIRECTIVES]
 })
 
@@ -17,6 +17,6 @@ export class LogoutComponent {
 
 	logout() {
 		this.authService.logout();
-		this.router.navigateByUrl('/login');
+		this.router.navigateByUrl('');
 	}
 }

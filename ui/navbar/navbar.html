@@ -34,8 +34,7 @@
                         <li *ngFor="let item of menus" >
 													<a *ngIf="item.type === 'dropdown'" [routerLink]="item.path">{{item.display}}</a>
 												</li>
-                        <li *ngIf="isLoggedIn">
-													<auth-logout></auth-logout>
+                        <li *ngIf="isLoggedIn" auth-logout>
 												</li>
                     </ul>
                 </li>
