@@ -5,3 +5,4 @@ export * from './reset/index';
 export * from './auth.routes';
 export * from './auth.guard';
 export * from './auth.service';
+export * from './logout/index';

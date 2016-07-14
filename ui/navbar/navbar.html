@@ -22,15 +22,21 @@
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!--Links -->
-                <li *ngFor="let item of menus"><a *ngIf="item.type === 'right'" [routerLink]="item.path">{{item.display}}</a></li>
+                <li *ngFor="let item of menus">
+									<a *ngIf="item.type === 'right' && (!isLoggedIn && item.showWhenNotLoggedIn)" [routerLink]="item.path">{{item.display}}</a>
+								</li>
                 <!-- Dropdown Navbar -->
-                <li class="dropdown">
+                <li *ngIf="isLoggedIn" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         John Snow <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li *ngFor="let item of menus" ><a *ngIf="item.type === 'dropdown'" [routerLink]="item.path">{{item.display}}</a></li>
-                        <li><a [routerLink]="['logout']"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                        <li *ngFor="let item of menus" >
+													<a *ngIf="item.type === 'dropdown'" [routerLink]="item.path">{{item.display}}</a>
+												</li>
+                        <li *ngIf="isLoggedIn">
+													<auth-logout></auth-logout>
+												</li>
                     </ul>
                 </li>
             </ul>

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, Control, ControlGroup, FormBuilder, Validators} from '@angular/common';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {Headers, RequestOptions, Http} from '@angular/http';
-import {AuthService} from '../auth.service';
+import { AuthService } from '../auth.service';
 
 let __moduleName:any; // fully resolved filename; defined at module load time
 
@@ -13,6 +13,7 @@ let __moduleName:any; // fully resolved filename; defined at module load time
 	styleUrls: ['login.css'],
 	directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES]
 })
+
 export class LoginComponent implements OnInit {
 
 	active = true;
