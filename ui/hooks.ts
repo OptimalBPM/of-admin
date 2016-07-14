@@ -66,4 +66,24 @@ export const pluginMenus = [
 export function initFramework(app:any) {
 	app.component('bpmNodes', nodesDirective);
 	app.component('bpmSchemaTree', schemaTreeDirective);
+	app.directive("ngRightClick", function ($parse) {
+		return function (scope, element, attrs) {
+			let fn: any = $parse(attrs.ngRightClick);
+			element.bind("contextmenu", function (event) {
+				scope.$apply(function () {
+					event.preventDefault();
+					fn(scope, { $event: event });
+				});
+			});
+		};
+	});
+
+	app.directive("afterRepeat", function () {
+		// Do what is specified in "after-repeat" after a repeat is done.
+		return function (scope, element, attrs) {
+			if (scope.$last) {
+				angular.element(element).scope().$eval(attrs.afterRepeat);
+			}
+		};
+	});
 }
