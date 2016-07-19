@@ -1,4 +1,4 @@
-import {SchemaTreeController} from "../controllers/index";
+import {SchemaTreeController} from "../schema_tree/index";
 import {NodeManager} from "./nodeManager";
 
 export interface ICustomRootScope extends ng.IRootScopeService {
@@ -34,7 +34,6 @@ export interface TreeScope extends CustomOFScope {
 
     /* The angular-ui-tree settings that are passed on to the tree */
     treeOptions: any;
-
 }
 
 

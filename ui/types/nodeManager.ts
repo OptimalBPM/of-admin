@@ -1,4 +1,4 @@
-import {SchemaTreeController} from "../controllers/index";
+import {SchemaTreeController} from "../schema_tree/index";
 import {ICustomRootScope, TreeNode, INodesScope, IDict} from "./schemaTreeTypes";
 
 export interface NodeManagement {
