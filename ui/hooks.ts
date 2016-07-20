@@ -67,7 +67,7 @@ export function initFramework(app:any) {
 	app.component('bpmNodes', nodesDirective);
 	app.component('bpmSchemaTree', schemaTreeDirective);
 
-	app.directive("ngRightClick", function ($parse) {
+	app.directive("bpmRightClick", function ($parse) {
 		return function (scope, element, attrs) {
 			let fn: any = $parse(attrs.ngRightClick);
 			element.bind("contextmenu", function (event) {
@@ -79,12 +79,13 @@ export function initFramework(app:any) {
 		};
 	});
 
-	app.directive("afterRepeat", function () {
-		// Do what is specified in "after-repeat" after a repeat is done.
+	app.directive("bpmAfterRepeat", function () {
+		// Do what is specified in "bpm-after-repeat" after a repeat is done.
 		return function (scope, element, attrs) {
 			if (scope.$last) {
 				angular.element(element).scope().$eval(attrs.afterRepeat);
 			}
 		};
 	});
+	console.log("initFramework for OF Admin was run");
 }

@@ -2,6 +2,10 @@ import "angular";
 import "jquery";
 import "bootstrap3-dialog";
 import "bootstrap3-dialog/dist/css/bootstrap-dialog.min.css!";
+
+import "angular-ui-tree";
+import "angular-ui-tree/angular-ui-tree.min.css!";
+
 import {NodeManager, IDict, TreeNode, TreeScope, NodeViewScope} from "../types/index";
 
 
@@ -11,11 +15,6 @@ export class SchemaTreeController {
 	 The schema tree consist of an angular-ui-tree and a angular-schema-form instance.
 		*/
 
-		cha: any = {
-		kali: "this is the very"
-		};
-
-		mister: any;
 		/* The url of the angular html template that render each node(not including decoration and expander*/
 	itemRenderer: string;
 
@@ -77,7 +76,7 @@ export class SchemaTreeController {
 			/* Initializes an asyncronous (lazy loading) tree */
 			if ((typeof (nodeManager) !== "undefined") && (nodeManager.onAsyncInitTree)) {
 				nodeManager.onAsyncInitTree().then(() => {
-					if (nodeManager.onAsyncLoadChildren) {
+					if (nodeManager.onAsyncLoadChildren && nodeManager.onAsyncLoadChildren(null) != null) {
 						return nodeManager.onAsyncLoadChildren(null)
 							.success((data: any) => {
 								let _topNodes: any[] = this.childrenToArray(data, null);
@@ -422,7 +421,7 @@ export class SchemaTreeController {
 		});
 	};
 
-		$onInit() {
+	$onInit() {
 		console.log("link onInit function in schemaTree directive called ");
 
 		if (!(this.expanderPosition)) {
@@ -436,7 +435,7 @@ export class SchemaTreeController {
 				console.log("Initiating schemaTree $scope.nodeManager not set!");
 			}
 		});
-		}
+	}
 
 	static $inject = ['$scope', '$q', '$timeout'];
 

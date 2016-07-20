@@ -19,10 +19,12 @@ import "ace/mode-json";
 import "angular-ui/ui-ace";
 import "networknt/angular-schema-form-ui-ace";
 
+import "angular-ui-select";
 import "angular-schema-form-dynamic-select";
 
 import "bootstrap3-dialog";
 import "bootstrap3-dialog/dist/css/bootstrap-dialog.min.css!";
+import "./nodes.css!";
 import {NodeManager, NodeManagement, TreeNode} from "../types/index";
 
 
