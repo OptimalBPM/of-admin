@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 export class AuthService {
 	public static SESSION_ID_NAME: string = 'X-Auth-Session-ID';
 	public static SESSION_EXPIRY_NAME: string = 'X-Auth-Session-EXPIRY';
-	public static SESSION_LENGTH: number = 120;
+	public static SESSION_LENGTH: number = 60;
 
 	isLoggedIn() {
 		if (!localStorage.getItem(AuthService.SESSION_ID_NAME)) {
@@ -16,7 +16,7 @@ export class AuthService {
 			return false;
 		}
 
-		this.resetSessionExpiry();
+		//this.resetSessionExpiry();
 		return true;
 	}
 
