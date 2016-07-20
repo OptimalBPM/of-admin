@@ -1,7 +1,3 @@
-import "angular";
-import "angular-ui-tree";
-import "angular-ui-tree/angular-ui-tree.min.css!";
-import { TreeScope } from "../types/index";
 import { SchemaTreeController } from "../schema_tree/index";
 import { upgradeAdapter } from "/admin/upgrade.adapter";
 
