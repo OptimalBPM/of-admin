@@ -1,6 +1,6 @@
 # The administrative interface plugin
 
-The Optimal Framework admin interface is an Angular/SystemJS/JSPM-based web application.
+The Optimal Framework admin interface is a TypeScript, hybrid Angular1.x/2.x and SystemJS/JSPM-based web application.
 Its most important function is to expose the tree that keeps all settings and entities that matter to the configuration of the framework.
 
 It is thought of as being the starting point of an administrative interface to any system that is build upon the framework.
