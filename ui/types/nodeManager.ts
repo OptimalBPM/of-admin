@@ -1,7 +1,7 @@
 import {SchemaTreeController} from "../schema_tree/index";
-import {ICustomRootScope, TreeNode, INodesScope, IDict} from "./schemaTreeTypes";
+import {ICustomRootScope, ICustomOFScope, TreeNode, INodes, IDict} from "./schemaTreeTypes";
 
-export interface NodeManagement {
+export interface INodeManagement {
 
     /**
      * Synchronous. If assigned, called to init the tree. *Must* have the treeScope parameter(exact name),
@@ -62,7 +62,15 @@ export interface NodeManagement {
 }
 /* Everyone inheriting from this class must implement the NodeManagement interface */
 
-export class NodeManager implements NodeManagement {
+export class NodeManager implements INodeManagement, INodes {
+
+    ngform: any;
+
+    selected_schema: any;
+
+    selected_form: any;
+
+    selected_data: any;
 
     /* The forms that are used for each schema id*/
     forms: IDict;
@@ -77,31 +85,35 @@ export class NodeManager implements NodeManagement {
     doSubmit = (submit_data: any) => {
 
         // First we broadcast an event so all fields validate themselves
-        let result: any = this.nodeScope.$broadcast("schemaFormValidate");
+        let result: any = this.$scope.$broadcast("schemaFormValidate");
 
         this.tree.log(result.toString());
-        if (this.nodeScope.ngform.$valid) {
+
+				if (this.ngform.$valid) {
             // The form checked out, save data
             this.onSubmit(submit_data);
-        }
-        else {
-            this.nodeScope.$root.BootstrapDialog.alert("The input didn't match validation!");
+        } else {
+            this.$scope.$root.BootstrapDialog.alert("The input didn't match validation!");
         }
     };
 
     onSubmit = (submit_data: any): void => {
         console.log("onSubmit not implemented in " + this.getClassname() + " base class!");
     };
+
     onInit = (schemaTreeController: SchemaTreeController) => {
         console.log("onInit not implemented in " + this.getClassname() + " base class!");
     };
+
     onSelectNode = (treeNode: TreeNode): void => {
         console.log("onSelectNode not implemented in " + this.getClassname() + " base class!");
     };
+
     getClassFromItem = (node: TreeNode): string => {
         console.log("onSelectNode not implemented in " + this.getClassname() + " base class!");
         return "";
     };
+
     getIconClass = (nodeType: string): string => {
         console.log("getIconClass not implemented in " + this.getClassname() + " base class!");
         return "";
@@ -127,10 +139,8 @@ export class NodeManager implements NodeManagement {
         return null;
     };
 
-    constructor(public nodeScope: INodesScope, public $http: ng.IHttpService, public $q: ng.IQService) {
-
+    constructor(public $scope: ICustomOFScope, public $http: ng.IHttpService, public $q: ng.IQService) {
         console.log("Initiating the nodes manager base class " + this.getClassname());
-        this.nodeScope.nodeManager = this;
         console.log("Initiated the nodes manager base class");
     }
 }
