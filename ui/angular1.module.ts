@@ -28,6 +28,10 @@ export function InitAngular1() {
 		"schemaForm"
 	]);
 
+	app.run(['$rootScope', function($rootScope ) {
+		$rootScope.BootstrapDialog = (window as any).BootstrapDialog;
+	}]);
+
 	app.directive('bpmApp', upgradeAdapter.downgradeNg2Component(AppComponent));
 	// Call the init framework hook
 	hook_initFramework(app);
