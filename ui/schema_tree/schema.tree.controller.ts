@@ -6,11 +6,11 @@ import "bootstrap3-dialog/dist/css/bootstrap-dialog.min.css!";
 import "angular-ui-tree";
 import "angular-ui-tree/angular-ui-tree.min.css!";
 
-import {NodeManager, IDict, TreeNode, TreeScope, NodeViewScope} from "../types/index";
+import {NodeManager, ICustomOFScope, IDict, TreeNode, ITree, INodeView} from "../types/index";
 
 
 /* The SchemaTreeControl class is instantiated as a controller class in the typescript model */
-export class SchemaTreeController {
+export class SchemaTreeController implements ITree {
 	/* The SchemaTreeController class holds the generic functionality of the schema-tree.
 	 The schema tree consist of an angular-ui-tree and a angular-schema-form instance.
 		*/
@@ -26,9 +26,6 @@ export class SchemaTreeController {
 
 	/* An array of the allowed child types of the top node, a angular expression */
 	topAllowedChildTypes: string[];
-
-	/* The tree controller */
-	tree: SchemaTreeController;
 
 	/* The node manager instance  */
 	nodeManager: NodeManager;
@@ -66,7 +63,7 @@ export class SchemaTreeController {
 	/**
 	 * Initializes all schemaTree functionality
 	 */
-	doInit = (treeScope: TreeScope) => {
+	doInit = (treeScope: ITree) => {
 		console.log("In doInit");
 		let nodeManager: NodeManager = this.nodeManager;
 		if (nodeManager.onInit) {
@@ -135,8 +132,8 @@ export class SchemaTreeController {
 	};
 
 	// Set ui settings for each new rendered node item, called from ng-init
-	setItemUi = (item: TreeNode, nodeScope: NodeViewScope) => {
-		item.nodeViewScope = nodeScope;
+	setItemUi = (item: TreeNode, nodeScope: INodeView) => {
+		item.nodeView = nodeScope;
 		if (item.id !== this.newNodeObjectId) {
 			if (Object.keys(this.data).length > 0) {
 				let data: any = this.data[item.id];
@@ -262,7 +259,7 @@ export class SchemaTreeController {
 		return items;
 	};
 
-	addNode = (scope: NodeViewScope, item: TreeNode, isParent: boolean, schemaRef: string) => {
+	addNode = (scope: INodeView, item: TreeNode, isParent: boolean, schemaRef: string) => {
 
 		// Create local functions as callback
 		let _add = (scope, item, template) => {
@@ -328,7 +325,7 @@ export class SchemaTreeController {
 		SchemaTreeController.closeAddBars(item);
 
 		if (this.children && this.findChild(this.children, this.newNodeObjectId)) {
-			scope.$root.BootstrapDialog.alert("You can only add one item at the time.");
+			this.$scope.$root.BootstrapDialog.alert("You can only add one item at the time.");
 		}
 		if (this.nodeManager.getTemplateAsync) {
 			this.nodeManager.getTemplateAsync(schemaRef).success((_template) => {
@@ -349,7 +346,7 @@ export class SchemaTreeController {
 	 * @param scope - the current scope.
 	 * @param id - The node id of the node to remove
 	 */
-	deleteNode = (scope: NodeViewScope, id: string) => {
+	deleteNode = (scope: INodeView, id: string) => {
 		this.log("removing");
 
 		// The node is a new node that haven't been saved yet
@@ -360,10 +357,8 @@ export class SchemaTreeController {
 			scope.remove();
 			console.log("removed from tree");
 
-		}
-		else {
-
-			scope.$root.BootstrapDialog.confirm("Are you sure that you want to remove this node?", (result) => {
+		} else {
+			this.$scope.$root.BootstrapDialog.confirm("Are you sure that you want to remove this node?", (result) => {
 				if (result) {
 					if (this.nodeManager.onAsyncRemoveNode) {
 						this.nodeManager.onAsyncRemoveNode(id).then((data) => {
@@ -372,8 +367,7 @@ export class SchemaTreeController {
 
 							console.log("removed from back end");
 						});
-					}
-					else {
+					} else {
 						scope.remove();
 						this.selected_data = null;
 					}
@@ -387,7 +381,7 @@ export class SchemaTreeController {
 	 * @param scope {NodeViewScope} the angular scope variable
 	 * @param item {TreeNode} - the item to load
 	 */
-	onAsyncToggleChildren = (scope: NodeViewScope, item: TreeNode) => {
+	onAsyncToggleChildren = (scope: INodeView, item: TreeNode) => {
 		this.log("in toggleChildren before promise");
 		return new this.$q((resolve, reject) => {
 			console.log("in toggleChildren");
@@ -439,9 +433,8 @@ export class SchemaTreeController {
 
 	static $inject = ['$scope', '$q', '$timeout'];
 
-	constructor(private $scope: TreeScope, public $q: ng.IQService, public $timeout: ng.ITimeoutService) {
+	constructor(private $scope: ICustomOFScope, public $q: ng.IQService, public $timeout: ng.ITimeoutService) {
 		console.log("Initiating the schema controller" + $scope.toString());
-		$scope.tree = this;
 		this.data = {};
 		console.log("Initiated the schema tree controller");
 	}

@@ -6,15 +6,15 @@
         <!-- The tree item -->
         <!-- Set class after node type decoration -->
         <div ng-class="currClassName+'-item';">
-            <div ng-init="tree.setItemUi(item, this);">
-                <div ng-style="{'background-color' : item == tree.selectedItem ? '#dddddd' : 'none'}" style="display: block;"
-                     ui-tree-handle>
+            <div ng-init="$ctrl.setItemUi(item, this);">
+                <div ng-style="{'background-color' : item == $ctrl.selectedItem ? '#dddddd' : 'none'}" style="display: block;"
+                  		ui-tree-handle>
                     <a ng-hide="(item.allowedChildTypes.length > 0) && (!item.children) || (item.children.length > 0) "
-                       data-nodrag ng-click="$ctrl.nodeManager.onAsyncToggleChildren(this, item);">
+                      data-nodrag ng-click="$ctrl.nodeManager.onAsyncToggleChildren(this, item);">
                     </a>
                     <!-- The expand/collapse button -->
                     <a ng-show="($ctrl.expanderPosition =='left') && ((item.allowedChildTypes.length > 0) && (!item.children) || (item.children.length > 0)) "
-                       data-nodrag ng-click="tree.onAsyncToggleChildren(this, item);">
+                      data-nodrag ng-click="$ctrl.onAsyncToggleChildren(this, item);">
                             <span class="fa" ng-class="{'fa-plus-square-o': collapsed, 'fa-minus-square-o': !collapsed}"></span>
 										</a>
 
@@ -22,33 +22,33 @@
                     <span ng-class="$ctrl.nodeManager.getIconClass(item.type)"></span>
 
                     <!-- The file pointed to in $scope.itemRenderer -->
-                    <ng-include ng-click="$ctrl.nodeManager.onSelectNode(item);" src="$ctrl.itemRenderer"></ng-include>
+                    <ng-include data-nodrag ng-click="$ctrl.nodeManager.onSelectNode(item);" src="$ctrl.itemRenderer"></ng-include>
 
                     <!-- The delete button -->
                     <div data-nodrag class="right_item">
                         <!-- The expand/collapse button if on the right -->
                         <a ng-show="($ctrl.expanderPosition =='right') && ((item.allowedChildTypes.length > 0) && (!item.children) || (item.children.length > 0)) "
-                           data-nodrag ng-click="tree.onAsyncToggleChildren(this, item);">
+                          data-nodrag ng-click="$ctrl.onAsyncToggleChildren(this, item);">
                             <span class="fa" ng-class="{'fa-plus-square-o': collapsed, 'fa-minus-square-o': !collapsed}"></span>
 												</a>
 
-                        <span ng-show="item.ui.showAddBars" title="Delete" class="delete_node glyphicon glyphicon-remove"
-                         ng-click="tree.deleteNode(this, item.id);" style=""></span>
-                        <span ng-hide="($ctrl.expanderPosition =='left') || (item.ui.showAddBars)">&nbsp;&nbsp;&nbsp;</span>
+												<a ng-show="item.ui.showAddBars" class="btn btn-danger btn-xs" data-nodrag ng-click="$ctrl.deleteNode(this, item.id);">
+													<span title="Delete" class="glyphicon glyphicon-remove"></span>
+												</a>
                     </div>
                 </div>
             </div>
-            <div class="insert_node add-bar-show-hide">
+            <div class="insert_node add-bar-show-hide" ng-show="item.ui.showAddBars">
                 <div title="Add a sibling" style="display:inline; float : left;width:auto;"
-                     ng-show="item.ui.showAddBars && (item.parentItem.allowedChildTypes.length > 0) && (item.id !== newNodeId)"
-                     ng-click="item.ui.downAddSiblingAfter=!item.ui.downAddSiblingAfter;item.ui.downAddChildAfter=!item.ui.downAddSiblingAfter">
+                    ng-show="(item.parentItem.allowedChildTypes.length > 0) && (item.id !== newNodeId)"
+                    ng-click="item.ui.downAddSiblingAfter=!item.ui.downAddSiblingAfter;item.ui.downAddChildAfter=!item.ui.downAddSiblingAfter">
                     <span class="caret add-bar-show-hide insert_node_text"></span>
                     <span class="add-bar-show-hide insert_node_text">&nbsp;Add a {{item.parentItem.ui.strAllowedChildTypes}}.</span>
                 </div>
 
                 <div title="Add a child" style="display:inline; float : right;width:auto;"
-                     ng-show="item.ui.showAddBars && (item.allowedChildTypes.length > 0) && (item.id !== newNodeId)"
-                     ng-click="item.ui.downAddChildAfter=!item.ui.downAddChildAfter;item.ui.downAddSiblingAfter=!item.ui.downAddChildAfter">
+                    ng-show="(item.allowedChildTypes.length > 0) && (item.id !== newNodeId)"
+                    ng-click="item.ui.downAddChildAfter=!item.ui.downAddChildAfter;item.ui.downAddSiblingAfter=!item.ui.downAddChildAfter">
                     <span class="add-bar-show-hide insert_node_text">&nbsp;Add a child {{item.ui.strAllowedChildTypes}}.</span>
                     <span class="caret add-bar-show-hide insert_node_text"></span>
                 </div>
@@ -56,20 +56,20 @@
 
 
             <div ng-mouseleave="item.ui.downAddChildAfter=false"
-                 ng-show="item.ui.downAddChildAfter"
-                 role="menu">
+                ng-show="item.ui.downAddChildAfter"
+                role="menu">
                 <a ng-repeat='currschemaRef in item.allowedChildTypes'
-                   ng-click="tree.addNode(this, item, true, currschemaRef);" class="list-group-item" style="text-align: right">
-                     {{tree.schemas[currschemaRef].title}} <span class="glyphicon glyphicon-triangle-right"></span>
+                  ng-click="$ctrl.addNode(this, item, true, currschemaRef);" class="list-group-item" style="text-align: right">
+                    {{$ctrl.schemas[currschemaRef].title}} <span class="glyphicon glyphicon-triangle-right"></span>
                 </a>
             </div>
 
             <div ng-mouseleave="item.ui.downAddSiblingAfter=false"
-                 ng-show="item.ui.downAddSiblingAfter"
-                 class="list-group" role="menu">
+                ng-show="item.ui.downAddSiblingAfter"
+                class="list-group" role="menu">
                 <a ng-repeat='currschemaRef in item.parentItem.allowedChildTypes'
-                   ng-click="tree.addNode(this, item, false, currschemaRef);" class="list-group-item" style="text-align: left">
-                   <span class="glyphicon glyphicon-triangle-bottom"></span> {{tree.schemas[currschemaRef].title}}
+                  ng-click="$ctrl.addNode(this, item, false, currschemaRef);" class="list-group-item" style="text-align: left">
+                  <span class="glyphicon glyphicon-triangle-bottom"></span> {{$ctrl.schemas[currschemaRef].title}}
                 </a>
             </div>
 
@@ -93,10 +93,10 @@
 
 	<!-- The root of the tree -->
 	<div ui-tree="$ctrl.nodeManager.treeOptions" id="tree-root" data-drag-delay="200">
-		<ol ui-tree-nodes="" ng-class="treeListClass" ng-model="tree.children">
+		<ol ui-tree-nodes ng-class="treeListClass" ng-model="$ctrl.children">
 			<!-- Create the top nodes -->
 			<!-- ng-mouseleave: Hide add bars -->
-			<li ng-repeat="item in tree.children" ui-tree-node
+			<li ng-repeat="item in $ctrl.children" ui-tree-node
 				ng-include="'items_renderer.html'"
 				data-collapsed="!item.expanded"
 				ng-init="currClassName = $ctrl.nodeManager.getClassFromItem(item); item.ui = {}; item.ui.showAddBars = false;"

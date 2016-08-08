@@ -1,32 +1,30 @@
 <div class="local_margins"  options="{ flow : 'column' }">
-    <div class="layout_tree col-lg-4" style="height:100%">
+    <div class="layout_tree col-lg-4">
         <h3 class="nodes-headings">Node tree</h3>
         <bpm-schema-tree
             item-renderer="admin/nodes/node.renderer.html"
             new-node-object-id= "000000010000010001e64bff"
-            node-manager="nodeManager"
+            node-manager="$ctrl"
             expander-position="left"
-            tree-options="treeOptions">
+            tree-options="$ctrl.treeOptions">
         </bpm-schema-tree>
     </div>
-    <div class="layout_edit col-lg-5" style="height:100%">
+    <div class="layout_edit col-lg-5">
 
         <h3 class="nodes-headings">Edit</h3>
         <!-- The schema editor, maps to the selected_* $scope variables in the controller -->
 
-        <form name="ngform"
-              sf-model="selected_data"
-              sf-form="selected_form"
-              sf-schema="selected_schema"
+        <form name="$ctrl.ngform"
+              sf-model="$ctrl.selected_data"
+              sf-form="$ctrl.selected_form"
+              sf-schema="$ctrl.selected_schema"
               sf-options=""
-              ng-submit="nodeManager.doSubmit(selected_data)"></form>
-         </div>
-
+              ng-submit="$ctrl.doSubmit($ctrl.selected_data)"></form>
     </div>
 
-    <div class="layout_history col-lg-3" style="height:100%">
+    <div class="layout_history col-lg-3">
         <h3 class="nodes-headings">History</h3>
-        <div ng-model="history" ng-repeat="historyItem in nodeManager.history">
+        <div ng-model="history" ng-repeat="historyItem in $ctrl.history">
             <b>Occurred when:</b> {{historyItem.occurredWhen}}<br/>
             <b>Id:</b> {{ historyItem._id }}<br/>
             <b>User_id:</b> {{historyItem.user_id}}<br/>
@@ -54,6 +52,4 @@
         </div>
 
     </div>
-
-
 </div>

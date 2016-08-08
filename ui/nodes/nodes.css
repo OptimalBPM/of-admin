@@ -7,8 +7,10 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     min-height: 20px;
-    line-height: 20px
+    line-height: 20px;
     transition-delay: 2s;
+		background: #f8faff;
+    padding: 5px 5px;
 }
 
 .node-top {
