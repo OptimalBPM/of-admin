@@ -83,7 +83,7 @@ export function initFramework(app:any) {
 		// Do what is specified in "bpm-after-repeat" after a repeat is done.
 		return function (scope, element, attrs) {
 			if (scope.$last) {
-				angular.element(element).scope().$eval(attrs.afterRepeat);
+				angular.element(element).scope().$eval(attrs.bpmAfterRepeat);
 			}
 		};
 	});
