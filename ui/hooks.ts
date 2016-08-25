@@ -69,21 +69,21 @@ export function initFramework(app:any) {
 
 	app.directive("bpmRightClick", function ($parse) {
 		return function (scope, element, attrs) {
-			let fn: any = $parse(attrs.ngRightClick);
-			element.bind("contextmenu", function (event) {
+			var fn: any = $parse(attrs.bpmRightClick);
+			element.bind('contextmenu', function (event) {
 				scope.$apply(function () {
 					event.preventDefault();
 					fn(scope, { $event: event });
 				});
 			});
-		};
+    };
 	});
 
 	app.directive("bpmAfterRepeat", function () {
 		// Do what is specified in "bpm-after-repeat" after a repeat is done.
 		return function (scope, element, attrs) {
 			if (scope.$last) {
-				angular.element(element).scope().$eval(attrs.afterRepeat);
+				angular.element(element).scope().$eval(attrs.bpmAfterRepeat);
 			}
 		};
 	});

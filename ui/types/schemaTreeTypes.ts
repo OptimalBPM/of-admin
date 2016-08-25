@@ -1,4 +1,3 @@
-import {SchemaTreeController} from "../schema_tree/index";
 import {NodeManager} from "./nodeManager";
 
 export interface ICustomRootScope extends ng.IRootScopeService {
@@ -6,11 +5,12 @@ export interface ICustomRootScope extends ng.IRootScopeService {
     BootstrapDialog: any;
 }
 
-interface CustomOFScope extends ng.IScope {
+export interface ICustomOFScope extends ng.IScope {
     $root: ICustomRootScope;
 }
+
 /* This interface is to add typing to the scope */
-export interface TreeScope extends CustomOFScope {
+export interface ITree {
     /* The url of the angular html template that render each node(not including decoration and expander*/
     itemRenderer: string;
 
@@ -23,9 +23,6 @@ export interface TreeScope extends CustomOFScope {
     /* An array of the allowed child types of the top node, a angular expression */
     topAllowedChildTypes: string[];
 
-    /* The tree controller */
-    tree: SchemaTreeController;
-
     /* The node manager instance  */
     nodeManager: NodeManager;
 
@@ -36,22 +33,20 @@ export interface TreeScope extends CustomOFScope {
     treeOptions: any;
 }
 
-
-export interface INodesScope extends CustomOFScope {
-    $root: ICustomRootScope;
+export interface INodes {
     ngform: any;
-    nodeManager: any;
     forms: IDict;
     selected_schema: any;
     selected_form: any;
     selected_data: any;
 }
 
-export interface NodeViewScope extends CustomOFScope {
+export interface INodeView {
     collapsed: boolean;
     remove(): void;
     toggle(): void;
 }
+
 export interface IDict {
     [index: string]: any;
 }
@@ -73,7 +68,7 @@ export class TreeNode {
     expanded: boolean;
     parentItem: TreeNode;
     ui: UISettings;
-    nodeViewScope: NodeViewScope;
+    nodeView: INodeView;
 
     constructor() {
         this.ui = new UISettings();
