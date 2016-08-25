@@ -178,7 +178,7 @@ export class NodesController extends NodeManager implements NodeManagement {
 
         return this.$http.get("admin/nodes/node.forms.json")
             .success((data: any) => {
-                let _nodeSchemaRef: string = "of://node.json";
+                let _nodeSchemaRef: string = "ref://of.node.node.json";
                 this.forms = data;
 
                 let _nodeForm: any = data[_nodeSchemaRef];
