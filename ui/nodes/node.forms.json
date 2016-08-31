@@ -1,5 +1,5 @@
 {
-    "of://node.json": [
+    "ref://of.node.node.json": [
         {
             "key": "name",
             "type": "text",
@@ -118,7 +118,7 @@
             ]
         }
     ],
-    "of://group.json": [
+    "ref://of.node.group.json": [
         {
             "key": "rights",
             "title": "Rights",
@@ -136,8 +136,8 @@
         }
 
     ],
-    "of://right.json": [],
-    "of://user.json": [
+    "ref://of.node.right.json": [],
+    "ref://of.node.user.json": [
         {
             "title": "Credentials",
             "type": "fieldset",
@@ -307,7 +307,7 @@
             "readonly": false
         }
     ],
-    "of://node_admin.json": [
+    "ref://of.node.admin.json": [
         {
             "key": "theme",
             "type": "text",
@@ -316,7 +316,7 @@
             "readonly": false
         }
     ],
-     "of://node_broker.json": [
+     "ref://of.node.broker.json": [
         {
             "key": "address",
             "type": "text",
