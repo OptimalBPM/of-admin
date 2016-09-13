@@ -176,36 +176,12 @@ export class NodesController extends NodeManager implements INodeManagement {
 	 */
 	onInitForms = (): ng.IHttpPromise<any> => {
 
-		return this.$http.get("admin/nodes/node.forms.json")
+		return this.$http.get("node/get_jsf_forms")
 			.success((data: any) => {
-				let _nodeSchemaRef: string = "ref://of.node.node.json";
 				this.forms = data;
 
 				let _nodeForm: any = data[_nodeSchemaRef];
 
-				// Add the node.json fields in the beginning of all the other forms.
-				Object.keys(data).forEach(
-					(_currSchemaRef) => {
-						let _newForm: any;
-						if (_currSchemaRef === _nodeSchemaRef) {
-							// Do not concatenate with itself
-							_newForm = _nodeForm.slice(0);
-						}
-						else {
-							// Insert form after nodename and description in base node form
-							_newForm = _nodeForm.slice(0);
-							_newForm.splice.apply(_newForm, [2, 0].concat(data[_currSchemaRef]));
-						}
-						// Add submit and store the finished form.
-						this.forms[_currSchemaRef] = _newForm.concat(
-							[
-								{
-									type: "submit",
-									title: "Save"
-								}
-							]);
-					}
-				);
 				// TODO: Is AnyOf implemented? https://github.com/Textalk/angular-schema-form/issues/163me
 				// TODO: Are $refs implemented? https://github.com/Textalk/angular-schema-form/issues/69
 				// TODO: Is populating implemented? https://github.com/Textalk/angular-schema-form/issues/205
@@ -229,7 +205,7 @@ export class NodesController extends NodeManager implements INodeManagement {
 			this.selected_schema = this.tree.schemas[schemaRef];
 			// Set form and add save/submit button
 			if (schemaRef in this.forms) {
-				this.selected_form = this.forms[schemaRef];
+				this.selected_form = this.forms[schemaRef]["default"];
 			} else {
 				console.log("No form definition for " + schemaRef.toString() + ", using \"*\"");
 				this.selected_form = ["*"];
