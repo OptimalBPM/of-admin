@@ -19,6 +19,6 @@ git clone https://github.com/OptimalBPM/of-admin.git admin
 
 ## Requirements:
 
-Note, as the source installation uses npm and jspm, there are certain memory requirements.
+Note, as the source(not the binary) installation uses npm and jspm, there are certain memory requirements.
 For example, the host needs about 800 megabytes of *free* memory to run npm and jspm properly, having less may result in strange and unnoticable errors.
 
