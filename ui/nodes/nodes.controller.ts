@@ -180,7 +180,6 @@ export class NodesController extends NodeManager implements INodeManagement {
 			.success((data: any) => {
 				this.forms = data;
 
-				let _nodeForm: any = data[_nodeSchemaRef];
 
 				// TODO: Is AnyOf implemented? https://github.com/Textalk/angular-schema-form/issues/163me
 				// TODO: Are $refs implemented? https://github.com/Textalk/angular-schema-form/issues/69
