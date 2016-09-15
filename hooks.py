@@ -1,3 +1,12 @@
+"""
+This module contains the Optimal Framework-hooks of the administrative interface server-side functionality
+OF calls these hooks at different stages.
+
+Created on Jun 22, 2016
+
+@author: Nicklas Boerjesson
+"""
+
 from .lib.admin import CherryPyAdmin
 
 

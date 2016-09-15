@@ -1,6 +1,11 @@
 """
-The admin module holds the CherryPy implementation of the admin interface.
-Note that most of its initialisation happens in the broker init script, ../broker.py
+The admin module holds the CherryPy server side implementation of the admin interface.
+Note that most of its initialisation happens in the broker init script, ../broker.py and this is added by
+/hooks.py
+
+Created on Jun 22, 2016
+
+@author: Nicklas Boerjesson
 """
 import copy
 import os
