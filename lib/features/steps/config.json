@@ -1,0 +1,14 @@
+{
+  "broker": {
+    "address": "broker01",
+    "pluginFolder": "../../../../",
+    "packageNameOverride": "admin",
+    "database": {
+      "databaseName": "test_admin"
+    },
+    "logging": {
+      "severityLevel": "debug",
+      "databaseLevel": "debug"
+    }
+  }
+}
