@@ -5,7 +5,7 @@ import "angular-cookies";
 import "angular-touch";
 import "angular-sanitize";
 import "angular-animate";
-import "angular-schema-form";
+//import "angular-schema-form";
 import "angular-schema-form-bootstrap";
 import "bootstrap3-dialog";
 // import "font-awesome"; TODO:: uncomment later, currently imported by systemjs incorrectly

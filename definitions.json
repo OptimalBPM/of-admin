@@ -15,7 +15,13 @@
                     }
                 ],
                 "mountpoint": "."
-            }
+            },
+            "binaries": [
+                {
+                    "url": "https://github.com/OptimalBPM/of-admin/releases/download/1.0-alpha-rc1/jspm_packages.zip",
+                    "target": "ui"
+                }
+            ]
         }
     }
 }

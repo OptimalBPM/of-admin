@@ -10,7 +10,7 @@
 
 import "angular";
 import "angular-strap";
-import "angular-schema-form";
+//import "angular-schema-form";
 import "angular-animate";
 
 import "ace";
