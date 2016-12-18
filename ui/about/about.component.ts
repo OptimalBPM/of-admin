@@ -62,7 +62,7 @@ export class AboutComponent implements OnInit {
 	getDataType(value) {
 		if (typeof value === "object") {
 			return "dict";
-		} else if (typeof value === "array") {
+		} else if (value.constructor === Array) {
 			return "array";
 		} else if (typeof value === "string") {
 			return "string";
