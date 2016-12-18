@@ -6,7 +6,7 @@ Created on Jun 22, 2016
 
 @author: Nicklas Boerjesson
 """
-
+import os
 from .lib.admin import CherryPyAdmin
 
 
@@ -22,3 +22,20 @@ def init_web(_broker_scope):
     # Call our own hooks
     _broker_scope["plugins"].call_hook("after_admin_ui", _broker_scope = _broker_scope,
                                        _admin_object = _broker_scope["web_root"].admin)
+
+
+def post_web_init(_broker_scope):
+    print("SDFSDFSDSDF")
+    _web_config = _broker_scope["web_config"]
+    # Only if no other plugin have changed the default page, add our own.
+    if "/" in _web_config and _web_config["/"]["tools.staticdir.dir"] == "ui" and _web_config["/"]["tools.staticdir.index"] == "index.html":
+        # The UI root
+        _web_config.update({
+            "/": {
+                "tools.staticdir.on": True,
+                "tools.staticdir.dir": os.path.join(os.path.dirname(__file__), "root"),
+                "tools.trailing_slash.on": True,
+                "tools.staticdir.index": "index.html",
+            }
+        }
+        )

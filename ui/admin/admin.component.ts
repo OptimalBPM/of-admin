@@ -6,7 +6,7 @@ import { NodesComponent } from '../nodes/index';
 
 @Component({
     selector: 'bpm-admin',
-    template: '<bpm-nodes><bpm-nodes>',
+    template: '<bpm-nodes></bpm-nodes>',
     directives: [ CORE_DIRECTIVES, NodesComponent ]
 })
 export class AdminComponent implements OnInit {

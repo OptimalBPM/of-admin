@@ -1,74 +1,77 @@
-import { Component, OnInit } from '@angular/core';
-import { CORE_DIRECTIVES } from '@angular/common';
-import { Http, Response } from '@angular/http';
-import { Observable }     from 'rxjs/Observable';
+import {Component, OnInit} from '@angular/core';
+import {CORE_DIRECTIVES} from '@angular/common';
+import {Http, Response} from '@angular/http';
+import {Observable}     from 'rxjs/Observable';
 import '../core/rxjs.operators';
 
-import { MapToIterable  } from '../core/pipes/index'; // Objects are not iterable in ng2
+import {MapToIterable} from '../core/pipes/index'; // Objects are not iterable in ng2
 
-let __moduleName: any; // fully resolved filename; defined at module load time  
+let __moduleName: any; // fully resolved filename; defined at module load time
 
 @Component({
-    moduleId: __moduleName,  
-    selector: 'bpm-about',
-    templateUrl: 'about.view.html',
-    directives: [ CORE_DIRECTIVES ],
-    pipes: [MapToIterable]
+	moduleId: __moduleName,
+	selector: 'bpm-about',
+	templateUrl: 'about.view.html',
+	directives: [CORE_DIRECTIVES],
+	pipes: [MapToIterable]
 })
 export class AboutComponent implements OnInit {
 
-    broker_environment: any;
-    constructor(private http: Http) {}
+	broker_environment: any;
 
-    getAboutData() {
-        this.sendAPIRequest()
-            .subscribe(
-            broker_env => {
-                this.broker_environment = broker_env
-                console.log(broker_env);
-            },
-            error => {
-                this.broker_environment = error
-                console.log('error');
-                console.log(error);
-            });
-    }
+	constructor(private http: Http) {
+		console.log("Initiating AboutController");
+		this.getAboutData();
+		console.log("Initiated AboutController");
+	}
 
-    sendAPIRequest(): Observable<any> {
-        return this.http.get('/admin/get_broker_environment')
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+	getAboutData() {
+		this.sendAPIRequest()
+			.subscribe(
+				broker_env => {
+					this.broker_environment = broker_env;
+					console.log(broker_env);
+				},
+				error => {
+					this.broker_environment = error;
+					console.log('error');
+					console.log(error);
+				});
+	}
 
-    extractData(res: Response) {
-        return res.json();
-    }
+	sendAPIRequest(): Observable<any> {
+		return this.http.get('/admin/get_broker_environment')
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
 
-    handleError(error: any) {
-        let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+	extractData(res: Response) {
+		return res.json();
+	}
 
-        this.broker_environment = "Failed to retrieve broker environment: " + status;
+	handleError(error: any) {
+		let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
 
-        console.log('my own error');
-        console.error(errMsg); // log to console
-        return Observable.throw(errMsg);
-    }
+		this.broker_environment = "Failed to retrieve broker environment: " + status;
 
-    getDataType(value) {
-        if (typeof value === "object") {
-            return "dict";
-        } else if (typeof value === "array") {
-            return "array";
-        } else if (typeof value === "string") {
-            return "string";
-        } else {
-            return null;
-        }
-    }
+		console.log('my own error');
+		console.error(errMsg); // log to console
+		return Observable.throw(errMsg);
+	}
 
-    ngOnInit() {                
-        console.log("Initiating AboutController");        
-        this.getAboutData();
-        console.log("Initiated AboutController");
-    }
+	getDataType(value) {
+		if (typeof value === "object") {
+			return "dict";
+		} else if (typeof value === "array") {
+			return "array";
+		} else if (typeof value === "string") {
+			return "string";
+		} else {
+			return null;
+		}
+	}
+
+	ngOnInit() {
+
+	}
 }
