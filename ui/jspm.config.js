@@ -100,6 +100,11 @@ SystemJS.config({
         }
       }
     }
+  },
+  meta: {
+    "*.css": {
+      "loader": "css"
+    }
   }
 });
 
@@ -126,6 +131,7 @@ SystemJS.config({
     "angular-ui-select": "github:angular-ui/ui-select@0.18.1",
     "angular-ui-tree": "github:angular-ui-tree/angular-ui-tree@2.17.0",
     "angular-ui/ui-ace": "github:angular-ui/ui-ace@0.2.3",
+    "bootstrap": "github:twbs/bootstrap@3.3.7",
     "bootstrap3-dialog": "github:nakupanda/bootstrap3-dialog@1.35.2",
     "core-js": "npm:core-js@2.4.0",
     "@angular/forms": "npm:@angular/forms@0.2.0",
@@ -362,10 +368,10 @@ SystemJS.config({
     },
     "github:nakupanda/bootstrap3-dialog@1.35.2": {
       "map": {
-        "bootstrap": "github:twbs/bootstrap@3.3.6"
+        "bootstrap": "github:twbs/bootstrap@3.3.7"
       }
     },
-    "github:twbs/bootstrap@3.3.6": {
+    "github:twbs/bootstrap@3.3.7": {
       "map": {
         "jquery": "npm:jquery@2.2.4"
       }
@@ -376,7 +382,7 @@ SystemJS.config({
         "angular-strap": "github:mgcrea/angular-strap@2.3.9",
         "angular-schema-form": "github:json-schema-form/angular-schema-form@0.8.13",
         "angular-ui-select": "github:angular-ui/ui-select@0.18.1",
-        "bootstrap": "github:twbs/bootstrap@3.3.6"
+        "bootstrap": "github:twbs/bootstrap@3.3.7"
       }
     },
     "github:mgcrea/angular-strap@2.3.9": {
@@ -407,6 +413,11 @@ SystemJS.config({
     "github:angular/bower-angular-touch@1.5.7": {
       "map": {
         "angular": "github:angular/bower-angular@1.5.7"
+      }
+    },
+    "github:twbs/bootstrap@3.3.7": {
+      "map": {
+        "jquery": "npm:jquery@2.2.4"
       }
     }
   }

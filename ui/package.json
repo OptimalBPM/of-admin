@@ -4,7 +4,7 @@
   "author": "Ralphowino Consulting",
   "scripts": {
     "postinstall": "typings install && jspm install && npm prune",
-	"typings": "typings"
+    "typings": "typings"
   },
   "jspm": {
     "registry": "github",
@@ -28,6 +28,7 @@
       "angular-ui-select": "angular-ui/ui-select@^0.18.1",
       "angular-ui-tree": "angular-ui-tree/angular-ui-tree@^2.17.0",
       "angular-ui/ui-ace": "0.2.3",
+      "bootstrap": "twbs/bootstrap@^3.3.7",
       "bootstrap3-dialog": "nakupanda/bootstrap3-dialog@^1.35.2",
       "debug": "npm:debug@2.2.0",
       "font-awesome": "npm:font-awesome@^4.6.3",
@@ -211,7 +212,7 @@
           }
         }
       },
-      "github:twbs/bootstrap@3.3.6": {
+      "github:twbs/bootstrap@3.3.7": {
         "shim": {
           "js/bootstrap": {
             "deps": [

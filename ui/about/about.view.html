@@ -1,24 +1,41 @@
-<div class="row">
-  <h3>About</h3>
-  <p> This is the Optimal BPM busines process management system. </p>
-  <h3>Broker environment</h3>
+<div class="panel panel-default">
+	<div class="panel-heading">About</div>
+	<div class="panel-body">
+		<p> This is the Optimal Framework broker.</p>
+		<h3>Broker environment details are listed below</h3>
 
-  <div *ngFor="let pair of (broker_environment | mapToIterable)">
-    <b>{{ pair.key | uppercase }}</b>
+		<div *ngFor="let pair of (broker_environment | mapToIterable)">
+			<b>{{ pair.key | uppercase }}</b>
 
-    <div [ngSwitch]="getDataType(pair.value)">
-      <div *ngSwitchCase="'dict'">
-        <div *ngFor="let sub_pair of (pair.value | mapToIterable)">
-          <b>{{sub_pair.key}}</b> : {{sub_pair.value}}
-        </div>
-      </div>
-      <div *ngSwitchCase="'array'">
-        <div *ngFor="let sub_value of pair.value">
-          {{sub_value}}
-        </div>
-      </div>
-      <div *ngSwitchDefault>{{pair.value}}</div>
-    </div>
-    <br />
-  </div>
+			<div style="margin-left: 1em" [ngSwitch]="getDataType(pair.value)">
+
+				<div *ngSwitchCase="'dict'">
+					<div *ngFor="let sub_pair of (pair.value | mapToIterable)">
+						<b>{{ sub_pair.key }}:</b>
+						<div style="margin-left: 1em" [ngSwitch]="getDataType(sub_pair.value)">
+							<div *ngSwitchCase="'dict'">
+								<div *ngFor="let sub_sub_pair of (sub_pair.value | mapToIterable)">
+									<b>{{sub_sub_pair.key}}</b> : {{sub_sub_pair.value}}
+								</div>
+							</div>
+							<div *ngSwitchCase="'array'">
+								<div *ngFor="let sub_value of sub_sub_pair.value">
+									{{sub_value}}
+								</div>
+							</div>
+							<div *ngSwitchDefault>{{sub_pair.value}}</div>
+						</div>
+					</div>
+				</div>
+				<div *ngSwitchCase="'array'">
+					<div *ngFor="let sub_value of pair.value">
+						{{sub_value}}
+					</div>
+				</div>
+				<div *ngSwitchDefault>{{pair.value}}</div>
+			</div>
+			<br/>
+		</div>
+
+	</div>
 </div>
