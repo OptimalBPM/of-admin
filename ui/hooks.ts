@@ -64,12 +64,12 @@ export const pluginMenus = [
 ];
 
 export function initFramework(app:any) {
-	app.component('bpmNodes', nodesDirective);
-	app.component('bpmSchemaTree', schemaTreeDirective);
+	app.component('ofNodes', nodesDirective);
+	app.component('ofSchemaTree', schemaTreeDirective);
 
-	app.directive("bpmRightClick", function ($parse) {
+	app.directive("ofRightClick", function ($parse) {
 		return function (scope, element, attrs) {
-			var fn: any = $parse(attrs.bpmRightClick);
+			var fn: any = $parse(attrs.ofRightClick);
 			element.bind('contextmenu', function (event) {
 				scope.$apply(function () {
 					event.preventDefault();
@@ -79,11 +79,11 @@ export function initFramework(app:any) {
     };
 	});
 
-	app.directive("bpmAfterRepeat", function () {
-		// Do what is specified in "bpm-after-repeat" after a repeat is done.
+	app.directive("ofAfterRepeat", function () {
+		// Do what is specified in "of-after-repeat" after a repeat is done.
 		return function (scope, element, attrs) {
 			if (scope.$last) {
-				angular.element(element).scope().$eval(attrs.bpmAfterRepeat);
+				angular.element(element).scope().$eval(attrs.ofAfterRepeat);
 			}
 		};
 	});

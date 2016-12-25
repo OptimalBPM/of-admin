@@ -7,7 +7,7 @@ let __moduleName: any; // fully resolved filename; defined at module load time
 
 @Component({
   moduleId: __moduleName,
-  selector: 'bpm-navbar',
+  selector: 'of-navbar',
   templateUrl: 'navbar.html',
   directives: [ ROUTER_DIRECTIVES, LogoutComponent]
 })
@@ -17,6 +17,10 @@ export class NavbarComponent implements OnInit{
 
 	constructor(authService: AuthService){
 		this.isLoggedIn = authService.isLoggedIn();
+	}
+
+	get_application_name() {
+		return "Optimal Framework";
 	}
 
   ngOnInit() {

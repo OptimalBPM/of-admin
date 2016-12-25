@@ -19,7 +19,7 @@ export const APP_ROUTER_PROVIDERS = [
 ];
 
 @Component({
-    selector: 'bpm-app',
+    selector: 'of-app',
     templateUrl: 'admin/app.html',
     directives: [ ROUTER_DIRECTIVES, ...pluginStructure ],
 		providers: [ // Hybrid requirement TODO:: Track https://github.com/angular/angular/issues/9870
@@ -31,7 +31,15 @@ export const APP_ROUTER_PROVIDERS = [
 		]
 })
 export class AppComponent {
+		public static applicationName: string;
+
+		loadAppName(){
+
+		}
+
 	  constructor(router: Router) {
+
     	router['initialNavigation'](); // Needed to use component router in hybrid angular 1.x and angular 2
   	}
+
 }

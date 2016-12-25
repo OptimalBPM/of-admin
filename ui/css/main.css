@@ -124,20 +124,20 @@
 .content  {
   background-color: #f9f9f9 !important;
 }
-.bpm_menu {
+.of_menu {
   padding-top: 20px;
 }
 
-.bpm_menu_item {
+.of_menu_item {
   transition: top 0.2s ease;
 }
-.bpm_menu_item_look {
+.of_menu_item_look {
   transition: font-size 0.1s ease;
   font-size: x-large;
   font-family: "optivetica_round_lt_std";
   color: #52c0e5;
 }
-.bpm_menu_spacer {
+.of_menu_spacer {
   font-weight: 900;
   font-size: larger;
   font-family: "optivetica_round_lt_std";
@@ -145,12 +145,12 @@
 }
 
 
-.bpm_menu_item_selected {
+.of_menu_item_selected {
   transition: font-size 0.2s ease;
   top: -1px;
 
 }
-.bpm_menu_item_look_selected {
+.of_menu_item_look_selected {
   transition: font-size 0.2s ease;
   font-size: xx-large !important;
 }

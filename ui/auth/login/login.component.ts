@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit {
 	password:Control;
 	loginForm:ControlGroup;
 
+
+
 	constructor(private fb:FormBuilder, private http:Http, private router:Router, private authService:AuthService) {
 	}
 
@@ -83,6 +85,7 @@ export class LoginComponent implements OnInit {
 					let data = response.json();
 					console.log("login response", data);
 					this.authService.startSession(data['session_id']);
+
 					this.router.navigateByUrl('');
 				},
 				error => {

@@ -8,4 +8,4 @@ export const nodesDirective = {
 	controller: NodesController
 };
 
-export const NodesComponent = upgradeAdapter.upgradeNg1Component('bpmNodes');
+export const NodesComponent = upgradeAdapter.upgradeNg1Component('ofNodes');

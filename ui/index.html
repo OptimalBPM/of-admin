@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Optimal Framework Admin - the administrative interface of Optimal Framework">
 
-    <title>Optimal BPM - Administrator</title>
+    <title>Optimal Framework - Administration</title>
     <base href="/">
 
     <!-- Fonts -->
@@ -21,7 +21,7 @@
 </head>
 <!-- 3. Display the application -->
 <body class="content">
-    <bpm-app>
+    <of-app>
       <div class="loading" ng-cloak>Loading application....<br/><br/><br/><br/>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div class="loader">
@@ -35,7 +35,7 @@
             <div class="side"></div>
         </div>
       </div>
-    </bpm-app>
+    </of-app>
 
     <!-- inject:js -->
     <script src="admin/jspm_packages/system.src.js"></script>
@@ -45,15 +45,17 @@
     <!-- Load the dependencies (not a real file, but generated, see CherryPyAdmin.systemjs()) used by UI plugins-->
     <script src="admin/admin_jspm_config.js"></script>
     <script>
-        System.import('angular').then(function() { // First because its hybrid app of angular 1.x and angular 2
-        System.import("/admin")
-                .then(function(app) {
-                    console.log('running');
-                })
-                .catch(function(err) {
-                    console.log(err);
-                });
-			});
+        System.import('angular').then(
+            function() { // First because its hybrid app of angular 1.x and angular 2
+					System.import("/admin")
+						.then(function (app) {
+							console.log('running');
+						})
+						.catch(function (err) {
+							console.log(err);
+						});
+				}
+			);
     </script>
     <!-- endinject -->
 </body>

@@ -22,6 +22,7 @@ export class AuthService {
 
 	startSession(session_id) {
 		localStorage.setItem(AuthService.SESSION_ID_NAME, session_id);
+
 		this.resetSessionExpiry();
 	}
 

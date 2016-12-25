@@ -82,7 +82,7 @@
                 <li ng-repeat="item in item.children"
                     ui-tree-node ng-include="'items_renderer.html'" data-collapsed="!item.expanded"
                     ng-init="currClassName = $ctrl.nodeManager.getClassFromItem(item); item.ui = {}; item.ui.showAddBars = false;"
-                    bpm-right-click="$event.stopPropagation();item.ui.showAddBars=true;item.parentItem.ui.showAddBars=false; item.parentItem.ui.downAdd=false;"
+                    of-right-click="$event.stopPropagation();item.ui.showAddBars=true;item.parentItem.ui.showAddBars=false; item.parentItem.ui.downAdd=false;"
                     ng-mouseleave="item.ui.showAddBars=false; item.ui.downAdd=false; ">
                 </li>
             </ol>
@@ -100,7 +100,7 @@
 				ng-include="'items_renderer.html'"
 				data-collapsed="!item.expanded"
 				ng-init="currClassName = $ctrl.nodeManager.getClassFromItem(item); item.ui = {}; item.ui.showAddBars = false;"
-				bpm-right-click="item.ui.showAddBars=true;"
+				of-right-click="item.ui.showAddBars=true;"
 				ng-mouseleave="item.ui.showAddBars=false; item.ui.downAdd=false;">
 			</li>
 		</ol>

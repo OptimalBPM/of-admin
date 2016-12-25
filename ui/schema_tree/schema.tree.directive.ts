@@ -14,4 +14,4 @@ export const schemaTreeDirective = {
 };
 
 // TODO:: only used in angular 1.x currently
-// export const SchemaTreeComponent = upgradeAdapter.upgradeNg1Component('bpmSchemaTree');
+// export const SchemaTreeComponent = upgradeAdapter.upgradeNg1Component('ofSchemaTree');

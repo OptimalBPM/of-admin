@@ -1,5 +1,5 @@
 import {SchemaTreeController} from "../schema_tree/index";
-import {ICustomRootScope, ICustomOFScope, TreeNode, INodes, IDict} from "./schemaTreeTypes";
+import {ICustomOFScope, TreeNode, INodes, IDict} from "./schemaTreeTypes";
 
 export interface INodeManagement {
 

@@ -10,6 +10,7 @@ import "angular-schema-form-bootstrap";
 import "bootstrap3-dialog";
 // import "font-awesome"; TODO:: uncomment later, currently imported by systemjs incorrectly
 
+// Load the server side hooks declarations
 import { hook_initFramework } from "/admin/hook_wrapper";
 import { upgradeAdapter } from "/admin/upgrade.adapter";
 import { AppComponent } from "./app.component";
@@ -32,7 +33,7 @@ export function InitAngular1() {
 		$rootScope.BootstrapDialog = (window as any).BootstrapDialog;
 	}]);
 
-	app.directive('bpmApp', upgradeAdapter.downgradeNg2Component(AppComponent));
+	app.directive('ofApp', upgradeAdapter.downgradeNg2Component(AppComponent));
 	// Call the init framework hook
 	hook_initFramework(app);
 }

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { CORE_DIRECTIVES } from '@angular/common';
 
-let __moduleName: any; // fully resolved filename; defined at module load time  
+let __moduleName: any; // fully resolved filename; defined at module load time
 
 @Component({
-    moduleId: __moduleName,    
-    selector: 'bpm-dashboard',
+    moduleId: __moduleName,
+    selector: 'of-dashboard',
     templateUrl: 'dashboard.html',
     styleUrls: [ 'dashboard.css' ],
     directives: [ CORE_DIRECTIVES ]

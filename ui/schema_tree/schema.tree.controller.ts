@@ -6,8 +6,8 @@ import "bootstrap3-dialog/dist/css/bootstrap-dialog.min.css!";
 import "angular-ui-tree";
 import "angular-ui-tree/angular-ui-tree.min.css!";
 
-import {NodeManager, ICustomOFScope, IDict, TreeNode, ITree, INodeView} from "../types/index";
-
+import {NodeManager} from "../types/index";
+import {ICustomOFScope, IDict, TreeNode, ITree, INodeView} from "../types/schemaTreeTypes"
 
 /* The SchemaTreeControl class is instantiated as a controller class in the typescript model */
 export class SchemaTreeController implements ITree {
