@@ -56,9 +56,10 @@ export class AppComponent {
 				);
 		}
 
-	  constructor(router: Router, private http:Http, private title:Title) {
+	  constructor(router: Router, private http:Http, private title:Title, authService: AuthService) {
 			console.log("Starting the app..");
 			this.loadAppName();
+			authService.isLoggedIn();
     	router['initialNavigation'](); // Needed to use component router in hybrid angular 1.x and angular 2
   	}
 

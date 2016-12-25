@@ -16,17 +16,18 @@ let __moduleName: any; // fully resolved filename; defined at module load time
 })
 export class NavbarComponent implements OnInit{
   menus: any;
-  isLoggedIn: boolean;
   globals : any;
+  AuthService : any;
 
-	constructor(authService: AuthService){
+
+	constructor(private authService: AuthService){
 		console.log("Init navbar");
+		this.AuthService = AuthService;
 		this.globals = Globals;
-		this.isLoggedIn = authService.isLoggedIn();
+
 	}
 
   ngOnInit() {
-
     this.menus = pluginMenus;
   }
 }

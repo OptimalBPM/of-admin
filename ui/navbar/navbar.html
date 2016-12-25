@@ -23,18 +23,18 @@
             <ul class="nav navbar-nav navbar-right">
                 <!--Links -->
                 <li *ngFor="let item of menus">
-									<a *ngIf="item.type === 'right' && (!isLoggedIn && item.showWhenNotLoggedIn)" [routerLink]="item.path">{{item.display}}</a>
+									<a *ngIf="item.type === 'right' && (!AuthService.loggedIn && item.showWhenNotLoggedIn)" [routerLink]="item.path">{{item.display}}</a>
 								</li>
                 <!-- Dropdown Navbar -->
-                <li *ngIf="isLoggedIn" class="dropdown">
+                <li *ngIf="AuthService.loggedIn" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        John Snow <span class="caret"></span>
+                        {{AuthService.settings.name}}<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li *ngFor="let item of menus" >
 													<a *ngIf="item.type === 'dropdown'" [routerLink]="item.path">{{item.display}}</a>
 												</li>
-                        <li *ngIf="isLoggedIn" auth-logout>
+                        <li *ngIf="AuthService.loggedIn" auth-logout>
 												</li>
                     </ul>
                 </li>

@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
 				response => {
 					let data = response.json();
 					console.log("login response", data);
-					this.authService.startSession(data['session_id']);
+					this.authService.startSession(data['session_id'], data["settings"]);
 
 					this.router.navigateByUrl('');
 				},
