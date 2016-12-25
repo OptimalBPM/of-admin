@@ -89,7 +89,8 @@ export class LoginComponent implements OnInit {
 					this.router.navigateByUrl('');
 				},
 				error => {
-					console.log("error", error);
+					// TODO: Add handling of error messages while logging.
+					console.log("Error logging in!", error);
 				}
 			);
 	}

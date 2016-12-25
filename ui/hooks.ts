@@ -64,6 +64,8 @@ export const pluginMenus = [
 ];
 
 export function initFramework(app:any) {
+	// This is called from within the server-generated hooks wrapper
+
 	app.component('ofNodes', nodesDirective);
 	app.component('ofSchemaTree', schemaTreeDirective);
 

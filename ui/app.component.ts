@@ -1,16 +1,19 @@
 import { Component, OnInit, ApplicationRef } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
-
+import { Http} from '@angular/http';
 import { pluginStructure } from '/admin/hook_wrapper';
 
 //Router functinality to be moved to main.ts once angular2 is fully adopted.
 import { provideRouter, RouterConfig } from '@angular/router';
 import { pluginRoutes } from "/admin/hook_wrapper";
 import { AuthGuard, AuthService } from './auth/index';
+import {Globals} from "./globals";
 const routes: RouterConfig = [
     ...pluginRoutes
 ];
+
+
 
 export const APP_ROUTER_PROVIDERS = [
     provideRouter(routes),
@@ -31,14 +34,26 @@ export const APP_ROUTER_PROVIDERS = [
 		]
 })
 export class AppComponent {
-		public static applicationName: string;
 
 		loadAppName(){
-
+			// Load the name of the application as set in the broker
+			this.http.get("admin/get_application_name")
+				.subscribe(
+					response => {
+						let data = response.json();
+						console.log("Application name: ", data["applicationName"]);
+						Globals.applicationName = data["applicationName"];
+						document.title = Globals.applicationName + " - administrator"
+					},
+					error => {
+						console.log("Error loading application name", error);
+					}
+				);
 		}
 
-	  constructor(router: Router) {
-
+	  constructor(router: Router, private http:Http) {
+			console.log("Starting the app..");
+			this.loadAppName();
     	router['initialNavigation'](); // Needed to use component router in hybrid angular 1.x and angular 2
   	}
 

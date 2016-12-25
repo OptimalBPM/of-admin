@@ -41,6 +41,10 @@ class CherryPyAdmin(object):
     #: A init string for SystemJS
     admin_systemjs_init = None
 
+    #: The name of the application
+    application_name = None
+
+
     def __init__(self, _process_id, _address, _stop_broker, _root_object,
                  _plugins, _web_config):
         write_to_log(_category=EC_SERVICE, _severity=SEV_DEBUG, _process_id=_process_id,
@@ -62,7 +66,6 @@ class CherryPyAdmin(object):
                 "tools.trailing_slash.on": True
             }
         })
-
 
         self.refresh_static(_web_config=_web_config)
 
@@ -237,3 +240,8 @@ class CherryPyAdmin(object):
     def get_broker_environment(self, **kwargs):
         write_to_log(_process_id=self.process_id, _category=EC_NOTIFICATION, _severity=SEV_DEBUG, _data="Request for broker information")
         return get_environment_data()
+
+    @cherrypy.expose
+    @cherrypy.tools.json_out(content_type='application/json')
+    def get_application_name(self):
+        return {"applicationName": self.application_name}

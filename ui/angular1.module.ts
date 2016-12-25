@@ -16,6 +16,7 @@ import { upgradeAdapter } from "/admin/upgrade.adapter";
 import { AppComponent } from "./app.component";
 
 export function InitAngular1() {
+	console.log("Init Angular 1 code.")
 	// Angular 1 dependencies module
 	let app: any = angular.module("mainApp", [
 		"ngAnimate",
