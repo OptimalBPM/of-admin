@@ -1,7 +1,7 @@
 {
   "name": "Optimal_BPM_Admin",
   "version": "0.0.0",
-  "author": "Ralphowino Consulting",
+  "author": "Optimal BPM",
   "scripts": {
     "postinstall": "typings install && jspm install && npm prune",
     "typings": "typings"
