@@ -8,7 +8,10 @@ import { pluginStructure } from '/admin/hook_wrapper';
 import { provideRouter, RouterConfig } from '@angular/router';
 import { pluginRoutes } from "/admin/hook_wrapper";
 import { AuthGuard, AuthService } from './auth/index';
+import { Title }  from '@angular/platform-browser';
+
 import {Globals} from "./globals";
+
 const routes: RouterConfig = [
     ...pluginRoutes
 ];
@@ -27,6 +30,7 @@ export const APP_ROUTER_PROVIDERS = [
     directives: [ ROUTER_DIRECTIVES, ...pluginStructure ],
 		providers: [ // Hybrid requirement TODO:: Track https://github.com/angular/angular/issues/9870
 			 APP_ROUTER_PROVIDERS,
+			Title,
 			 {
 				 provide: ApplicationRef, useValue: { componentTypes: [AppComponent], registerDisposeListener: () => {}	}
 			 },
@@ -43,7 +47,8 @@ export class AppComponent {
 						let data = response.json();
 						console.log("Application name: ", data["applicationName"]);
 						Globals.applicationName = data["applicationName"];
-						document.title = Globals.applicationName + " - administrator"
+
+						this.title.setTitle(Globals.applicationName + " - administrator")
 					},
 					error => {
 						console.log("Error loading application name", error);
@@ -51,7 +56,7 @@ export class AppComponent {
 				);
 		}
 
-	  constructor(router: Router, private http:Http) {
+	  constructor(router: Router, private http:Http, private title:Title) {
 			console.log("Starting the app..");
 			this.loadAppName();
     	router['initialNavigation'](); // Needed to use component router in hybrid angular 1.x and angular 2
