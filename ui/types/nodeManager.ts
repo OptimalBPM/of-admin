@@ -129,16 +129,6 @@ export class NodeManager implements INodeManagement, INodes {
         return null;
     };
 
-    onAsyncLoadChildren = (parentId: string): ng.IHttpPromise<any> => {
-        console.log("onAsyncLoadChildren not implemented in " + this.getClassname() + " base class!");
-        return null;
-    };
-
-    onAsyncRemoveNode = (parentId: string): ng.IHttpPromise<any> => {
-        console.log("onAsyncRemoveNode not implemented in " + this.getClassname() + " base class!");
-        return null;
-    };
-
     constructor(public $scope: ICustomOFScope, public $http: ng.IHttpService, public $q: ng.IQService) {
         console.log("Initiating the nodes manager base class " + this.getClassname());
         console.log("Initiated the nodes manager base class");
