@@ -1,7 +1,9 @@
 {
   "globalDependencies": {
-    "angular": "registry:dt/angular#1.5.0+20160709055139",
-    "angular-cookies": "registry:dt/angular-cookies#1.4.0+20160317120654",
-    "jquery": "registry:dt/jquery#1.10.0+20160704162008"
+    "jquery": "registry:dt/jquery#1.10.0+20170104155652"
+  },
+  "dependencies": {
+    "angular": "registry:dt/angular#1.6.0+20170117142612",
+    "angular-cookies": "registry:dt/angular-cookies#1.4.0+20161206185711"
   }
 }
