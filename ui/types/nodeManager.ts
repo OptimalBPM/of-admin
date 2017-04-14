@@ -1,5 +1,12 @@
 import {SchemaTreeController} from "../schema_tree/index";
 import {ICustomOFScope, TreeNode, INodes, IDict} from "./schemaTreeTypes";
+import {IHttpPromise} from "angular";
+import {IHttpService} from "angular";
+import {IQService} from "angular";
+
+import * as angular from "angular";
+import IPromise = angular.IPromise;
+
 
 export interface INodeManagement {
 
@@ -26,21 +33,21 @@ export interface INodeManagement {
      * @param {string} id - The ObjectId of the node to remove
      * @returns {ng.IPromise}
      */
-    onAsyncRemoveNode?(id: string): ng.IHttpPromise<any>;
+    onAsyncRemoveNode?(id: string): IHttpPromise<any>;
 
     /**
      * Async. Called when a children should be loaded. Typically contains code to load from backend, Must return a promise.
      * @param {string} parentId - an Id of a parent node, can be null
      * @returns {ng.IPromise}
      */
-    onAsyncLoadChildren?(parentId: string): ng.IHttpPromise<any>;
+    onAsyncLoadChildren?(parentId: string): IHttpPromise<any>;
 
 
     /**
      * Async. Called when a children should be loaded. Typically contains code to load from backend, Must return a promise.
      * @returns {ng.IPromise}
      */
-    onAsyncInitTree(): ng.IPromise<any>;
+    onAsyncInitTree(): IPromise<any>;
 
 
     /**
@@ -119,17 +126,28 @@ export class NodeManager implements INodeManagement, INodes {
         return "";
     };
 
-    getTemplateAsync = (schemaRef: string): ng.IHttpPromise<any> => {
+    getTemplateAsync = (schemaRef: string): IHttpPromise<any> => {
         console.log("getTemplateAsync not implemented in " + this.getClassname() + " base class!");
         return null;
     };
 
-    onAsyncInitTree = (): ng.IPromise<any> => {
+    onAsyncInitTree = (): IPromise<any> => {
         console.log("onAsyncInitTree not implemented in " + this.getClassname() + " base class!");
         return null;
     };
 
-    constructor(public $scope: ICustomOFScope, public $http: ng.IHttpService, public $q: ng.IQService) {
+    onAsyncLoadChildren = (id: string): IHttpPromise<any> => {
+        console.log("onAsyncLoadChildren not implemented in " + this.getClassname() + " base class!");
+        return null;
+    };
+
+    onAsyncRemoveNode = (id: string): IHttpPromise<any> => {
+        console.log("onAsyncLoadChildren not implemented in " + this.getClassname() + " base class!");
+        return null;
+    };
+
+
+    constructor(public $scope: ICustomOFScope, public $http: IHttpService, public $q: IQService) {
         console.log("Initiating the nodes manager base class " + this.getClassname());
         console.log("Initiated the nodes manager base class");
     }

@@ -1,12 +1,16 @@
 import {NodeManager} from "./nodeManager";
+import {IScope} from "angular";
+import {IRootScopeService} from "angular";
 
-export interface ICustomRootScope extends ng.IRootScopeService {
+export interface ICustomRootScope extends IRootScopeService {
     /* This is injected during the application initialization */
     BootstrapDialog: any;
 }
 
-export interface ICustomOFScope extends ng.IScope {
+export interface ICustomOFScope extends IScope {
     $root: ICustomRootScope;
+    $broadcast : any;
+    $watch : any;
 }
 
 /* This interface is to add typing to the scope */

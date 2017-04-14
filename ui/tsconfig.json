@@ -1,9 +1,10 @@
 {
-    "compilerOptions": { // N.B. requires typescript@next !!
+    "compilerOptions": {
         "target": "es5",
         "module": "system",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+				"allowSyntheticDefaultImports": true,
         "rootDir": ".",
         "baseUrl": "."
     },

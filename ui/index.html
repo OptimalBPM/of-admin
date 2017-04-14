@@ -1,62 +1,67 @@
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Optimal Framework Admin - the administrative interface of Optimal Framework">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Optimal Framework Admin - the administrative interface of Optimal Framework">
 
-    <title>Loading...</title>
-    <base href="/">
+	<title>Loading...</title>
+	<base href="/">
 
-    <!-- Fonts -->
+	<!-- Fonts -->
 
-    <link href="admin/fonts/lato.css" rel='stylesheet' type='text/css'>
-    <!-- Styles -->
-    <link rel="stylesheet" href="admin/nodes/nodes.css">
-    <link rel="shortcut icon" href="admin/images/favicon.ico">
-    <link rel="stylesheet" href="admin/css/main.css">
-    <link rel="stylesheet" href="admin/css/loader.css">
-		<link rel="stylesheet" href="admin/css/theme.css">
-    <!-- inject:css -->
-    <!-- endinject -->
+	<link href="admin/fonts/lato.css" rel='stylesheet' type='text/css'>
+	<!-- Styles -->
+	<link rel="stylesheet" href="admin/nodes/nodes.css">
+	<link rel="shortcut icon" href="admin/images/favicon.ico">
+	<link rel="stylesheet" href="admin/css/main.css">
+	<link rel="stylesheet" href="admin/css/loader.css">
+	<link rel="stylesheet" href="admin/css/theme.css">
+	<!-- inject:css -->
+	<!-- endinject -->
 </head>
 <!-- 3. Display the application -->
 <body class="content">
-    <of-app>
-      <div class="loading" ng-cloak>Loading application....<br/><br/><br/><br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="loader">
-            <div class="side"></div>
-            <div class="side"></div>
-            <div class="side"></div>
-            <div class="side"></div>
-            <div class="side"></div>
-            <div class="side"></div>
-            <div class="side"></div>
-            <div class="side"></div>
-        </div>
-      </div>
-    </of-app>
+<of-app>
+	<div class="loading" ng-cloak>Loading application....<br/><br/><br/><br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<div class="loader">
+			<div class="side"></div>
+			<div class="side"></div>
+			<div class="side"></div>
+			<div class="side"></div>
+			<div class="side"></div>
+			<div class="side"></div>
+			<div class="side"></div>
+			<div class="side"></div>
+		</div>
+	</div>
+</of-app>
 
-    <!-- inject:js -->
-    <script src="admin/jspm_packages/system.src.js"></script>
-    <script src="admin/jspm.browser.js"></script>
-    <!-- Load the Admin UI dependencies-->
-    <script src="admin/jspm.config.js"></script>
-    <!-- Load the dependencies (not a real file, but generated, see CherryPyAdmin.systemjs()) used by UI plugins-->
-    <script src="admin/admin_jspm_config.js"></script>
-    <script>
-        System.import('angular').then(
-            function() { // First because its hybrid app of angular 1.x and angular 2
-					System.import("/admin")
-						.then(function (app) {
-							console.log('running');
-						})
-						.catch(function (err) {
-							console.log(err);
-						});
-				}
-			);
-    </script>
-    <!-- endinject -->
+<!-- inject:js -->
+<script src="admin/jspm_packages/system.src.js"></script>
+<script src="admin/jspm.browser.js"></script>
+<!-- Load the Admin UI dependencies-->
+<script src="admin/jspm.config.js"></script>
+<!-- Load the dependencies (not a real file, but generated, see CherryPyAdmin.systemjs()) used by UI plugins-->
+<script src="admin/admin_jspm_config.js"></script>
+<script>
+	console.log('running angular');
+	System.import('angular').then(
+		function () { // Load angular first because its hybrid app of angular 1.x and angular 2
+			console.log('running upgrade.adapter');
+			System.import("upgrade.adapter")
+				.then(function (app) {
+				    console.log('running main');
+				    System.import("main");
+
+				    console.log('running');
+				})
+				.catch(function (err) {
+					console.log(err);
+				});
+		}
+	);
+</script>
+<!-- endinject -->
 </body>
 </html>

@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 /**
- * Example:  
+ * Example:
  *  <div *ngFor="let pair of object | mapToIterable">
  *    key {{ pair.key }} and value {{ pair.value }}
  *  </div>
- * 
+ *
  **/
 @Pipe({ name: 'mapToIterable' })
 export class MapToIterable implements PipeTransform {

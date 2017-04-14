@@ -1,5 +1,4 @@
 
-import { upgradeAdapter } from "/admin/upgrade.adapter";
 import { NodesController} from "./nodes.controller";
 
 export const nodesDirective = {
@@ -8,4 +7,4 @@ export const nodesDirective = {
 	controller: NodesController
 };
 
-export const NodesComponent = upgradeAdapter.upgradeNg1Component('ofNodes');
+

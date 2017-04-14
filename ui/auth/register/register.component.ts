@@ -1,10 +1,11 @@
+import 'reflect-metadata';
 import { Component, OnInit } from '@angular/core';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES, Control, ControlGroup, FormBuilder, Validators } from '@angular/common';
 
-let __moduleName: any; // fully resolved filename; defined at module load time  
+let __moduleName: any; // fully resolved filename; defined at module load time
 
 @Component({
-  moduleId: __moduleName,  
+  moduleId: __moduleName,
   selector: 'auth-register',
   templateUrl: 'register.html',
   styleUrls: [ 'register.css' ],
@@ -23,11 +24,11 @@ export class RegisterComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.name = new Control('', Validators.required); 
+    this.name = new Control('', Validators.required);
     this.email = new Control('', Validators.required);
     this.password = new Control('', Validators.compose([Validators.required, Validators.minLength(6)]));
     this.confirm = new Control('', Validators.compose([Validators.required, Validators.minLength(6)]));
-    
+
     this.registerForm = this.fb.group({
       name: this.name,
       email: this.email,

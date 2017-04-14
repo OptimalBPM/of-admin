@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CORE_DIRECTIVES } from '@angular/common';
 import { Http, Response } from '@angular/http';
 
-import { NodesComponent } from '../nodes/index';
+export let nodesComponent: any = null;
 
 @Component({
     selector: 'of-admin',
     template: '<of-nodes></of-nodes>',
-    directives: [ CORE_DIRECTIVES, NodesComponent ]
+    directives: [ CORE_DIRECTIVES, nodesComponent ]
 })
 export class AdminComponent implements OnInit {
     ngOnInit() {
@@ -15,3 +15,5 @@ export class AdminComponent implements OnInit {
         console.log("Initiated AdminController");
     }
 }
+
+

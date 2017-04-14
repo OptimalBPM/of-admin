@@ -1,4 +1,3 @@
-///<reference path="../typings/index.d.ts" />
 
 /**
  * Module that implements a tree using schemaTree, a schema validated form and ui layout
@@ -10,7 +9,7 @@
 
 import "angular";
 import "angular-strap";
-//import "angular-schema-form";
+import "angular-schema-form";
 import "angular-animate";
 
 import "ace";
@@ -26,6 +25,11 @@ import "bootstrap3-dialog";
 import "bootstrap3-dialog/dist/css/bootstrap-dialog.min.css!";
 import "./nodes.css!";
 import {NodeManager, INodeManagement, TreeNode} from "../types/index";
+import {IHttpPromise} from "angular";
+import {IHttpHeadersGetter} from "angular";
+import {IRequestConfig} from "angular";
+import * as angular from "angular";
+import IPromise = angular.IPromise;
 
 
 /* The SchemaTreeControl class is instantiated as a controller class in the typescript model */
@@ -52,7 +56,7 @@ export class NodesController extends NodeManager implements INodeManagement {
 	* @param {string} parentId - an objectId of a parent node, can be null
 	* @returns {IHttpPromise}
 	*/
-	onAsyncLoadChildren = (parentId: string): ng.IHttpPromise<any> => {
+	onAsyncLoadChildren = (parentId: string): IHttpPromise<any> => {
 		if (parentId != null) {
 			parentId = "ObjectId(" + parentId.toString() + ")";
 		}
@@ -64,7 +68,7 @@ export class NodesController extends NodeManager implements INodeManagement {
 	 * @param {string} nodeId - The ObjectId of the node to remove
 	 * @returns {IHttpPromise}
 	 */
-	onAsyncRemoveNode = (nodeId: string): ng.IHttpPromise<any> => {
+	onAsyncRemoveNode = (nodeId: string): IHttpPromise<any> => {
 		return this.$http.post("/node/remove", { "_id": nodeId });
 	};
 
@@ -73,7 +77,7 @@ export class NodesController extends NodeManager implements INodeManagement {
 	 * @param {string} historyId - The ObjectId of the node to list history for
 	 * @returns {IHttpPromise}
 	 */
-	loadHistory = (historyId: string): ng.IHttpPromise<any> => {
+	loadHistory = (historyId: string): IHttpPromise<any> => {
 		return this.$http.post("/node/history", { "_id": historyId });
 	};
 
@@ -85,7 +89,7 @@ export class NodesController extends NodeManager implements INodeManagement {
 		this.saveNode(submitData);
 	};
 
-	getTemplateAsync = (schemaRef: string): ng.IHttpPromise<any> => {
+	getTemplateAsync = (schemaRef: string): IHttpPromise<any> => {
 		return this.$http.post("/node/get_templates", { "schemaRef": schemaRef });
 	};
 
@@ -95,7 +99,7 @@ export class NodesController extends NodeManager implements INodeManagement {
 	 * @param {object} saveData - to save, must comply with the relevant mbe schema
 	 * @returns {IHttpPromise}
 	 */
-	saveNode = (saveData): ng.IHttpPromise<any> => {
+	saveNode = (saveData): IHttpPromise<any> => {
 
 		let id: string = saveData["_id"];
 		let _curr_child: any;
@@ -118,7 +122,7 @@ export class NodesController extends NodeManager implements INodeManagement {
 				_curr_child.allowedChildTypes = saveData["allowedChildTypes"];
 				console.log("Data saved, _id: " + strId);
 			})
-			.error((data: any, status: number, headers: ng.IHttpHeadersGetter, config: ng.IRequestConfig) => {
+			.error((data: any, status: number, headers: IHttpHeadersGetter, config: IRequestConfig) => {
 				this.$scope.$root.BootstrapDialog.alert("Saving node failed: " + status);
 			});
 	};
@@ -161,12 +165,12 @@ export class NodesController extends NodeManager implements INodeManagement {
 	/**
 	 * Load all schemas
 	 */
-	onInitSchemas = (): ng.IHttpPromise<any> => {
+	onInitSchemas = (): IHttpPromise<any> => {
 		return this.$http.get("/node/get_schemas")
 			.success((data: any) => {
 				this.tree.schemas = data;
 			})
-			.error((data: any, status: number, headers: ng.IHttpHeadersGetter, config: ng.IRequestConfig) => {
+			.error((data: any, status: number, headers: IHttpHeadersGetter, config: IRequestConfig) => {
 				this.$scope.$root.BootstrapDialog.alert("Loading schemas failed: " + status);
 			});
 	};
@@ -174,7 +178,7 @@ export class NodesController extends NodeManager implements INodeManagement {
 	/**
 	 * Load all UI forms
 	 */
-	onInitForms = (): ng.IHttpPromise<any> => {
+	onInitForms = (): IHttpPromise<any> => {
 
 		return this.$http.get("node/get_jsf_forms")
 			.success((data: any) => {
@@ -186,7 +190,7 @@ export class NodesController extends NodeManager implements INodeManagement {
 				// TODO: Is populating implemented? https://github.com/Textalk/angular-schema-form/issues/205
 
 			})
-			.error((data: any, status: number, headers: ng.IHttpHeadersGetter, config: ng.IRequestConfig) => {
+			.error((data: any, status: number, headers: IHttpHeadersGetter, config: IRequestConfig) => {
 				this.$scope.$root.BootstrapDialog.alert("Loading forms failed: " + status);
 			});
 	};
@@ -222,14 +226,14 @@ export class NodesController extends NodeManager implements INodeManagement {
 	 * @param id
 	 * @returns {IHttpPromise<any>}
 	 */
-	showHistory = (id): ng.IHttpPromise<any> => {
+	showHistory = (id): IHttpPromise<any> => {
 
 		if (id !== this.tree.newNodeObjectId) {
 			return this.loadHistory(id)
 				.success((data: any) => {
 					this.history = data;
 				})
-				.error((data: any, status: number, headers: ng.IHttpHeadersGetter, config: ng.IRequestConfig) => {
+				.error((data: any, status: number, headers: IHttpHeadersGetter, config: IRequestConfig) => {
 					this.$scope.$root.BootstrapDialog.alert("Loading history failed: " + status);
 				});
 		}
@@ -273,7 +277,7 @@ export class NodesController extends NodeManager implements INodeManagement {
 
 	// *********************** Initialization *************************
 
-	onAsyncInitTree = (): ng.IPromise<any> => {
+	onAsyncInitTree = (): IPromise<any> => {
 		return new this.$q((resolve, reject) => {
 			// Initialize all metadata
 			this.onInitGroups().then(() => {

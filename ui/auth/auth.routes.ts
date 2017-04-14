@@ -16,5 +16,10 @@ export const AuthRoutes = [
 	{
 		path: 'password/reset',
 		component: ResetComponent
+	},
+	{
+		path: 'logout',
+		component: LogoutComponent
 	}
 ];
+

@@ -3,11 +3,12 @@ import {AdminRoutes} from './admin/index';
 import {AuthRoutes} from './auth/index';
 import {DashBoardRoutes} from './dashboard/index';
 import {NavbarComponent} from './navbar/index';
-import {AppComponent} from './app.component';
+
 
 //Angular 1 Directives imports
 import {nodesDirective} from './nodes/index';
 import {schemaTreeDirective} from './schema_tree/index';
+import * as angular from "angular";
 /*
  * Export angular functionality directives,components, services e.t.c
  * This are components that are not part of any other component within the plugin

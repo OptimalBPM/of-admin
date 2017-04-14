@@ -8,6 +8,10 @@ import "angular-ui-tree/angular-ui-tree.min.css!";
 
 import {NodeManager} from "../types/index";
 import {ICustomOFScope, IDict, TreeNode, ITree, INodeView} from "../types/schemaTreeTypes"
+import {ITimeoutService} from "angular";
+import {IQService} from "angular";
+import {IHttpHeadersGetter} from "angular";
+import {IRequestConfig} from "angular";
 
 /* The SchemaTreeControl class is instantiated as a controller class in the typescript model */
 export class SchemaTreeController implements ITree {
@@ -90,7 +94,7 @@ export class SchemaTreeController implements ITree {
 									});
 
 							})
-							.error((data: any, status: number, headers: ng.IHttpHeadersGetter, config: ng.IRequestConfig): any => {
+							.error((data: any, status: number, headers: IHttpHeadersGetter, config: IRequestConfig): any => {
 
 								// TODO: Generalize this error parsing.
 								let error: string = "Loading items failed: ";
@@ -360,7 +364,7 @@ export class SchemaTreeController implements ITree {
 		} else {
 			this.$scope.$root.BootstrapDialog.confirm("Are you sure that you want to remove this node?", (result) => {
 				if (result) {
-					if (this.nodeManager.onAsyncRemoveNode) {
+					if (this.nodeManager.hasOwnProperty("onAsyncRemoveNode")) {
 						this.nodeManager.onAsyncRemoveNode(id).then((data) => {
 							scope.remove();
 							this.selected_data = null;
@@ -387,7 +391,7 @@ export class SchemaTreeController implements ITree {
 			console.log("in toggleChildren");
 			// If it hasn't any children, try and load them.
 			if (!item.children) {
-				if (this.nodeManager.onAsyncLoadChildren) {
+				if (this.nodeManager.hasOwnProperty("onAsyncLoadChildren")) {
 					this.nodeManager.onAsyncLoadChildren(item.id)
 						.success((data) => {
 							this.log("Before setting children");
@@ -433,9 +437,10 @@ export class SchemaTreeController implements ITree {
 
 	static $inject = ['$scope', '$q', '$timeout'];
 
-	constructor(private $scope: ICustomOFScope, public $q: ng.IQService, public $timeout: ng.ITimeoutService) {
+	constructor(private $scope: ICustomOFScope, public $q: IQService, public $timeout: ITimeoutService) {
 		console.log("Initiating the schema controller" + $scope.toString());
 		this.data = {};
 		console.log("Initiated the schema tree controller");
+
 	}
 }

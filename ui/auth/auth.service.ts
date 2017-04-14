@@ -1,7 +1,10 @@
-import { Injectable} from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
-@Injectable()
+import 'reflect-metadata';
+import { Observable } from 'rxjs/Observable';
+import {Injectable} from "@angular/core";
+
+
+@Injectable
 export class AuthService {
 	public static SESSION_ID_NAME: string = 'X-Auth-Session-ID';
 	public static SESSION_EXPIRY_NAME: string = 'X-Auth-Session-EXPIRY';
@@ -60,3 +63,4 @@ export class AuthService {
 		AuthService.loggedIn = false;
 	}
 }
+

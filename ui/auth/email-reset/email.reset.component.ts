@@ -1,10 +1,12 @@
+
+import 'reflect-metadata';
 import { Component, OnInit } from '@angular/core';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES, Control, ControlGroup, FormBuilder, Validators } from '@angular/common';
 
-let __moduleName: any; // fully resolved filename; defined at module load time  
+let __moduleName: any; // fully resolved filename; defined at module load time
 
 @Component({
-  moduleId: __moduleName,  
+  moduleId: __moduleName,
   selector: 'auth-email-reset',
   templateUrl: 'email-reset.html',
   styleUrls: [ 'email-reset.css' ],
@@ -28,7 +30,8 @@ export class EmailResetComponent implements OnInit {
     });
   }
 
-  onSubmit() { 
-    console.log(this.resetForm.value); 
+  onSubmit() {
+    console.log(this.resetForm.value);
   }
 }
+
